@@ -1,0 +1,42 @@
+{
+  "name": "smart-charts",
+  "version": "0.0.0",
+  "description": "a new charts editor for vue3.",
+  "author": "SouthSmart",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview",
+    "lint": "eslint \"src/*.ts\" \"src/**\" --fix && pretty-quick --check",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "vue": "^3.2.6"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@smart/commitlint-config": "^0.1.2",
+    "@smart/conventional-changelog-smart": "^1.0.6",
+    "@smart/eslint-config-typescript": "^1.1.0",
+    "@typescript-eslint/eslint-plugin": "5.21.0",
+    "@typescript-eslint/parser": "5.21.0",
+    "@vitejs/plugin-vue": "^1.6.1",
+    "@vue/compiler-sfc": "^3.2.6",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^10.0.0",
+    "eslint": "8.14.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-vue": "8.7.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.4.1",
+    "prettier": "2.6.2",
+    "pretty-quick": "3.1.3",
+    "typescript": "^4.3.2",
+    "vite": "^2.5.4",
+    "vue-tsc": "^0.2.2"
+  },
+  "lint-staged": {
+    "*.{vue,js,ts,jsx,tsx}": "eslint --fix"
+  }
+}
