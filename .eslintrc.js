@@ -18,6 +18,26 @@ module.exports = {
     '@smart/typescript',
   ],
   rules: {
+    'semi': ['warn', 'always'],
+    'indent': [
+      'warn',
+      2,
+      {
+        'SwitchCase': 1,
+        'ignoredNodes': ['VariableDeclaration[declarations.length=0]']
+      }
+    ],
+    'no-plusplus': 'off',
+    'no-param-reassign': ['error', { 'props': false }],
+
+    'import/no-relative-packages': 'off',
+    'arrow-parens': ['error', 'always', { 'requireForBlockBody': true }],
+
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      { disallowTypeAnnotations: false },
+    ],
+
     // vue
     'vue/html-self-closing': [
       'error',
@@ -32,6 +52,11 @@ module.exports = {
       },
     ],
     'vue/require-default-prop': 'off',
+    'vue/require-explicit-emits': 'off',
+
+    '@typescript-eslint/no-unused-vars': ['error', { 'args': 'none' }],
+
+    'import/no-extraneous-dependencies': 'off'
   },
   globals: {
     defineProps: 'readonly',

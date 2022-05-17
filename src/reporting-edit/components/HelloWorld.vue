@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import * as echarts from 'echarts';
+import { ElInput } from 'element-plus';
 import { ref, onMounted } from 'vue';
 import { environment } from '@/evn.config';
-// import environment from '../evn.config';
+import { qs } from '../../qs';
+import { usePathRoamStore } from '@/stores/reporting-edit';
 
+const store = usePathRoamStore();
+console.log('%cHelloWorld.vue line:10 store', 'color: #007acc;', store);
+console.warn(JSON.stringify(environment));
 defineProps<{ msg: string }>();
 
-const count = ref(0);
+const count = ref(qs);
 
 onMounted(() => {
   // 基于准备好的dom，初始化echarts实例
@@ -23,14 +28,14 @@ onMounted(() => {
       data: ['销量'],
     },
     xAxis: {
-      data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+      data: ['count', '衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
     },
     yAxis: {},
     series: [
       {
         name: '销量',
         type: 'bar',
-        data: [5, 20, 36, 10, 10, 20],
+        data: [count.value, 5, 20, 36, 10, 10, 20],
       },
     ],
   };
@@ -42,15 +47,15 @@ onMounted(() => {
 /* 打开新窗口 */
 function edit() {
   // window.open(`${process.env.VUE_APP_URL}/index.html`)
-  window.open(`${environment.VITE_APP_URL}/reporting-edit.html`);
+  window.open(`${environment.VITE_APP_URL}/reporting-edit/reporting-edit.html`);
 }
 </script>
 
 <template>
-  {{ JSON.stringify(environment) }}
   <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
   <div id="main" style="width: 600px; height: 400px"></div>
-  <button @click="edit">{{ count }}edit & open</button>
+  <button @click="edit">edit & open</button>
+  <el-input />
 </template>
 
 <style scoped>
