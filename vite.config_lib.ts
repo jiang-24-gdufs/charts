@@ -53,7 +53,7 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
           echarts: 'Echarts',
-          interactjs: 'interactjs'
+          interactjs: 'interactjs',
         },
       },
     },

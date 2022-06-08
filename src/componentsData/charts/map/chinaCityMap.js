@@ -14,13 +14,13 @@ export default {
       {
         name: '样式配置',
         component: 'style-china-city-map-charts',
-        icon: 'fa-sliders'
+        icon: 'fa-sliders',
       },
       {
         name: '数据配置',
         component: 'data-china-city-map-charts',
-        icon: 'fa-database'
-      }
+        icon: 'fa-database',
+      },
     ],
     option: {
       ...deepCopy(chartsCommonData),
@@ -31,15 +31,15 @@ export default {
           roam: true,
           map: 'china-city',
           itemStyle: {
-            emphasis: {label: {show: true}}
+            emphasis: { label: { show: true } },
           },
           // 文本位置修正
           textFixed: {
-            Alaska: [20, -20]
+            Alaska: [20, -20],
           },
-          data: []
-        }
-      ]
-    }
-  }
+          data: [],
+        },
+      ],
+    },
+  },
 };

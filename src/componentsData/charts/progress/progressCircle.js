@@ -1,5 +1,4 @@
-
-import {progress} from '@/assets/defaultData';
+import { progress } from '@/assets/defaultData';
 import dataSetSource from '../../commonData/commonBaseData/dataSetSource';
 import gridCommonData from '../../commonData/gridCommonData';
 /**
@@ -15,13 +14,13 @@ export default {
       {
         name: '样式配置',
         component: 'style-progress-circle',
-        icon: 'fa-sliders'
+        icon: 'fa-sliders',
       },
       {
         name: '数据配置',
         component: 'data-progress-circle',
-        icon: 'fa-database'
-      }
+        icon: 'fa-database',
+      },
     ],
     option: {
       ...gridCommonData,
@@ -33,10 +32,10 @@ export default {
       trailWidth: 5, // 进度换背景线宽
       trailColor: '#eaeef2', // 进度环背景的颜色
       value: progress.progressCircle.value,
-      target: progress.progressCircle.target
+      target: progress.progressCircle.target,
     },
     otherOption: {
-      ...dataSetSource
-    }
-  }
+      ...dataSetSource,
+    },
+  },
 };

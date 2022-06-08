@@ -25,7 +25,7 @@ export default {
   areaStyle: chartsSeriesAreaStyle,
   emphasis: {
     label: chartsSeriesLabel,
-    itemStyle: chartsSeriesItemStyle
+    itemStyle: chartsSeriesItemStyle,
   },
-  smooth: false // 是否平滑曲线显示
+  smooth: false, // 是否平滑曲线显示
 };

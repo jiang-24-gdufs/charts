@@ -12,6 +12,6 @@ export default {
     dataView: { show: true, readOnly: false },
     restore: { show: true },
     magicType: { type: ['line', 'bar'], show: true },
-    saveAsImage: { show: true }
-  }
+    saveAsImage: { show: true },
+  },
 };

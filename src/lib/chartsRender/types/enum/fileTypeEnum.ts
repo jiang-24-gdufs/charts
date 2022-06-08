@@ -13,5 +13,5 @@ class FileTypeEnum {
 
 export default {
   EDIT_AREA: new FileTypeEnum('编辑区', 'fa-edit'),
-  PUBLISH_AREA: new FileTypeEnum('发布区', 'fa-paper-plane')
+  PUBLISH_AREA: new FileTypeEnum('发布区', 'fa-paper-plane'),
 };

@@ -4,5 +4,5 @@
 import bar from './barYAxis';
 
 export default {
-  bar
+  bar,
 };

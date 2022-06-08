@@ -19,6 +19,6 @@ export default {
   itemStyle: chartsSeriesItemStyle,
   emphasis: {
     label: chartsSeriesLabel,
-    itemStyle: chartsSeriesItemStyle
-  }
+    itemStyle: chartsSeriesItemStyle,
+  },
 };

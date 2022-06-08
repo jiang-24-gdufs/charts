@@ -1,6 +1,5 @@
-
 import gridCommonData from '../../commonData/gridCommonData';
-import {progress} from '@/assets/defaultData';
+import { progress } from '@/assets/defaultData';
 import dataSetSource from '../../commonData/commonBaseData/dataSetSource';
 
 // 进度条
@@ -14,13 +13,13 @@ export default {
       {
         name: '样式配置',
         component: 'style-progress-bar',
-        icon: 'fa-sliders'
+        icon: 'fa-sliders',
       },
       {
         name: '数据配置',
         component: 'data-progress-bar',
-        icon: 'fa-database'
-      }
+        icon: 'fa-database',
+      },
     ],
     option: {
       ...gridCommonData,
@@ -32,10 +31,10 @@ export default {
       strokeColor: [], // 进度条的颜色
       hideInfo: false, // 隐藏数值或状态图标
       vertical: false, // 是否在垂直方向显示
-      successPercent: 0// 已完成的分段百分比
+      successPercent: 0, // 已完成的分段百分比
     },
     otherOption: {
-      ...dataSetSource
-    }
-  }
+      ...dataSetSource,
+    },
+  },
 };

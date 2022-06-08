@@ -5,5 +5,5 @@ import simpleScatter from './simpleScatterCharts';
  */
 export default {
   title: '散点图',
-  components: [ simpleScatter]
+  components: [simpleScatter],
 };

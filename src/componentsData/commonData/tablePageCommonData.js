@@ -4,6 +4,7 @@
 import tableCommonData from './tableCommonData';
 import { deepCopy } from '../../utils';
 import pageStyle from './commonBaseData/pageStyle';
+
 export default {
   ...tableCommonData,
   // 分页
@@ -12,6 +13,6 @@ export default {
     pagerCount: 10, // 页码按钮的数量
     background: false, // 是否为分页按钮添加背景色
     pageStyle: deepCopy(pageStyle),
-    pageLayout: ['sizes', 'total', 'prev', 'pager', 'next', 'jumper']
-  }
+    pageLayout: ['sizes', 'total', 'prev', 'pager', 'next', 'jumper'],
+  },
 };

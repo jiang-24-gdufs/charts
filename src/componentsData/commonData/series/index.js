@@ -14,5 +14,5 @@ export default {
   bar,
   pie,
   scatter,
-  line
+  line,
 };

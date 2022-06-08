@@ -8,5 +8,5 @@ export default {
   resizable: true, // 对应列是否可以通过拖动改变宽度
   showOverflowTooltip: true,
   align: 'center', // left/center/right
-  unit: ''// 单位
+  unit: '', // 单位
 };

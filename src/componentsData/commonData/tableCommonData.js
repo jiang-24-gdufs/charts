@@ -1,4 +1,5 @@
 import gridCommonData from './gridCommonData';
+
 export default {
   ...gridCommonData,
   tableAttr: {
@@ -11,6 +12,6 @@ export default {
     highlightCurrentRow: false, // 是否当前行高亮
     emptyText: '暂无数据',
     showSummary: true, // 是否在表尾显示合计行
-    sumText: '合计'
-  }
+    sumText: '合计',
+  },
 };

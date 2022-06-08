@@ -4,17 +4,13 @@ import store from '../store';
  * @returns {default.methods.isFullScreen|*}
  */
 export function isFullScreen() {
-  return (
-    document.isFullScreen ||
-		document.mozIsFullScreen ||
-		document.webkitIsFullScreen
-  );
+  return document.isFullScreen || document.mozIsFullScreen || document.webkitIsFullScreen;
 }
 
 /**
  * 监听window窗口的大小是否有变化
  */
-window.addEventListener('resize', event => {
+window.addEventListener('resize', (event) => {
   if (!isFullScreen()) {
     store.dispatch('handleFullScreen', false);
   }
@@ -26,10 +22,10 @@ window.addEventListener('resize', event => {
 export function handleFullScreen() {
   const el = document.documentElement;
   const rfs =
-		el.requestFullScreen ||
-		el.webkitRequestFullScreen ||
-		el.mozRequestFullScreen ||
-		el.msRequestFullscreen;
+    el.requestFullScreen ||
+    el.webkitRequestFullScreen ||
+    el.mozRequestFullScreen ||
+    el.msRequestFullscreen;
   if (typeof rfs !== 'undefined' && rfs) {
     rfs.call(el);
     store.dispatch('handleFullScreen', true);

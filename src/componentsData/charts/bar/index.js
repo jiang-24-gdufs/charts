@@ -9,8 +9,8 @@ export default {
   title: '柱形图',
   components: [
     simpleBarCharts,
-    multipleYAxisBarCharts
+    multipleYAxisBarCharts,
     // multipleXAxisBarCharts,
-  ]
+  ],
   // multipleAxisBarCharts
 };

@@ -7,7 +7,7 @@ import simplePieCharts from './simplePieCharts';
  */
 export default {
   title: '饼状图',
-  components: [simplePieCharts]
+  components: [simplePieCharts],
   // doughnutPieCharts,
   // rosePieCharts,
 };

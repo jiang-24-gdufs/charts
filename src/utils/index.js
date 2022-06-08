@@ -8,7 +8,7 @@ export function deepCopy(obj) {
   }
 
   if (Array.isArray(obj)) {
-    return obj.map(item => {
+    return obj.map((item) => {
       if (Array.isArray(item) || typeof item === 'object') {
         return deepCopy(item);
       }
@@ -40,7 +40,7 @@ export function deepCopy(obj) {
  */
 export function timeStampToDate(timestamp) {
   const date = new Date(timestamp);
-  return `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 }
 
 /**
@@ -50,8 +50,9 @@ export function timeStampToDate(timestamp) {
  */
 export function timeStampToTime(timestamp) {
   const date = new Date(timestamp);
-  return `${ date.getFullYear() }-${ date.getMonth() +
-	1 }-${ date.getDate() }   ${ date.getHours() }:${ date.getMinutes() }`;
+  return `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}   ${date.getHours()}:${date.getMinutes()}`;
 }
 
 /**
@@ -64,11 +65,11 @@ export function serialize(targetObj) {
     return null;
   }
   const name = 'target';
-  let result = `var ${ name } = {};`;
+  let result = `var ${name} = {};`;
 
   function getProperty(property) {
     if (window.isNaN(property)) {
-      return `'${ property }'`;
+      return `'${property}'`;
     }
     return property;
   }
@@ -80,17 +81,17 @@ export function serialize(targetObj) {
         const value = obj[key];
         if (typeof value !== 'object') {
           if (typeof value === 'string') {
-            result += path + `[${ getProperty(key) }]='${ value }';`;
+            result += `${path}[${getProperty(key)}]='${value}';`;
           } else {
-            result += path + `[${ getProperty(key) }]=${ value };`;
+            result += `${path}[${getProperty(key)}]=${value};`;
           }
         } else {
           if (value instanceof Array) {
-            result += path + `[${ getProperty(key) }]= [];`;
-            serializeInternal(value, path + `[${ getProperty(key) }]`);
+            result += `${path}[${getProperty(key)}]= [];`;
+            serializeInternal(value, `${path}[${getProperty(key)}]`);
           } else {
-            result += path + `[${ getProperty(key) }]={};`;
-            serializeInternal(value, path + `[${ getProperty(key) }]`);
+            result += `${path}[${getProperty(key)}]={};`;
+            serializeInternal(value, `${path}[${getProperty(key)}]`);
           }
         }
       }
@@ -99,7 +100,7 @@ export function serialize(targetObj) {
 
   serializeInternal(targetObj, name);
   // 包装自执行函数
-  return `(function(){${ result }return ${ name };})()`;
+  return `(function(){${result}return ${name};})()`;
 }
 
 /**
@@ -129,12 +130,12 @@ export function handleFormatterFields(fields) {
     return null;
   }
   const array = [];
-  fields.forEach(item => {
+  fields.forEach((item) => {
     array.push({
       column: item.label,
       alias: item.prop || null,
       type: item.type,
-      delete: false
+      delete: false,
     });
   });
   return array;
@@ -144,7 +145,7 @@ export const joinType = {
   left: 'LEFT JOIN',
   right: 'RIGHT JOIN',
   inner: 'INNER JOIN',
-  full: 'FULL JOIN'
+  full: 'FULL JOIN',
 };
 
 export function handleClearOtherOption(otherOption) {
@@ -160,12 +161,12 @@ export const gatherType = {
   SUM: 'SUM',
   MIN: 'MIN',
   COUNT: 'COUNT',
-  MAX: 'MAX'
+  MAX: 'MAX',
 };
 // 排序方式
 export const sortType = {
   ASC: 'ASC', // 递增
-  DESC: 'DESC' // 递减
+  DESC: 'DESC', // 递减
 };
 // 查询条件类型
 export const conditionType = {
@@ -179,14 +180,14 @@ export const conditionType = {
   ELT: 'ELT', // 小于等于
   UEQ: 'UEQ', // 不等于
   ISNULL: 'ISNULL', // 空值查询
-  ISNOTNULL: 'ISNOTNULL' // 非空查询
+  ISNOTNULL: 'ISNOTNULL', // 非空查询
 };
 
 // 数据类型，数据源数据分为三种类型，number(数字类型),string(字符串类型)，dateTime(时间类型)
 export const dataType = {
   NUMBER: 'NUMBER', // 数字类型
   STRING: 'STRING',
-  DATETIME: 'DATETIME'
+  DATETIME: 'DATETIME',
 };
 
 /**
@@ -215,12 +216,15 @@ export function getDataTypeName(type) {
 export function formatDate(time) {
   const date = new Date(time);
   const year = date.getFullYear();
-  const month = date.getMonth() + 1; const // 月份是从0开始的
+  const month = date.getMonth() + 1;
+  const // 月份是从0开始的
     day = date.getDate();
   const hour = date.getHours();
   const min = date.getMinutes();
   const sec = date.getSeconds();
-  return `${ year }-${ month < 10 ? `0${month }` : month }-${ day < 10 ? `0${day}` : day } ${ hour < 10 ? `0${hour}` : hour}:${ min < 10 ? `0${min}` : min }:${ sec < 10 ? `0${sec}` : sec }`;
+  return `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day} ${
+    hour < 10 ? `0${hour}` : hour
+  }:${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
 }
 
 /**
@@ -229,16 +233,17 @@ export function formatDate(time) {
 export function formatTime(time) {
   const date = new Date(time);
   const year = date.getFullYear();
-  const month = date.getMonth() + 1; const // 月份是从0开始的
+  const month = date.getMonth() + 1;
+  const // 月份是从0开始的
     day = date.getDate();
-  return `${ year }-${ month < 10 ? `0${month }` : month }-${ day < 10 ? `0${day}` : day }`;
+  return `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`;
 }
 
 /**
  * 获取url的查询参数
  */
 export function handleGetQueryParams() {
-  const search = window.location.search;
+  const { search } = window.location;
   const paramsArray = search.slice(1).split('&');
   const paramsObj = {};
   paramsArray.forEach((item) => {
@@ -265,7 +270,10 @@ export function openNewWindow(url) {
  * @returns {boolean | string | boolean}
  */
 export function isPhone() {
-  return /(iPhone|iPod|Android)/i.test(navigator.userAgent) || (window.location.hash && /isPhone/.test(window.location.hash));
+  return (
+    /(iPhone|iPod|Android)/i.test(navigator.userAgent) ||
+    (window.location.hash && /isPhone/.test(window.location.hash))
+  );
 }
 
 /**
@@ -384,7 +392,7 @@ export function isEqual(sourceObj, targetObj) {
     if (source.length !== target.length) {
       return false;
     }
-    for (const [ index, item ] of source.entries()) {
+    for (const [index, item] of source.entries()) {
       if (Object.prototype.toString.call(item) !== Object.prototype.toString.call(target[index])) {
         return false;
       }
@@ -405,7 +413,7 @@ export function isEqual(sourceObj, targetObj) {
     if (Object.keys(source).length !== Object.keys(target).length) {
       return false;
     }
-    for (const [ key, item ] of Object.entries(source)) {
+    for (const [key, item] of Object.entries(source)) {
       if (target[key] === undefined) {
         return false;
       }
@@ -439,9 +447,7 @@ export const isIE = !!window.ActiveXObject || 'ActiveXObject' in window;
  * @param obj
  */
 export function optimizeChartsData(obj) {
-
   if (isPlainObject(obj)) {
-
   }
 }
 

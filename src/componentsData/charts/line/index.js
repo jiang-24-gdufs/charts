@@ -4,5 +4,5 @@ import simpleLine from './simpleLineCharts';
  */
 export default {
   title: '折线图',
-  components: [ simpleLine]
+  components: [simpleLine],
 };

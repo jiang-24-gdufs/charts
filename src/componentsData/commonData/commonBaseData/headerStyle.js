@@ -3,5 +3,5 @@
  */
 export default {
   height: 50,
-  backgroundColor: 'transparent'
+  backgroundColor: 'transparent',
 };

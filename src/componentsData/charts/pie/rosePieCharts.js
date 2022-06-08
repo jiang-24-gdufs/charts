@@ -7,25 +7,16 @@ export default {
       title: {
         text: '南丁格尔玫瑰图',
         subtext: '纯属虚构',
-        x: 'center'
+        x: 'center',
       },
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b} : {c} ({d}%)'
+        formatter: '{a} <br/>{b} : {c} ({d}%)',
       },
       legend: {
         x: 'center',
         y: 'bottom',
-        data: [
-          'rose1',
-          'rose2',
-          'rose3',
-          'rose4',
-          'rose5',
-          'rose6',
-          'rose7',
-          'rose8'
-        ]
+        data: ['rose1', 'rose2', 'rose3', 'rose4', 'rose5', 'rose6', 'rose7', 'rose8'],
       },
       toolbox: {
         show: true,
@@ -34,11 +25,11 @@ export default {
           dataView: { show: true, readOnly: false },
           magicType: {
             show: true,
-            type: ['pie', 'funnel']
+            type: ['pie', 'funnel'],
           },
           restore: { show: true },
-          saveAsImage: { show: true }
-        }
+          saveAsImage: { show: true },
+        },
       },
       calculable: true,
       series: [
@@ -54,10 +45,10 @@ export default {
             { value: 20, name: 'rose5' },
             { value: 35, name: 'rose6' },
             { value: 30, name: 'rose7' },
-            { value: 40, name: 'rose8' }
-          ]
-        }
-      ]
-    }
-  }
+            { value: 40, name: 'rose8' },
+          ],
+        },
+      ],
+    },
+  },
 };

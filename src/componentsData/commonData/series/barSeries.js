@@ -1,4 +1,3 @@
-
 import chartsSeriesLabel from '../commonBaseData/chartsSeriesLabel';
 import chartsSeriesItemStyle from '../commonBaseData/chartsSeriesItemStyle';
 /**
@@ -15,5 +14,5 @@ export default {
   type: 'bar',
   barWidth: null,
   barGap: '30%',
-  data: []
+  data: [],
 };

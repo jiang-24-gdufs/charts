@@ -12,5 +12,5 @@ export default [
   '#fd79a8',
   '#f7b731',
   '#778ca3',
-  '#b2bec3'
+  '#b2bec3',
 ];

@@ -8,5 +8,5 @@ export default {
   shadowColor: null,
   shadowOffsetX: 0,
   shadowOffsetY: 0,
-  opacity: 0
+  opacity: 0,
 };
