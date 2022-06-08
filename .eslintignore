@@ -1,5 +1,11 @@
+node_modules
+
 *.d.ts
 vite.config.ts
 
 public/
 assets/
+/src/lib/gridLayout/helpers/*.ts
+
+.cache
+.temp

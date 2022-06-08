@@ -12,7 +12,7 @@ body {
   color: var(--text-color);
 }
 
-* {
+/* * {
   scrollbar-base-color: #eee;
   scrollbar-3dlight-color: #eee;
   scrollbar-highlight-color: #eee;
@@ -20,7 +20,7 @@ body {
   scrollbar-arrow-color: #000;
   scrollbar-shadow-color: #eee;
   box-sizing: border-box;
-}
+} */
 
 #app {
   width: 100%;

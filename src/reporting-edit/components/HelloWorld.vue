@@ -4,9 +4,9 @@ import { ElInput } from 'element-plus';
 import { ref, onMounted } from 'vue';
 import { environment } from '@/evn.config';
 import { qs } from '../../qs';
-import { usePathRoamStore } from '@/stores/reporting-edit';
+import { useReportingEditStore } from '@/stores/reporting-edit';
 
-const store = usePathRoamStore();
+const store = useReportingEditStore();
 console.log('%cHelloWorld.vue line:10 store', 'color: #007acc;', store);
 console.warn(JSON.stringify(environment));
 defineProps<{ msg: string }>();

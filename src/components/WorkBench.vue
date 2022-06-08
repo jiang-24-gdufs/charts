@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import GridWrapper from '../../lib/gridLayout/GridWrapper.vue';
+import GridWrapper from '@/lib/gridLayout/GridWrapper.vue';
 import mockLayout from '@/lib/gridLayout/helpers/mock';
 
 const layout = ref(mockLayout);
@@ -12,7 +12,7 @@ const rowHeight = ref(15);
   <div class="workbench-body">
     <div class="workbench-left">left</div>
     <div class="workbench-center">
-      <GridWrapper :layout="layout" :col-num="colNum" :row-height="rowHeight" />
+      <GridWrapper :is-static="true" :layout="layout" :col-num="colNum" :row-height="rowHeight" />
     </div>
     <div class="workbench-right">right</div>
   </div>

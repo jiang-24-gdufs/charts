@@ -28,6 +28,7 @@ export default defineComponent({
     const containerWidth = inject<number>('containerWidth')! as number;
     const cols = inject<number>('cols')! as number;
     const rowHeight = inject<number>('rowHeight')! as number;
+    const isStatic = inject<number>('isStatic')! as boolean;
     const margin = inject<[number, number]>('margin')! as [number, number];
 
     const interactElement = ref<HTMLElement>();
@@ -46,16 +47,14 @@ export default defineComponent({
     const propsMaxH = computed(() => props.maxH);
 
     const renderRtl = false;
-    // const classObj = computed(() => {
-    //   return {
-    //     'vue-resizable': resizable /*  && !static */,
-    //     // static: static,
-    //     resizing: state.isResizing,
-    //     'vue-draggable-dragging': state.isDragging,
-    //     cssTransforms: state.useCssTransforms,
-    //     'disable-userselect': state.isDragging,
-    //   };
-    // });
+    const classObj = computed(() => ({
+      // 'vue-resizable': resizable /*  && !static */,
+      static: isStatic.value ?? false,
+      // resizing: state.isResizing,
+      // 'vue-draggable-dragging': state.isDragging,
+      // cssTransforms: state.useCssTransforms,
+      // 'disable-userselect': state.isDragging,
+    }));
     // const resizableHandleClass = () => {
     //   if (renderRtl.value) {
     //     return 'vue-resizable-handle vue-rtl-resizable-handle';
@@ -94,9 +93,10 @@ export default defineComponent({
     });
 
     watch(
-      // i for debug
       [propsI, propsX, propsY, propsW, propsH],
-      ([x, y, w, h]) => {
+      ([i, x, y, w, h]) => {
+        console.log('%cGridItem.vue line:98 x, y, w, h', 'color: #007acc;', i, x, y, w, h);
+        debugger;
         state.innerX = x ?? state.innerX;
         state.innerY = y ?? state.innerY;
         state.innerW = w ?? state.innerW;
@@ -109,7 +109,7 @@ export default defineComponent({
     );
 
     function handleDrag(event: any) {
-      // if (this.static) return;
+      if (isStatic.value) return;
       // if (this.isResizing) return;
       const position = offsetXYFromParentOf(event);
       // Get the current drag point from the event. This is used as the offset.
@@ -145,7 +145,7 @@ export default defineComponent({
               newPosition.left = state.dragging.left + coreEvent.deltaX;
             }
             newPosition.top = state.dragging.top + coreEvent.deltaY;
-            console.log('%cGridItem.vue line:147 newPosition', 'color: #007acc;', newPosition);
+
             state.dragging = newPosition;
           }
           break;
@@ -178,7 +178,7 @@ export default defineComponent({
     }
 
     function handleResize(event: any) {
-      // if (this.static) return;
+      if (isStatic.value) return;
       const position = offsetXYFromParentOf(event);
       // Get the current drag point from the event. This is used as the offset.
       if (position == null) return; // not possible but satisfies flow
@@ -237,17 +237,10 @@ export default defineComponent({
       // if (event.type === 'resizeend' && (state.previousW !== state.innerW || state.previousH !== state.innerH)) {
       //   state.$emit('resized', state.i, pos.h, pos.w, newSize.height, newSize.width);
       // }
-      console.log(
-        'resizeEvent',
-        event.type,
-        propsI.value,
-        state.innerX,
-        state.innerY,
-        pos.h,
-        pos.w
-      );
+
       emit('resizeEvent', event.type, propsI.value, state.innerX, state.innerY, pos.h, pos.w);
     }
+
     function calcPosition(x: number, y: number, w: number, h: number) {
       const colWidth = calcColWidth();
       // add rtl support
@@ -293,7 +286,6 @@ export default defineComponent({
         state.innerW = propsW.value;
       }
       const pos = calcPosition(state.innerX, state.innerY, state.innerW, state.innerH);
-      console.log('%cGridItem.vue line:301 propsI pos', 'color: #007acc;', propsI.value, pos);
       if (state.isDragging) {
         pos.top = state.dragging.top;
         // Add rtl support
@@ -369,10 +361,12 @@ export default defineComponent({
       // Capping
       w = Math.max(Math.min(w, cols.value - state.innerX), 0);
       h = Math.max(Math.min(h, state.maxRows - state.innerY), 0);
+
       return { w, h };
     }
 
-    onMounted(() => {
+    function createInteractObj() {
+      if (isStatic.value) return;
       interactObj.value = interact(interactElement.value!);
 
       interactObj.value.draggable({
@@ -409,10 +403,16 @@ export default defineComponent({
       interactObj.value.on('resizestart resizemove resizeend', (event) => {
         handleResize(event);
       });
+    }
+
+    onMounted(() => {
+      createInteractObj();
+
+      // createStyle();
     });
 
     onBeforeUnmount(() => {
-      interactObj.value.unset();
+      if (!isStatic.value) interactObj.value.unset();
     });
 
     expose({ createStyle });
@@ -422,9 +422,10 @@ export default defineComponent({
       ...{ propsI, propsX, propsY, propsW, propsH },
       // draggable,
       // resizable,
-      // static,
+      isStatic,
       // renderRtl,
-      classObj: {},
+      // classObj: {},
+      classObj,
       interactElement,
       interactObj,
       // resizableHandleClass,
@@ -436,10 +437,16 @@ export default defineComponent({
 </script>
 
 <template>
-  <div ref="interactElement" class="vue-grid-item" :class="classObj" :style="style">
-    propsI: {{ propsI }}<br />
-    propsX{{ propsX }} propsY{{ propsY }}<br />
-    propsW{{ propsW }}propsH{{ propsH }}
+  <div
+    ref="interactElement"
+    class="vue-grid-item"
+    :class="classObj"
+    :style="style"
+    :data-grid-index="propsI"
+  >
+    <!-- propsI: {{ propsI }}<br /> -->
+    <!-- propsX{{ propsX }} propsY{{ propsY }}<br /> -->
+    <!-- propsW{{ propsW }}propsH{{ propsH }} -->
     <slot></slot>
     <!-- <spanref="handle" :class="resizableHandleClass"></span> -->
     <!-- <span v-if="resizableAndNotStatic" ref="handle" :class="resizableHandleClass"></span> -->

@@ -14,9 +14,11 @@ import {
   watch,
   computed,
 } from 'vue';
-import elementResizeDetectorMaker from 'element-resize-detector';
+// import elementResizeDetectorMaker from 'element-resize-detector';
+import { debounce } from 'lodash';
 import GridLayout from '@/lib/gridLayout/GridLayout.vue';
 import GridItem from '@/lib/gridLayout/GridItem.vue';
+import RenderGridItem from '@/lib/gridLayout/RenderGridItem.vue';
 import type { Layout } from '@/lib/gridLayout/helpers/utils';
 import {
   // bottom, // TODO: update height when drag out from the bottom border
@@ -32,13 +34,14 @@ export default defineComponent({
   components: {
     GridLayout,
     GridItem,
+    RenderGridItem,
   },
 
   emit: ['layout-updated'],
 
   props: gridWrapperProps,
 
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
     const state = reactive({
       placeholder: {
         x: 0,
@@ -57,8 +60,16 @@ export default defineComponent({
     const cols = computed(() => props.colNum);
     const margin = computed(() => props.margin);
     const rowHeight = computed(() => props.rowHeight);
+    const isStatic = computed(() => props.isStatic);
+
+    const deUpdateItemSize = debounce(updateItemSize, 100);
+    const deOnWindowResize = debounce(onWindowResize, 100);
 
     validateLayout(layout.value);
+
+    function campactLayout() {
+      compact(layout.value, true /* verticalCompact */);
+    }
 
     function dragEvent(eventName, id, x, y, h, w) {
       if (eventName === 'dragmove' || eventName === 'dragstart') {
@@ -82,9 +93,11 @@ export default defineComponent({
       }
       l.x = x;
       l.y = y;
-      // Move the element to the dragged location.
-      /* layout.value =  */ moveElement(layout.value, l, x, y, true);
-      compact(layout.value, true /* verticalCompact */);
+
+      moveElement(layout.value, l, x, y, true);
+
+      // NOTE: NOT COMPACT IN DRAG? BUT COMPACT AFTER ADDED
+      campactLayout();
       // needed because vue can't detect changes on array element properties
       updateGridItem();
 
@@ -117,10 +130,16 @@ export default defineComponent({
       // if (this.responsive) {
       //   this.responsiveGridLayout();
       // } else {
-      compact(layout.value, true /* verticalCompact */);
+      campactLayout();
       updateGridItem();
+      console.log('%cGridWrapper.vue line:125 l', 'color: #007acc;', l);
 
       // updateHeight();
+
+      // updateSize
+      deUpdateItemSize(l);
+
+      // TODO: save in STORE
 
       if (eventName === 'resizeend') emit('layout-updated', layout.value);
     }
@@ -131,21 +150,42 @@ export default defineComponent({
       });
     }
 
+    function updateItemSize(item) {
+      if (item.i) {
+        const gridItem = document.querySelector(`[data-grid-index="${item.i}"].vue-grid-item`);
+        const { width, height } = gridItem.style;
+        item.initOption = {
+          width: +width.slice(0, -2),
+          height: +height.slice(0, -2),
+        };
+      }
+    }
+
     function onWindowResize() {
       containerWidth.value = +getComputedStyle(workbenchRef.value).width.slice(0, -2);
     }
-
     watch(
       () => [...margin.value],
       () => {
-        compact(layout.value, true /* verticalCompact */);
+        campactLayout();
         updateGridItem();
       }
     );
 
-    watch([containerWidth, cols, () => [...margin.value], rowHeight], () => {
+    // 监听layout的个数, 而不是深度监听Layout, 以提升性能
+    watch(
+      () => layout.value.length,
+      () => {
+        campactLayout();
+        updateGridItem();
+      }
+    );
+
+    watch([containerWidth, cols, rowHeight], () => {
+      debugger;
+
       // moveElement(layout.value, l, x, y, true);
-      compact(layout.value, true /* verticalCompact */);
+      campactLayout();
       updateGridItem();
     });
 
@@ -153,25 +193,28 @@ export default defineComponent({
       containerWidth.value = +getComputedStyle(workbenchRef.value).width.slice(0, -2);
 
       nextTick(() => {
-        const erd = elementResizeDetectorMaker({
-          strategy: 'scroll', // <- For ultra performance.
-        });
-        erd.listenTo(GridLayoutRef.value.$el, () => {
-          updateGridItem();
-        });
+        // const erd = elementResizeDetectorMaker({
+        //   strategy: 'scroll', // <- For ultra performance.
+        // });
+        // erd.listenTo(GridLayoutRef.value.$el, () => {
+        //   updateGridItem();
+        // });
       });
 
-      window.addEventListener('resize', onWindowResize, false);
+      window.addEventListener('resize', deOnWindowResize, false);
     });
 
     onBeforeUnmount(() => {
-      window.removeEventListener('resize', onWindowResize);
+      window.removeEventListener('resize', deOnWindowResize);
     });
 
     provide('containerWidth', readonly(containerWidth));
     provide('cols', readonly(cols));
     provide('margin', readonly(margin));
     provide('rowHeight', readonly(rowHeight));
+    provide('isStatic', readonly(isStatic));
+
+    expose({ campactLayout });
 
     return {
       layout,
@@ -197,11 +240,11 @@ export default defineComponent({
       :placeholder="placeholder"
       :is-dragging="isDragging"
     >
+      <!-- style="border: 1px dashed #17233d" -->
       <grid-item
-        v-for="(item, index) in layout"
+        v-for="item of layout"
         ref="gridItemRef"
-        :key="index"
-        style="border: 1px dashed #17233d"
+        :key="item.i"
         :x="item.x"
         :y="item.y"
         :w="item.w"
@@ -209,7 +252,12 @@ export default defineComponent({
         :i="item.i"
         @drag-event="dragEvent"
         @resize-event="resizeEvent"
-      />
+      >
+        <render-grid-item ref="gridGridItemRef" :render-data="item" />
+        <!-- :base-url="baseUrl"
+          :reporting="data"
+          :global-config="globalConfig" -->
+      </grid-item>
     </grid-layout>
   </div>
 </template>

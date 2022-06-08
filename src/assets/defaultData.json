@@ -1,0 +1,336 @@
+{
+	"color": [ "#4b7bec", "#45aaf2", "#fd9644", "#a55eea", "#fc5c65", "#2bcbba", "#26de81", "#fd79a8", "#f7b731", "#778ca3","#b2bec3"],
+	"bar":{
+          "simpleBar": {
+               "title": {
+                    "text": "简单柱形图主标题",
+                    "subtext": "简单柱形图子标题"
+               },
+               "series": [10, 52, 200, 334, 390, 330, 220],
+               "xAxis": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+          },
+		 "multipleYAxisBar": {
+			 "title": {
+				 "text": "多Y轴柱形图主标题",
+				 "subtext": "多Y轴柱形图子标题"
+			 },
+			 "series": [10, 52, 200, 334, 390, 330, 220],
+			 "xAxis": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+		 },
+		 "multipleXAxisBar": {
+			 "title": {
+				 "text": "多X轴柱形图主标题",
+				 "subtext": "多X轴柱形图子标题"
+			 },
+			 "series":[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+			 "xAxis":["2016-1", "2016-2", "2016-3", "2016-4", "2016-5", "2016-6", "2016-7", "2016-8", "2016-9", "2016-10", "2016-11", "2016-12"]
+		 },
+		 "multipleAxisBar": {
+			 "title": {
+				 "text": "多轴柱形图主标题",
+				 "subtext": "多轴柱形图子标题"
+			 },
+			 "series":[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+			 "xAxis":["2016-1", "2016-2", "2016-3", "2016-4", "2016-5", "2016-6", "2016-7", "2016-8", "2016-9", "2016-10", "2016-11", "2016-12"]
+		 }
+     },
+	"pie": {
+          "simplePie": {
+               "title": {
+                    "text": "简单饼图主标题",
+                    "subtext": "简单饼图子标题"
+               },
+               "series":[
+                    {"value":335, "name":"直接访问"},
+                    {"value":310, "name":"邮件营销"},
+                    {"value":234, "name":"联盟广告"},
+                    {"value":135, "name":"视频广告"},
+                    {"value":1548, "name":"搜索引擎"}
+               ]
+          }
+     },
+	"line": {
+		"simpleLine": {
+			"title": {
+				"text": "简单折线图主标题",
+				"subtext": "简单折线图子标题"
+			},
+			"series": [10, 52, 200, 334, 390, 330, 220],
+			"xAxis": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+		}
+	},
+	"map": {
+		"chinaMap": {
+			"title": {
+				"text": "中国地图",
+				"subtext": "中国地图子标题"
+			},
+			"data": [
+				{ "name": "北京", "value": 143},
+				{ "name": "广东", "value": 143},
+				{ "name": "上海", "value": 143},
+				{"name": "广西", "value": 143},
+				{"name": "福建", "value": 143},
+				{"name": "江西", "value": 143}
+			]
+		}
+	},
+	"gauge": {
+		"simpleGauge": {
+			"title": {
+				"text": "简单仪表盘主标题",
+				"subtext": "简单仪表盘子标题"
+			},
+			"value":{ "value": 50, "name": "完成率"}
+		}
+	},
+	"scatter": {
+		"simpleScatter": {
+			"title": {
+				"text": "简单散点图主标题",
+				"subtext": "简单散点图子标题"
+			},
+			"series": [10, 52, 200, 334, 390, 330, 220],
+			"xAxis": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+		}
+	},
+	"progress": {
+		"progressCircle": {
+			"title": "<h1>进度环</h1><br>{value}",
+			"value": 50,
+			"target": 200
+		},
+		"progressBar": {
+			"title":"<h1>进度条</h1><br>",
+			"value": 50,
+			"target": 200
+		}
+	},
+	"table": {
+		"pageTable": {
+			"title": "带分页表格",
+			"tableHeader": [
+				{
+					"prop": "id",
+					"label": "ID"
+				},
+				{
+					"prop": "name",
+					"label": "名字"
+				},
+				{
+					"prop": "amount",
+					"label": "数量",
+					"sum": "200"
+				}
+			],
+			"tableData": [
+				{
+					"id": "12987122'",
+					"name": "王小虎",
+					"amount": "234"
+				},
+				{
+					"id": "12987123",
+					"name": "王小虎",
+					"amount": "165"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				}
+			]
+		},
+		"simpleTable": {
+			"title": "简单表格",
+			"tableHeader": [
+				{
+					"prop": "id",
+					"label": "ID"
+				},
+				{
+					"prop": "name",
+					"label": "名字"
+				},
+				{
+					"prop": "amount",
+					"label": "数量",
+					"sum": "200"
+				}
+			],
+			"tableData": [
+				{
+					"id": "12987122'",
+					"name": "王小虎",
+					"amount": "234"
+				},
+				{
+					"id": "12987123",
+					"name": "王小虎",
+					"amount": "165"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				}
+			]
+		},
+		"crossSimpleTable": {
+			"title": "简单交叉表格",
+			"tableHeader": [
+				{
+					"prop": "id",
+					"label": "ID"
+				},
+				{
+					"prop": "name",
+					"label": "名字"
+				},
+				{
+					"prop": "amount",
+					"label": "数量",
+					"sum": "200"
+				}
+			],
+			"tableData": [
+				{
+					"id": "12987122'",
+					"name": "王小虎",
+					"amount": "234"
+				},
+				{
+					"id": "12987123",
+					"name": "王小虎",
+					"amount": "165"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				}
+			]
+		},
+		"crossPageTable": {
+			"title": "分页交叉表格",
+			"tableHeader": [
+				{
+					"prop": "id",
+					"label": "ID"
+				},
+				{
+					"prop": "name",
+					"label": "名字"
+				},
+				{
+					"prop": "amount",
+					"label": "数量",
+					"sum": "200"
+				}
+			],
+			"tableData": [
+				{
+					"id": "12987122'",
+					"name": "王小虎",
+					"amount": "234"
+				},
+				{
+					"id": "12987123",
+					"name": "王小虎",
+					"amount": "165"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				},
+				{
+					"id": "12987124",
+					"name": "王小虎",
+					"amount": "324"
+				}
+			]
+		}
+	},
+	"other": {
+		"countTo": {
+			"title": "计数器",
+			"data": 100,
+			"unit": "单位"
+		},
+		"webPage": {
+			"data": "http://baidu.com"
+		},
+		"sizer": {
+			"title": "筛选器"
+		}
+	},
+	"textEdit": {
+		"richText": {
+			"content": "<h1>富文本编辑</h1>"
+		}
+	},
+	"form": {
+		"numberInput": {
+			"label": "数字输入框",
+			"placeholder": "请输入数字",
+			"data": 0
+		},
+		"betweenNumberInput": {
+			"label": "数字输入框",
+			"placeholder": "请输入数字",
+			"data": "0/0"
+		},
+		"textInput": {
+			"label": "文本框",
+			"placeholder": "请输入文本",
+			"data": ""
+		},
+		"dateInput": {
+			"label": "日期选中",
+			"placeholder": "请输入选择日期",
+			"data": ""
+		},
+		"selectInput": {
+			"label": "下拉选择",
+			"placeholder": "请选择",
+			"data": []
+		}
+	}
+}

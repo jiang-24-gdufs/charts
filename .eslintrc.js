@@ -1,6 +1,8 @@
 module.exports = {
+  root: true,
   env: {
     node: true,
+    browser: true,
   },
   parser: 'vue-eslint-parser',
   parserOptions: {
@@ -8,6 +10,7 @@ module.exports = {
     extraFileExtensions: ['.vue'],
     ecmaFeatures: {
       jsx: true,
+      tsx: true,
     },
   },
   extends: [

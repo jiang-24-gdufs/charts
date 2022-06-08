@@ -1,6 +1,7 @@
 .vue-grid-item {
   transition: all 200ms ease;
   transition-property: left, top, right;
+  border: 1px dashed #17233d;
   /* add right for rtl */
 }
 .vue-grid-item.no-touch {
@@ -19,6 +20,14 @@
 .vue-grid-item.resizing {
   opacity: 0.6;
   z-index: 3;
+}
+.vue-grid-item.static {
+  /* opacity: 0.6; */
+  /* z-index: 3; */
+  border: none;
+}
+.vue-grid-item.static > .vue-resizable-handle {
+  display: none;
 }
 .vue-grid-item.vue-draggable-dragging {
   transition: none;
@@ -46,7 +55,7 @@
   padding: 0 3px 3px 0;
   background-repeat: no-repeat;
   background-origin: content-box;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   cursor: se-resize;
 }
 .vue-grid-item > .vue-rtl-resizable-handle {
