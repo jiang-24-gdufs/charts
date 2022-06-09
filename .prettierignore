@@ -17,6 +17,11 @@
 # some souces directories
 src/assets
 
+# some build target
+lib/
+es/
+dist/
+
 #
 CHANGELOG.md
 vue.config.js

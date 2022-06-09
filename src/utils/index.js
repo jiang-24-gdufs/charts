@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * 深度复制
  * @param obj
@@ -54,73 +55,6 @@ export function timeStampToTime(timestamp) {
     date.getMonth() + 1
   }-${date.getDate()}   ${date.getHours()}:${date.getMinutes()}`;
 }
-
-/**
- *  系列化对象
- * @returns {string,null}
- * @param targetObj
- */
-export function serialize(targetObj) {
-  if (!isPlainObject(targetObj)) {
-    return null;
-  }
-  const name = 'target';
-  let result = `var ${name} = {};`;
-
-  function getProperty(property) {
-    if (window.isNaN(property)) {
-      return `'${property}'`;
-    }
-    return property;
-  }
-
-  function serializeInternal(obj, path) {
-    for (const key in obj) {
-      // 不遍历原型的，兼容 ie 浏览器写法
-      if (obj.hasOwnProperty(key)) {
-        const value = obj[key];
-        if (typeof value !== 'object') {
-          if (typeof value === 'string') {
-            result += `${path}[${getProperty(key)}]='${value}';`;
-          } else {
-            result += `${path}[${getProperty(key)}]=${value};`;
-          }
-        } else {
-          if (value instanceof Array) {
-            result += `${path}[${getProperty(key)}]= [];`;
-            serializeInternal(value, `${path}[${getProperty(key)}]`);
-          } else {
-            result += `${path}[${getProperty(key)}]={};`;
-            serializeInternal(value, `${path}[${getProperty(key)}]`);
-          }
-        }
-      }
-    }
-  }
-
-  serializeInternal(targetObj, name);
-  // 包装自执行函数
-  return `(function(){${result}return ${name};})()`;
-}
-
-/**
- * 反序列化
- * @param str
- * @returns {null}
- */
-export function deserialization(str) {
-  let obj = null;
-  try {
-    // eslint-disable-next-line no-eval
-    obj = window.eval(str);
-  } catch (e) {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn(e);
-    }
-  }
-  return obj;
-}
-
 /**
  * 格式化数据库列
  * @param fields

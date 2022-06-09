@@ -182,8 +182,6 @@ export default defineComponent({
     );
 
     watch([containerWidth, cols, rowHeight], () => {
-      debugger;
-
       // moveElement(layout.value, l, x, y, true);
       campactLayout();
       updateGridItem();

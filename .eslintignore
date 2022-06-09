@@ -5,6 +5,8 @@ vite.config.ts
 
 public/
 assets/
+dist/
+
 /src/lib/gridLayout/helpers/*.ts
 
 .cache

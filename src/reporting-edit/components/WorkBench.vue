@@ -9,8 +9,8 @@ import WorkBenchRight from './WorkBenchRight.vue';
 import SmartMenu from '@/components/smart-menu/SmartMenu.vue';
 import { useReportingEditStore } from '@/stores/reporting-edit';
 import useEditMenu from '../hooks/use-edit-menu';
-import { addItem } from '@/reporting-edit/hooks/use-change-layout';
-import { deepCopy } from '@/utils';
+// import { addItem } from '@/reporting-edit/hooks/use-change-layout';
+// import { deepCopy } from '@/utils';
 
 const store = useReportingEditStore();
 console.log(store);
@@ -19,7 +19,7 @@ const {
   /* showContainerMenu, */ menuTop,
   menuLeft,
   handleGridItemContextMenu,
-  handleContainerMenu,
+  // handleContainerMenu,
   handleCloseMenu,
 } = useEditMenu();
 const { log } = console;

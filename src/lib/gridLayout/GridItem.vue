@@ -93,10 +93,8 @@ export default defineComponent({
     });
 
     watch(
-      [propsI, propsX, propsY, propsW, propsH],
-      ([i, x, y, w, h]) => {
-        console.log('%cGridItem.vue line:98 x, y, w, h', 'color: #007acc;', i, x, y, w, h);
-        debugger;
+      [propsX, propsY, propsW, propsH],
+      ([x, y, w, h]) => {
         state.innerX = x ?? state.innerX;
         state.innerY = y ?? state.innerY;
         state.innerW = w ?? state.innerW;

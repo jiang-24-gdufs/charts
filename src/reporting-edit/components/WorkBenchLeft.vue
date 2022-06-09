@@ -7,11 +7,10 @@
 import { computed } from 'vue';
 import { useReportingEditStore } from '@/stores/reporting-edit';
 import dataComponents from '../../componentsData';
-import { deepCopy } from '@/utils';
 
 console.log('%cWorkBenchLeft.vue line:9 dataComponents', 'color: #007acc;', dataComponents);
 const { charts } = dataComponents;
-const { log } = console;
+
 const store = useReportingEditStore();
 
 // const layout = ref(mockLayout);

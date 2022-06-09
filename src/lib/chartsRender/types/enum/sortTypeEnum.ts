@@ -1,14 +1,14 @@
 /**
  * 排序类型
  */
-class SortTypeEnum {
-  static count = 0;
+// class SortTypeEnum {
+//   static count = 0;
 
-  constructor(name) {
-    this.status = SortTypeEnum.count++;
-    this.name = name;
-  }
-}
+//   constructor(name) {
+//     this.status = SortTypeEnum.count++;
+//     this.name = name;
+//   }
+// }
 
 export enum SortType {
   TIME_ASC, // ('按时间升序'),
