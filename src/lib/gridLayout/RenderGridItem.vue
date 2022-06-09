@@ -21,7 +21,7 @@ export default defineComponent({
 
   props: renderGridItemProps,
 
-  setup(props, { expose }) {
+  setup(props) {
     const renderData = computed(() => props.renderData);
     const state = reactive({
       prepare: false,
@@ -36,6 +36,7 @@ export default defineComponent({
     }));
 
     function handleUpdate(elm, refresh = false) {
+      debugger;
       if (state.prepare) {
         nextTick(() => {
           handleAppendInitOptions(elm);
@@ -86,8 +87,6 @@ export default defineComponent({
 
     // 从渲染组件开始分发配置数据
     provide('renderData', readonly(renderData));
-
-    expose({ handleUpdate });
 
     return {
       ...toRefs(state),

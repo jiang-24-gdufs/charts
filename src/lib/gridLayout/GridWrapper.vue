@@ -145,9 +145,12 @@ export default defineComponent({
     }
 
     function updateGridItem() {
-      gridItemRef.value.forEach((gridItem) => {
-        gridItem.createStyle();
-      });
+      if (gridItemRef.value) {
+
+        gridItemRef.value.forEach((gridItem) => {
+          gridItem.createStyle();
+        });
+      }
     }
 
     function updateItemSize(item) {

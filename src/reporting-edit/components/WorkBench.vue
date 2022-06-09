@@ -35,19 +35,31 @@ const margin = computed(() => containerConfig.value.margin);
 let index: number = 0;
 
 /* vue-grid-wrapper & vue-grid-item */
+function getDatasetByTarget(target: HTMLElement) {
+  // 从目标元素上遍历祖先元素直到匹配.vue-grid-item
+  // 然后返回这个item的自定义属性
+  let x = target;
+  while (!x.classList.contains('vue-grid-item')) {
+    // result.push(x);
+    x = x.parentNode;
+  }
+
+  return x.dataset;
+}
+
 function onContextmenu(event: MouseEvent) {
   log(event);
   const { target } = event;
   if (target) {
     const { classList } = target as HTMLInputElement;
-    if (classList.contains('vue-grid-wrapper')) {
-      onContextmenuWrapper(event);
+    if (classList.contains('vue-grid-layout')) {
+      onContextmenuLayout(event);
     } /* if (classList.contains('vue-grid-item')) */ else {
       onContextmenuGrid(event);
     }
   }
 }
-function onContextmenuWrapper(event: MouseEvent) {
+function onContextmenuLayout(event: MouseEvent) {
   const { target } = event;
   if (!target) return;
 }
@@ -55,7 +67,8 @@ function onContextmenuGrid(event: MouseEvent) {
   // TODO: 通过挂载i到元素上进行匹配
   const { target } = event;
   if (!target) return;
-  const { gridIndex } = (target as HTMLInputElement).dataset;
+
+  const { gridIndex } = getDatasetByTarget(target as HTMLElement);
   index = Number(gridIndex);
   handleGridItemContextMenu(event);
 }
@@ -65,14 +78,14 @@ function onDblclick(event: MouseEvent) {
   const { target } = event;
   if (target) {
     const { classList } = target as HTMLInputElement;
-    if (classList.contains('vue-grid-wrapper')) {
-      onDblclickWrapper(event);
+    if (classList.contains('vue-grid-layout')) {
+      onDblclickLayout(event);
     } else if (classList.contains('vue-grid-item')) {
       onDblclickGrid(event);
     }
   }
 }
-function onDblclickWrapper(event: MouseEvent) {
+function onDblclickLayout(event: MouseEvent) {
   const { target } = event;
   if (!target) return;
 }
@@ -80,7 +93,7 @@ function onDblclickGrid(event: MouseEvent) {
   // TODO: 通过挂载i到元素上进行匹配
   const { target } = event;
   if (!target) return;
-  const { gridIndex } = (target as HTMLInputElement).dataset;
+  const { gridIndex } = getDatasetByTarget(target as HTMLElement);
   // record grid index
   index = Number(gridIndex);
 }
@@ -111,6 +124,7 @@ function handleMenuCopy() {
   }
 }
 function handleMenuDelete() {
+  debugger;
   handleCloseMenu();
   const itemIndex = layout.value.findIndex((item) => item.i === index);
   if (itemIndex > -1) {
