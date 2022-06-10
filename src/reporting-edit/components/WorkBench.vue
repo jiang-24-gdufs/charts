@@ -27,6 +27,7 @@ const { log } = console;
 // const layout = ref(mockLayout);
 const layout = computed(() => store.layoutItem || []);
 const currBgcolor = computed(() => store.currBgcolor || 'none');
+const currThemeName = computed(() => store.currThemeName);
 const containerConfig = computed(() => store.containerConfig);
 const gridWrapperRef = ref();
 const colNum = computed(() => containerConfig.value.colNum);
@@ -145,7 +146,6 @@ function handleVerticalCompactLayout() {
     <div class="workbench-left">图表类型区域<WorkBenchLeft /></div>
     <div class="workbench-center">
       <GridWrapper
-        v-if="layout.length > 0"
         ref="gridWrapperRef"
         :style="{
           'background-color': currBgcolor,
@@ -154,6 +154,7 @@ function handleVerticalCompactLayout() {
         :col-num="colNum"
         :margin="margin"
         :row-height="rowHeight"
+        :theme-name="currThemeName"
         @contextmenu.prevent="onContextmenu"
         @dblclick="onDblclick"
         @click="onClick"

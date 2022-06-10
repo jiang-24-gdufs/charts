@@ -1,6 +1,6 @@
 <script lang="ts">
 import * as echarts from 'echarts';
-import { defineComponent, h, computed } from 'vue';
+import { defineComponent, h, computed, inject } from 'vue';
 import { debounce } from 'lodash';
 import { useReportingEditStore } from '@/stores/reporting-edit';
 
@@ -23,11 +23,11 @@ export default defineComponent({
     watchShallow: Boolean,
     manualUpdate: Boolean,
   },
-  setup() {
-    const store = useReportingEditStore();
-    const currThemeName = computed(() => store.currThemeName);
 
-    return { currThemeName };
+  setup() {
+    const themeName = inject('themeName');
+
+    return { themeName };
   },
   data() {
     return {
@@ -38,13 +38,12 @@ export default defineComponent({
     };
   },
   watch: {
-    currThemeName: {
+    themeName: {
       handler(value) {
-        // console.log('%cSSEcharts.vue line:46 currThemeName', 'color: #007acc;', value);
         // 重置主题
         if (this.chart) {
           this.chart.dispose();
-          const chart = echarts.init(this.$el, value/* , this.initOption */);
+          const chart = echarts.init(this.$el, value);
 
           chart.setOption(this.options || {}, true);
           this.chart = chart;
@@ -60,17 +59,7 @@ export default defineComponent({
       },
       deep: true,
     },
-    /* initOption: {
-      handler(value) {
-        if (this.chart) {
-          this.chart.resize(value);
-          console.log('%cSSEcharts.vue line:49 resize', 'color: #007acc;', this);
-        } else {
-          console.error(this, value);
-        }
-      },
-      deep: true,
-    }, */
+
     'otherOption.showLoading'(value) {
       if (value) {
         this.showLoading();
@@ -101,7 +90,7 @@ export default defineComponent({
         return;
       }
 
-      const chart = echarts.init(this.$el, this.currThemeName);
+      const chart = echarts.init(this.$el, this.themeName);
       chart.setOption(this.options || {}, true);
       console.log('%cSSEcharts.vue line:114 this.options', 'color: #007acc;', this.options);
       this.chart = chart;
@@ -127,7 +116,10 @@ export default defineComponent({
     },
   },
   render() {
-    return h('div');
+    return h('div', {style: {
+      width: '100%',
+      height: '100%'
+    }});
   },
 });
 </script>

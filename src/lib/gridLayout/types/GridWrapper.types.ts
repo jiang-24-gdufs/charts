@@ -7,5 +7,6 @@ export const gridWrapperProps = {
   colNum: { type: Number, require: false, default: 12 },
   rowHeight: { type: Number, require: false, default: 150 },
   margin: { type: Array, require: false, default: () => [10, 10] },
+  themeName: { type: [String, null], require: false, default: null }
 };
 export type GridWrapperProps = Partial<ExtractPropTypes<typeof gridWrapperProps>>;

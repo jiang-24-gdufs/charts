@@ -1,5 +1,6 @@
 <script lang="ts">
 // @ts-nocheck
+import * as echarts from 'echarts';
 import type { ComputedRef } from 'vue';
 import {
   onMounted,
@@ -14,7 +15,7 @@ import {
   watch,
   computed,
 } from 'vue';
-// import elementResizeDetectorMaker from 'element-resize-detector';
+import elementResizeDetectorMaker from 'element-resize-detector';
 import { debounce } from 'lodash';
 import GridLayout from '@/lib/gridLayout/GridLayout.vue';
 import GridItem from '@/lib/gridLayout/GridItem.vue';
@@ -52,6 +53,8 @@ export default defineComponent({
       },
       isDragging: false,
     });
+
+    const renderGridItemRef = ref();
     const GridLayoutRef = ref();
     const workbenchRef = ref();
     const gridItemRef = ref();
@@ -61,9 +64,14 @@ export default defineComponent({
     const margin = computed(() => props.margin);
     const rowHeight = computed(() => props.rowHeight);
     const isStatic = computed(() => props.isStatic);
+    const themeName = computed(() => props.themeName);
 
-    const deUpdateItemSize = debounce(updateItemSize, 100);
+    const deUpdateChartSize = debounce(UpdateChartSize, 100);
     const deOnWindowResize = debounce(onWindowResize, 100);
+
+    const erd = elementResizeDetectorMaker({
+      strategy: 'scroll', // <- For ultra performance.
+    });
 
     validateLayout(layout.value);
 
@@ -132,12 +140,10 @@ export default defineComponent({
       // } else {
       campactLayout();
       updateGridItem();
-      console.log('%cGridWrapper.vue line:125 l', 'color: #007acc;', l);
 
       // updateHeight();
 
-      // updateSize
-      // deUpdateItemSize(l);
+      deUpdateChartSize(l);
 
       // TODO: save in STORE
 
@@ -153,14 +159,18 @@ export default defineComponent({
       }
     }
 
-    function updateItemSize(item) {
+    function UpdateChartSize(item) {
       if (item.i) {
-        // const gridItem = document.querySelector(`[data-grid-index="${item.i}"].vue-grid-item`);
-        // const { width, height } = gridItem.style;
-        // item.initOption = {
-        //   width: +width.slice(0, -2),
-        //   height: +height.slice(0, -2),
-        // };
+        const gridItem = document.querySelector(`[data-grid-index="${item.i}"].vue-grid-item`);
+        if (gridItem) resizeChartByDom(gridItem);
+      }
+    }
+
+    /* 传入 .vue-grid-item 元素  */
+    function resizeChartByDom(gridItem: HTMLElement) {
+      const echartDom = gridItem.children[0];
+      if (echartDom) {
+        echarts.getInstanceByDom(echartDom)?.resize();
       }
     }
 
@@ -190,17 +200,26 @@ export default defineComponent({
       updateGridItem();
     });
 
+    /* 监听元素尺寸变化更新图表大小 */
+    watch(gridItemRef, (ref, oldRef)=>{
+      if (oldRef) {
+        oldRef.forEach((ref)=>{
+          const {$el} = ref;
+          erd.uninstall($el);
+        });
+      }
+      if (ref) {
+        ref.forEach((ref)=>{
+          const {$el} = ref;
+          erd.listenTo($el, (element:HTMLElement) => {
+            resizeChartByDom(element);
+          });
+        });
+      }
+    });
+
     onMounted(() => {
       containerWidth.value = +getComputedStyle(workbenchRef.value).width.slice(0, -2);
-
-      nextTick(() => {
-        // const erd = elementResizeDetectorMaker({
-        //   strategy: 'scroll', // <- For ultra performance.
-        // });
-        // erd.listenTo(GridLayoutRef.value.$el, () => {
-        //   updateGridItem();
-        // });
-      });
 
       window.addEventListener('resize', deOnWindowResize, false);
     });
@@ -214,6 +233,7 @@ export default defineComponent({
     provide('margin', readonly(margin));
     provide('rowHeight', readonly(rowHeight));
     provide('isStatic', readonly(isStatic));
+    provide('themeName', readonly(themeName));
 
     expose({ campactLayout });
 
@@ -223,6 +243,7 @@ export default defineComponent({
       GridLayoutRef,
       workbenchRef,
       gridItemRef,
+      renderGridItemRef,
       dragEvent,
       resizeEvent,
       ...toRefs(state),
@@ -254,7 +275,7 @@ export default defineComponent({
         @drag-event="dragEvent"
         @resize-event="resizeEvent"
       >
-        <render-grid-item ref="gridGridItemRef" :render-data="item" />
+        <render-grid-item ref="renderGridItemRef" :render-data="item" />
         <!-- :base-url="baseUrl"
           :reporting="data"
           :global-config="globalConfig" -->
