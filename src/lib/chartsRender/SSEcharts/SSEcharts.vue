@@ -9,10 +9,7 @@ export default defineComponent({
   props: {
     options: Object,
     theme: [String, Object],
-    initOption: {
-      type: Object,
-      required: true,
-    },
+
     otherOption: {
       type: Object,
       required: true,
@@ -47,7 +44,7 @@ export default defineComponent({
         // 重置主题
         if (this.chart) {
           this.chart.dispose();
-          const chart = echarts.init(this.$el, value, this.initOption);
+          const chart = echarts.init(this.$el, value/* , this.initOption */);
 
           chart.setOption(this.options || {}, true);
           this.chart = chart;
@@ -63,7 +60,7 @@ export default defineComponent({
       },
       deep: true,
     },
-    initOption: {
+    /* initOption: {
       handler(value) {
         if (this.chart) {
           this.chart.resize(value);
@@ -73,7 +70,7 @@ export default defineComponent({
         }
       },
       deep: true,
-    },
+    }, */
     'otherOption.showLoading'(value) {
       if (value) {
         this.showLoading();
@@ -104,7 +101,7 @@ export default defineComponent({
         return;
       }
 
-      const chart = echarts.init(this.$el, this.currThemeName, this.initOption);
+      const chart = echarts.init(this.$el, this.currThemeName);
       chart.setOption(this.options || {}, true);
       console.log('%cSSEcharts.vue line:114 this.options', 'color: #007acc;', this.options);
       this.chart = chart;
@@ -134,3 +131,10 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+div{
+  width: 100%;
+  height: 100%;
+}
+</style>

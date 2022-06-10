@@ -137,7 +137,7 @@ export default defineComponent({
       // updateHeight();
 
       // updateSize
-      deUpdateItemSize(l);
+      // deUpdateItemSize(l);
 
       // TODO: save in STORE
 
@@ -155,12 +155,12 @@ export default defineComponent({
 
     function updateItemSize(item) {
       if (item.i) {
-        const gridItem = document.querySelector(`[data-grid-index="${item.i}"].vue-grid-item`);
-        const { width, height } = gridItem.style;
-        item.initOption = {
-          width: +width.slice(0, -2),
-          height: +height.slice(0, -2),
-        };
+        // const gridItem = document.querySelector(`[data-grid-index="${item.i}"].vue-grid-item`);
+        // const { width, height } = gridItem.style;
+        // item.initOption = {
+        //   width: +width.slice(0, -2),
+        //   height: +height.slice(0, -2),
+        // };
       }
     }
 
