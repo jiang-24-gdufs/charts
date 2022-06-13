@@ -3,7 +3,7 @@ import chartsToolBox from './commonBaseData/chartsToolBox';
 import chartsTextStyle from './commonBaseData/chartsTextStyle';
 import chartsToolTip from './commonBaseData/chartsToolTip';
 import chartsLegend from './commonBaseData/chartsLegend';
-import { color } from '@/assets/defaultData.json';
+// import { color } from '@/assets/defaultData.json';
 import gridCommonData from './gridCommonData';
 
 export default {

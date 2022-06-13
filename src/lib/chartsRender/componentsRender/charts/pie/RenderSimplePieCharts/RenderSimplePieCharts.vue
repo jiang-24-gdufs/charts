@@ -7,7 +7,7 @@ export default defineComponent({
   components: {
     SSECharts,
   },
-  setup(props) {
+  setup() {
     const renderData = inject('renderData');
     const option = computed(() => renderData.value.option);
     const otherOption = computed(() => renderData.value.otherOption);

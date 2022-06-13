@@ -1,8 +1,6 @@
 <script lang="ts">
 import * as echarts from 'echarts';
-import { defineComponent, h, computed, inject } from 'vue';
-import { debounce } from 'lodash';
-import { useReportingEditStore } from '@/stores/reporting-edit';
+import { defineComponent, h, inject } from 'vue';
 
 export default defineComponent({
   name: 'SSECharts',
@@ -26,8 +24,9 @@ export default defineComponent({
 
   setup() {
     const themeName = inject('themeName');
+    const debugConsole = inject('debugConsole');
 
-    return { themeName };
+    return { themeName, debugConsole };
   },
   data() {
     return {
@@ -53,9 +52,9 @@ export default defineComponent({
     options: {
       handler(value) {
         this.chart?.setOption(value, true);
-        console.log('%cSSEcharts.vue line:49 setOption', 'color: #007acc;', this);
-
-        // this.chart?.setOption(value);
+        if (this.debugConsole) {
+          console.log(this.chart.id, this.options);
+        }
       },
       deep: true,
     },
@@ -92,8 +91,11 @@ export default defineComponent({
 
       const chart = echarts.init(this.$el, this.themeName);
       chart.setOption(this.options || {}, true);
-      console.log('%cSSEcharts.vue line:114 this.options', 'color: #007acc;', this.options);
       this.chart = chart;
+
+      if (this.debugConsole) {
+        console.log(this.chart.id, this.options);
+      }
     },
     destroy() {
       this.chart?.dispose();

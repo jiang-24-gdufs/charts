@@ -4,16 +4,12 @@ import GridWrapper from '@/lib/gridLayout/GridWrapper.vue';
 import WorkBenchLeft from './WorkBenchLeft.vue';
 import WorkBenchRight from './WorkBenchRight.vue';
 // import mockLayout from '@/lib/gridLayout/helpers/mock';
-// import { environment } from '@/evn.config';
-// import type { reportingState } from '@/stores/reporting-edit';
 import SmartMenu from '@/components/smart-menu/SmartMenu.vue';
 import { useReportingEditStore } from '@/stores/reporting-edit';
 import useEditMenu from '../hooks/use-edit-menu';
-// import { addItem } from '@/reporting-edit/hooks/use-change-layout';
-// import { deepCopy } from '@/utils';
 
 const store = useReportingEditStore();
-console.log(store);
+
 const {
   showMenu,
   /* showContainerMenu, */ menuTop,
@@ -24,12 +20,12 @@ const {
 } = useEditMenu();
 const { log } = console;
 
-// const layout = ref(mockLayout);
 const layout = computed(() => store.layoutItem || []);
-const currBgcolor = computed(() => store.currBgcolor || 'none');
 const currThemeName = computed(() => store.currThemeName);
 const containerConfig = computed(() => store.containerConfig);
+
 const gridWrapperRef = ref();
+const debugConsole = ref(true);
 const colNum = computed(() => containerConfig.value.colNum);
 const rowHeight = computed(() => containerConfig.value.rowHeight);
 const margin = computed(() => containerConfig.value.margin);
@@ -125,7 +121,6 @@ function handleMenuCopy() {
   }
 }
 function handleMenuDelete() {
-  debugger;
   handleCloseMenu();
   const itemIndex = layout.value.findIndex((item) => item.i === index);
   if (itemIndex > -1) {
@@ -145,16 +140,17 @@ function handleVerticalCompactLayout() {
   <div class="workbench-body">
     <div class="workbench-left">图表类型区域<WorkBenchLeft /></div>
     <div class="workbench-center">
+      <!-- :style="{
+          'background-color': currBgcolor,
+        }" -->
       <GridWrapper
         ref="gridWrapperRef"
-        :style="{
-          'background-color': currBgcolor,
-        }"
         :layout="layout"
         :col-num="colNum"
         :margin="margin"
         :row-height="rowHeight"
         :theme-name="currThemeName"
+        :debug-console="debugConsole"
         @contextmenu.prevent="onContextmenu"
         @dblclick="onDblclick"
         @click="onClick"

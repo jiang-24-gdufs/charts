@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import GridWrapper from '@/lib/gridLayout/GridWrapper.vue';
-import mockLayout from '@/lib/gridLayout/helpers/mock';
+// import mockLayout from '@/lib/gridLayout/helpers/mock';
 import { environment } from '@/evn.config';
 import type { reportingState } from '@/stores/reporting-edit';
 import { PostmatesJS } from '@/lib/postmates/postmates-js.js';
@@ -50,12 +50,6 @@ function updateChartView(reporting) {
 onMounted(() => {
   getChartView();
 });
-
-function open() {
-  window.open(
-    'http://localhost:8020/reporting-edit.html?reportingId=c3352578-67a0-4723-9480-03e92da564f7'
-  );
-}
 
 let opener;
 let handshake;

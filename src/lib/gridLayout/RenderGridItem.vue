@@ -6,13 +6,10 @@ import {
   provide,
   reactive,
   toRefs,
-  nextTick,
   onMounted,
-  onBeforeUnmount,
   getCurrentInstance,
   readonly,
 } from 'vue';
-import { debounce } from 'lodash';
 import { renderGridItemProps } from './types/RenderGridItem.types';
 
 export default defineComponent({
@@ -35,23 +32,9 @@ export default defineComponent({
       width: '100%'
     };
 
-    // function handleUpdate(elm, refresh = false) {
-
-    // }
-
-    // 延迟执行, 等待父级元素更新后进行尺寸重置
-    // const deOnWindowResize = debounce(() => setTimeout(() => handleUpdate(state.parentEl)), 100);
-
     onMounted(() => {
       const elm = internalInstance.ctx.$parent.$el;
       state.parentEl = elm;
-      // handleUpdate(elm);
-      // 监听Resize
-      // window.addEventListener('resize', deOnWindowResize);
-    });
-
-    onBeforeUnmount(() => {
-      // window.removeEventListener('resize', deOnWindowResize);
     });
 
     // 从渲染组件开始分发配置数据

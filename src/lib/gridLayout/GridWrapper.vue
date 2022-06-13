@@ -29,6 +29,7 @@ import {
   validateLayout,
 } from '@/lib/gridLayout/helpers/utils';
 import { gridWrapperProps } from './types/GridWrapper.types';
+import themes from '@/lib/themes';
 
 export default defineComponent({
   name: 'GridWrapper',
@@ -54,6 +55,7 @@ export default defineComponent({
       isDragging: false,
     });
 
+    'none';
     const renderGridItemRef = ref();
     const GridLayoutRef = ref();
     const workbenchRef = ref();
@@ -65,6 +67,8 @@ export default defineComponent({
     const rowHeight = computed(() => props.rowHeight);
     const isStatic = computed(() => props.isStatic);
     const themeName = computed(() => props.themeName);
+    const debugConsole = computed(() => props.debugConsole);
+    const currBgcolor = computed(() => themes.find((item)=>item.themeName === themeName.value)?.theme.backgroundColor);
 
     const deUpdateChartSize = debounce(UpdateChartSize, 100);
     const deOnWindowResize = debounce(onWindowResize, 100);
@@ -234,12 +238,14 @@ export default defineComponent({
     provide('rowHeight', readonly(rowHeight));
     provide('isStatic', readonly(isStatic));
     provide('themeName', readonly(themeName));
+    provide('debugConsole', readonly(debugConsole));
 
     expose({ campactLayout });
 
     return {
       layout,
       containerWidth,
+      currBgcolor,
       GridLayoutRef,
       workbenchRef,
       gridItemRef,
@@ -253,7 +259,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div ref="workbenchRef" class="vue-grid-wrapper">
+  <div ref="workbenchRef" class="vue-grid-wrapper" :style="{'background-color': currBgcolor}">
     <!--布局容器-->
     <grid-layout
       ref="GridLayoutRef"

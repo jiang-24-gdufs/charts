@@ -1,7 +1,7 @@
 import { computed } from 'vue';
 import { useReportingEditStore } from '@/stores/reporting-edit';
 import type { LayoutItem } from '@/utils';
-import { deepCopy } from '@/utils';
+// import { deepCopy } from '@/utils';
 
 const store = useReportingEditStore();
 

@@ -1,11 +1,12 @@
 node_modules
 
 *.d.ts
-vite.config.ts
+vite.config*.ts
 
 public/
 assets/
 dist/
+es/
 
 /src/lib/gridLayout/helpers/*.ts
 

@@ -19,6 +19,7 @@ export function deepCopy(obj) {
 
   const result = {};
   if (typeof obj === 'object') {
+    // eslint-disable-next-line no-restricted-syntax
     for (const key in obj) {
       // 不复制原型上的
       if (obj.hasOwnProperty(key)) {

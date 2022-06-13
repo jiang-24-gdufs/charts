@@ -4,6 +4,7 @@ import type { Layout } from '../helpers/utils';
 export const gridWrapperProps = {
   layout: { type: Object as PropType<Layout>, require: true },
   isStatic: { type: Boolean, require: false, default: false },
+  debugConsole: { type: Boolean, require: false, default: false },
   colNum: { type: Number, require: false, default: 12 },
   rowHeight: { type: Number, require: false, default: 150 },
   margin: { type: Array, require: false, default: () => [10, 10] },

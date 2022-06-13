@@ -3,6 +3,13 @@
   "version": "0.0.0",
   "description": "a new charts editor for vue3.",
   "author": "SouthSmart",
+  "files": ["es"],
+  "module": "./es/my-lib.es.js",
+  "exports": {
+    ".": {
+      "import": "./es/my-lib.es.js"
+    }
+  },
   "scripts": {
     "dev": "vite --port 8020",
     "build": "rimraf -rf dist && vite build",

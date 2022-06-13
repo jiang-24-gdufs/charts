@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import componentsRender from '@/lib/chartsRender/componentsRender';
-import '@/themes/registerThenes';
+import '@/lib/themes/registerThemes';
 import './style';
 
 const pinia = createPinia();
