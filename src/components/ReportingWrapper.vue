@@ -4,6 +4,6 @@ import ReportingContent from './ReportingContent.vue';
 </script>
 
 <template>
-  <ReportingHeader />
-  <ReportingContent />
+  <Reporting-Header />
+  <Reporting-Content />
 </template>

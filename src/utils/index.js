@@ -177,16 +177,16 @@ export function formatTime(time) {
 /**
  * 获取url的查询参数
  */
-export function handleGetQueryParams() {
-  const { search } = window.location;
-  const paramsArray = search.slice(1).split('&');
-  const paramsObj = {};
-  paramsArray.forEach((item) => {
-    const array = item.split('=');
-    paramsObj[array[0]] = array[1];
-  });
-  return paramsObj;
-}
+// export function handleGetQueryParams() {
+//   const { search } = window.location;
+//   const paramsArray = search.slice(1).split('&');
+//   const paramsObj = {};
+//   paramsArray.forEach((item) => {
+//     const array = item.split('=');
+//     paramsObj[array[0]] = array[1];
+//   });
+//   return paramsObj;
+// }
 
 export function openNewWindow(url) {
   // 如果历览器支持 window.open 函数
@@ -214,15 +214,15 @@ export function isPhone() {
 /**
  * 确保函数只执行一次
  */
-export function once(fn) {
-  let called = false;
-  return function () {
-    if (!called) {
-      called = true;
-      fn(...arguments);
-    }
-  };
-}
+// export function once(fn) {
+//   let called = false;
+//   return function () {
+//     if (!called) {
+//       called = true;
+//       fn(...arguments);
+//     }
+//   };
+// }
 
 /**
  * 在单位时间内，确保只执行一次
@@ -230,17 +230,17 @@ export function once(fn) {
  * @param time
  * @returns {Function}
  */
-export function onceTime(fn, time = 50) {
-  let called = false;
-  return function () {
-    if (!called) {
-      window.setTimeout(() => {
-        called = true;
-        fn(...arguments);
-      }, time);
-    }
-  };
-}
+// export function onceTime(fn, time = 50) {
+//   let called = false;
+//   return function () {
+//     if (!called) {
+//       window.setTimeout(() => {
+//         called = true;
+//         fn(...arguments);
+//       }, time);
+//     }
+//   };
+// }
 
 /**
  * 判断是否为空字符串
@@ -316,61 +316,61 @@ export function mergeConfig(source, target) {
  * @param targetObj
  * @returns {boolean|*|(function(*, *): (boolean|*|*|undefined))|boolean|boolean|*}
  */
-export function isEqual(sourceObj, targetObj) {
-  // 如果类型不一样，直接返回去
-  if (Object.prototype.toString.call(sourceObj) !== Object.prototype.toString.call(targetObj)) {
-    return false;
-  }
+// export function isEqual(sourceObj, targetObj) {
+//   // 如果类型不一样，直接返回去
+//   if (Object.prototype.toString.call(sourceObj) !== Object.prototype.toString.call(targetObj)) {
+//     return false;
+//   }
 
-  // 判断是否是相同的数组
-  function isEqualArray(source, target) {
-    if (source.length !== target.length) {
-      return false;
-    }
-    for (const [index, item] of source.entries()) {
-      if (Object.prototype.toString.call(item) !== Object.prototype.toString.call(target[index])) {
-        return false;
-      }
-      if (isPlainObject(item)) {
-        return isEqualObject(item, target[index]);
-      } else if (Array.isArray(item)) {
-        return isEqualArray(item, target[index]);
-      } else if (item !== target[index]) {
-        return false;
-      }
-    }
-    return true;
-  }
+//   // 判断是否是相同的数组
+//   function isEqualArray(source, target) {
+//     if (source.length !== target.length) {
+//       return false;
+//     }
+//     for (const [index, item] of source.entries()) {
+//       if (Object.prototype.toString.call(item) !== Object.prototype.toString.call(target[index])) {
+//         return false;
+//       }
+//       if (isPlainObject(item)) {
+//         return isEqualObject(item, target[index]);
+//       } else if (Array.isArray(item)) {
+//         return isEqualArray(item, target[index]);
+//       } else if (item !== target[index]) {
+//         return false;
+//       }
+//     }
+//     return true;
+//   }
 
-  // 判断是否是相同的对象
-  function isEqualObject(source, target) {
-    // 如果两个对象的可遍历的key  的数量一样
-    if (Object.keys(source).length !== Object.keys(target).length) {
-      return false;
-    }
-    for (const [key, item] of Object.entries(source)) {
-      if (target[key] === undefined) {
-        return false;
-      }
-      if (Object.prototype.toString.call(item) !== Object.prototype.toString.call(target[key])) {
-        return false;
-      }
-      if (isPlainObject(item)) {
-        isEqualObject(item, target[key]);
-      } else if (Array.isArray(item)) {
-        isEqualArray(item, target[key]);
-      } else if (item !== target[key]) {
-        return false;
-      }
-    }
-    return true;
-  }
+//   // 判断是否是相同的对象
+//   function isEqualObject(source, target) {
+//     // 如果两个对象的可遍历的key  的数量一样
+//     if (Object.keys(source).length !== Object.keys(target).length) {
+//       return false;
+//     }
+//     for (const [key, item] of Object.entries(source)) {
+//       if (target[key] === undefined) {
+//         return false;
+//       }
+//       if (Object.prototype.toString.call(item) !== Object.prototype.toString.call(target[key])) {
+//         return false;
+//       }
+//       if (isPlainObject(item)) {
+//         isEqualObject(item, target[key]);
+//       } else if (Array.isArray(item)) {
+//         isEqualArray(item, target[key]);
+//       } else if (item !== target[key]) {
+//         return false;
+//       }
+//     }
+//     return true;
+//   }
 
-  if (isPlainObject(sourceObj)) {
-    return isEqualObject(sourceObj, targetObj);
-  }
-  return isEqualArray(sourceObj, targetObj);
-}
+//   if (isPlainObject(sourceObj)) {
+//     return isEqualObject(sourceObj, targetObj);
+//   }
+//   return isEqualArray(sourceObj, targetObj);
+// }
 
 /**
  * 判断是否为ie 浏览器

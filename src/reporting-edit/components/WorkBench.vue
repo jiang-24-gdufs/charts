@@ -38,7 +38,7 @@ function getDatasetByTarget(target: HTMLElement) {
   let x = target;
   while (!x.classList.contains('vue-grid-item')) {
     // result.push(x);
-    x = x.parentNode;
+    x = x.parentNode as HTMLElement;
   }
 
   return x.dataset;
@@ -58,7 +58,7 @@ function onContextmenu(event: MouseEvent) {
 }
 function onContextmenuLayout(event: MouseEvent) {
   const { target } = event;
-  if (!target) return;
+  if (!target) return 'TODO';
 }
 function onContextmenuGrid(event: MouseEvent) {
   // TODO: 通过挂载i到元素上进行匹配
@@ -83,8 +83,9 @@ function onDblclick(event: MouseEvent) {
   }
 }
 function onDblclickLayout(event: MouseEvent) {
+  // TODO: config
   const { target } = event;
-  if (!target) return;
+  if (!target) return 'TODO';
 }
 function onDblclickGrid(event: MouseEvent) {
   // TODO: 通过挂载i到元素上进行匹配
