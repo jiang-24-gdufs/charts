@@ -13,6 +13,4 @@ for (let i = 0, l = entries.length; i < l; i++) {
   themes.push({ themeName, theme: JSON.parse(theme) });
 }
 
-console.log(themes);
-
 export default themes;

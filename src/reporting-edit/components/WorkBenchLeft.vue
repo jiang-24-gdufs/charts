@@ -8,7 +8,6 @@ import { computed } from 'vue';
 import { useReportingEditStore } from '@/stores/reporting-edit';
 import dataComponents from '../../componentsData';
 
-console.log('%cWorkBenchLeft.vue line:9 dataComponents', 'color: #007acc;', dataComponents);
 const { charts } = dataComponents;
 
 const store = useReportingEditStore();
@@ -60,20 +59,7 @@ function handleSelectWidget(data: any) {
 </template>
 
 <style scoped>
-.workbench-body {
-  display: flex;
-  min-height: 0;
-  position: relative;
-}
-
-[class^='workbench-'] {
-  border: 1px solid black;
-  /* margin: 40px; */
-}
-
-.workbench-center {
-  /* display: flex; */
-  flex: 1;
-  height: 877px;
+ul {
+  padding-left: 24px;
 }
 </style>

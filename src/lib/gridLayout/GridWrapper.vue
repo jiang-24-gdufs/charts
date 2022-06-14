@@ -68,6 +68,7 @@ export default defineComponent({
     const isStatic = computed(() => props.isStatic);
     const themeName = computed(() => props.themeName);
     const debugConsole = computed(() => props.debugConsole);
+    const verticalCompact = computed(() => props.verticalCompact);
     const currBgcolor = computed(() => themes.find((item)=>item.themeName === themeName.value)?.theme.backgroundColor);
 
     const deUpdateChartSize = debounce(UpdateChartSize, 100);
@@ -80,7 +81,7 @@ export default defineComponent({
     validateLayout(layout.value);
 
     function campactLayout() {
-      compact(layout.value, true /* verticalCompact */);
+      compact(layout.value, verticalCompact.value /* verticalCompact */);
     }
 
     function dragEvent(eventName, id, x, y, h, w) {
@@ -239,6 +240,7 @@ export default defineComponent({
     provide('isStatic', readonly(isStatic));
     provide('themeName', readonly(themeName));
     provide('debugConsole', readonly(debugConsole));
+    provide('verticalCompact', readonly(verticalCompact));
 
     expose({ campactLayout });
 

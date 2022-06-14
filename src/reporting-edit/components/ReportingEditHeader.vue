@@ -20,11 +20,15 @@ function save() {
   axios
     .post(`${environment.VITE_API_BASE_URL}/chartsView/updateChartViewInEdit`, reporting)
     .then((response: any) => {
+      // NOTE: DEBUGGER
+
       console.log('%cReportingEditHeader.vue line:16 response', 'color: #007acc;', response);
 
       // MESSAGE
       if (window.opener) {
         model.then((childAPI) => {
+          // NOTE: DEBUGGER
+
           console.log('%cReportingEditHeader.vue line:23 reporting', 'color: #007acc;', reporting);
           childAPI.emit('some-event', reporting);
         });

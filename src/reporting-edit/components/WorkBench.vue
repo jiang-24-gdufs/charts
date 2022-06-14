@@ -29,6 +29,7 @@ const debugConsole = ref(true);
 const colNum = computed(() => containerConfig.value.colNum);
 const rowHeight = computed(() => containerConfig.value.rowHeight);
 const margin = computed(() => containerConfig.value.margin);
+const verticalCompact = computed(() => containerConfig.value.verticalCompact);
 let index: number = 0;
 
 /* vue-grid-wrapper & vue-grid-item */
@@ -141,9 +142,6 @@ function handleVerticalCompactLayout() {
   <div class="workbench-body">
     <div class="workbench-left">图表类型区域<WorkBenchLeft /></div>
     <div class="workbench-center">
-      <!-- :style="{
-          'background-color': currBgcolor,
-        }" -->
       <GridWrapper
         ref="gridWrapperRef"
         :layout="layout"
@@ -152,6 +150,7 @@ function handleVerticalCompactLayout() {
         :row-height="rowHeight"
         :theme-name="currThemeName"
         :debug-console="debugConsole"
+        :vertical-compact="verticalCompact"
         @contextmenu.prevent="onContextmenu"
         @dblclick="onDblclick"
         @click="onClick"
@@ -177,6 +176,7 @@ function handleVerticalCompactLayout() {
   display: flex;
   min-height: 0;
   position: relative;
+  height: 100%;
 }
 
 [class^='workbench-'] {
@@ -187,6 +187,6 @@ function handleVerticalCompactLayout() {
 .workbench-center {
   /* display: flex; */
   flex: 1;
-  height: 877px;
+  /* height: 877px; */
 }
 </style>

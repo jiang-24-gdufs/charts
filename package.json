@@ -4,15 +4,17 @@
   "description": "a new charts editor for vue3.",
   "author": "SouthSmart",
   "files": ["es"],
-  "module": "./es/my-lib.es.js",
+  "module": "./es/smart-chart.js",
   "exports": {
     ".": {
-      "import": "./es/my-lib.es.js"
+      "import": "./es/smart-chart.js"
     }
   },
+  "type": "module",
   "scripts": {
     "dev": "vite --port 8020",
     "build": "rimraf -rf dist && vite build",
+    "build-lib": "rimraf -rf es && vite build --mode lib",
     "serve": "vite preview",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --max-warnings 0 --fix && vue-tsc --noEmit && pretty-quick",
     "prepare": "husky install"
@@ -48,6 +50,7 @@
     "pretty-quick": "3.1.3",
     "rimraf": "^3.0.2",
     "sass": "^1.43.4",
+    "sucrase": "^3.21.0",
     "typescript": "^4.3.2",
     "unplugin-auto-import": "^0.7.1",
     "unplugin-vue-components": "^0.19.5",

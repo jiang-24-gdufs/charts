@@ -34,8 +34,6 @@ export default defineComponent({
     const interactElement = ref<HTMLElement>();
     const interactObj = ref<any>();
 
-    // const draggable = computed(() => props.isDraggable);
-    // const resizable = computed(() => props.isResizable);
     const propsI = computed(() => props.i);
     const propsX = computed(() => props.x);
     const propsY = computed(() => props.y);
@@ -48,20 +46,8 @@ export default defineComponent({
 
     const renderRtl = false;
     const classObj = computed(() => ({
-      // 'vue-resizable': resizable /*  && !static */,
       static: isStatic.value ?? false,
-      // resizing: state.isResizing,
-      // 'vue-draggable-dragging': state.isDragging,
-      // cssTransforms: state.useCssTransforms,
-      // 'disable-userselect': state.isDragging,
     }));
-    // const resizableHandleClass = () => {
-    //   if (renderRtl.value) {
-    //     return 'vue-resizable-handle vue-rtl-resizable-handle';
-    //   } else {
-    //     return 'vue-resizable-handle';
-    //   }
-    // };
 
     const state = reactive<GridState>({
       maxRows: Infinity,
@@ -228,13 +214,6 @@ export default defineComponent({
       }
       state.lastW = x;
       state.lastH = y;
-      // TODO: NEEDED TO RESIZE CHARTS
-      // if (state.innerW !== pos.w || state.innerH !== pos.h) {
-      //   state.$emit('resize', state.i, pos.h, pos.w, newSize.height, newSize.width);
-      // }
-      // if (event.type === 'resizeend' && (state.previousW !== state.innerW || state.previousH !== state.innerH)) {
-      //   state.$emit('resized', state.i, pos.h, pos.w, newSize.height, newSize.width);
-      // }
 
       emit('resizeEvent', event.type, propsI.value, state.innerX, state.innerY, pos.h, pos.w);
     }
@@ -405,8 +384,6 @@ export default defineComponent({
 
     onMounted(() => {
       createInteractObj();
-
-      // createStyle();
     });
 
     onBeforeUnmount(() => {
@@ -417,18 +394,12 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
-      ...{ propsI, propsX, propsY, propsW, propsH },
-      // draggable,
-      // resizable,
+      // ...{ propsI, propsX, propsY, propsW, propsH }, // NOTE: FOR DEBUG
+      propsI,
       isStatic,
-      // renderRtl,
-      // classObj: {},
       classObj,
       interactElement,
       interactObj,
-      // resizableHandleClass,
-
-      // interactObj: interact(interactElement.value),
     };
   },
 });
@@ -442,12 +413,7 @@ export default defineComponent({
     :style="style"
     :data-grid-index="propsI"
   >
-    <!-- propsI: {{ propsI }}<br /> -->
-    <!-- propsX{{ propsX }} propsY{{ propsY }}<br /> -->
-    <!-- propsW{{ propsW }}propsH{{ propsH }} -->
     <slot></slot>
-    <!-- <spanref="handle" :class="resizableHandleClass"></span> -->
-    <!-- <span v-if="resizableAndNotStatic" ref="handle" :class="resizableHandleClass"></span> -->
     <span ref="dragHandle" class="vue-resizable-handle"></span>
   </div>
 </template>

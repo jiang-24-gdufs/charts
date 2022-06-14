@@ -32,21 +32,4 @@ function handleSelectTheme(theme: any) {
   </div>
 </template>
 
-<style scoped>
-.workbench-body {
-  display: flex;
-  min-height: 0;
-  position: relative;
-}
-
-[class^='workbench-'] {
-  border: 1px solid black;
-  /* margin: 40px; */
-}
-
-.workbench-center {
-  /* display: flex; */
-  flex: 1;
-  height: 877px;
-}
-</style>
+<style scoped></style>
