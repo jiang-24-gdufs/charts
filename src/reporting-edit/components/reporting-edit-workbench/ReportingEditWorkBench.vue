@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import GridWrapper from '@/lib/gridLayout/GridWrapper.vue';
-import WorkBenchLeft from './WorkBenchLeft.vue';
-import WorkBenchRight from './WorkBenchRight.vue';
+import ReportingEditWorkBenchLeft from './ReportingEditWorkBenchLeft.vue';
+import ReportingEditWorkBenchRight from './ReportingEditWorkBenchRight.vue';
 // import mockLayout from '@/lib/gridLayout/helpers/mock';
 import SmartMenu from '@/components/smart-menu/SmartMenu.vue';
-import { useReportingEditStore } from '@/stores/reporting-edit';
-import useEditMenu from '../hooks/use-edit-menu';
+import { useReportingEditStore, CONTAINER_CONFIG_INDEX } from '@/stores/reporting-edit';
+import useEditMenu from '@/reporting-edit/hooks/use-edit-menu';
+import createRandomId from '@/utils/createRandomId';
 
 const store = useReportingEditStore();
 
@@ -30,7 +31,7 @@ const colNum = computed(() => containerConfig.value.colNum);
 const rowHeight = computed(() => containerConfig.value.rowHeight);
 const margin = computed(() => containerConfig.value.margin);
 const verticalCompact = computed(() => containerConfig.value.verticalCompact);
-let index: number = 0;
+let index: string = '';
 
 /* vue-grid-wrapper & vue-grid-item */
 function getDatasetByTarget(target: HTMLElement) {
@@ -62,12 +63,11 @@ function onContextmenuLayout(event: MouseEvent) {
   if (!target) return 'TODO';
 }
 function onContextmenuGrid(event: MouseEvent) {
-  // TODO: 通过挂载i到元素上进行匹配
   const { target } = event;
   if (!target) return;
 
   const { gridIndex } = getDatasetByTarget(target as HTMLElement);
-  index = Number(gridIndex);
+  index = gridIndex || '';
   handleGridItemContextMenu(event);
 }
 
@@ -78,7 +78,7 @@ function onDblclick(event: MouseEvent) {
     const { classList } = target as HTMLInputElement;
     if (classList.contains('vue-grid-layout')) {
       onDblclickLayout(event);
-    } else if (classList.contains('vue-grid-item')) {
+    } else/*  if (classList.contains('vue-grid-item')) */ {
       onDblclickGrid(event);
     }
   }
@@ -87,14 +87,17 @@ function onDblclickLayout(event: MouseEvent) {
   // TODO: config
   const { target } = event;
   if (!target) return 'TODO';
+  // 设置配置类型
+  store.setCurrConfigItemId(CONTAINER_CONFIG_INDEX)
 }
 function onDblclickGrid(event: MouseEvent) {
-  // TODO: 通过挂载i到元素上进行匹配
   const { target } = event;
   if (!target) return;
   const { gridIndex } = getDatasetByTarget(target as HTMLElement);
   // record grid index
-  index = Number(gridIndex);
+  index = gridIndex || '';
+  // 设置配置类型
+  store.setCurrConfigItemId(index)
 }
 
 function onClick(event: MouseEvent) {
@@ -102,9 +105,6 @@ function onClick(event: MouseEvent) {
 }
 
 /* --- 右键菜单 --- */
-/**
- * 添加新的布局组件
- */
 function handleSelectWidget(grid: any) {
   layout.value.push({
     ...grid,
@@ -112,7 +112,7 @@ function handleSelectWidget(grid: any) {
     y: grid ? grid.y + 1 : 0, // y坐标
     // chartsType: chartsTypeEnum.REPORTING.status, // 图表类型 报告/大屏
     chartsType: 0, // 图表类型 报告/大屏
-    i: Date.now(),
+    i: createRandomId(),
   });
 }
 function handleMenuCopy() {
@@ -124,10 +124,16 @@ function handleMenuCopy() {
 }
 function handleMenuDelete() {
   handleCloseMenu();
-  const itemIndex = layout.value.findIndex((item) => item.i === index);
+  const itemIndex = layout.value.findIndex((item) => String(item.i) === index);
   if (itemIndex > -1) {
     layout.value.splice(itemIndex, 1);
   }
+}
+function handleMenuConfigContainer() {
+  handleCloseMenu();
+
+  // 设置配置类型
+  store.setCurrConfigItemId(CONTAINER_CONFIG_INDEX)
 }
 
 function handleVerticalCompactLayout() {
@@ -140,21 +146,13 @@ function handleVerticalCompactLayout() {
 
 <template>
   <div class="workbench-body">
-    <div class="workbench-left">图表类型区域<WorkBenchLeft /></div>
+    <div class="workbench-left">
+      <ReportingEditWorkBenchLeft />
+    </div>
     <div class="workbench-center">
-      <GridWrapper
-        ref="gridWrapperRef"
-        :layout="layout"
-        :col-num="colNum"
-        :margin="margin"
-        :row-height="rowHeight"
-        :theme-name="currThemeName"
-        :debug-console="debugConsole"
-        :vertical-compact="verticalCompact"
-        @contextmenu.prevent="onContextmenu"
-        @dblclick="onDblclick"
-        @click="onClick"
-      />
+      <GridWrapper ref="gridWrapperRef" :layout="layout" :col-num="colNum" :margin="margin" :row-height="rowHeight"
+        :theme-name="currThemeName" :debug-console="debugConsole" :vertical-compact="verticalCompact"
+        @contextmenu.prevent="onContextmenu" @dblclick="onDblclick" @click="onClick" />
       <!--组件上下文菜单栏-->
       <smart-menu v-show="showMenu" :top="menuTop" :left="menuLeft">
         <!-- @click="handleMenuConfig"
@@ -162,12 +160,14 @@ function handleVerticalCompactLayout() {
         <div><i class="fa fa-cog"></i>配置组件</div>
         <div @click="handleMenuCopy"><i class="fa fa-copy"></i>复制组件</div>
         <div @click="handleMenuDelete"><i class="fa fa-trash"></i>删除组件</div>
-        <div><i class="fa fa-gear"></i>容器配置</div>
+        <div @click="handleMenuConfigContainer"><i class="fa fa-gear"></i>容器配置</div>
         <!-- v-show="!reporting.pageData.containerConfig.verticalCompact" -->
         <div @click="handleVerticalCompactLayout"><i class="fa fa-gear"></i>紧凑布局</div>
       </smart-menu>
     </div>
-    <div class="workbench-right" style="width: 200px">配置区域<WorkBenchRight /></div>
+    <div class="workbench-right" style="width: 200px">配置区域
+      <ReportingEditWorkBenchRight />
+    </div>
   </div>
 </template>
 
@@ -179,8 +179,8 @@ function handleVerticalCompactLayout() {
   height: 100%;
 }
 
-[class^='workbench-'] {
-  border: 1px solid black;
+.workbench-right, .workbench-center {
+  border: 0.5px dashed black;
   /* margin: 40px; */
 }
 

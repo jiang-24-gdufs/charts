@@ -6,6 +6,8 @@ import { environment } from '@/evn.config';
 import type { reportingState } from '@/stores/reporting-edit';
 import { useReportingEditStore } from '@/stores/reporting-edit';
 import WorkBenchLeft from './WorkBenchLeft.vue';
+import {cloneDeep} from 'lodash';
+import { ElMessage } from 'element-plus';
 
 const store = useReportingEditStore();
 
@@ -17,78 +19,65 @@ const colNum = computed(() => containerConfig.value.colNum);
 const rowHeight = computed(() => containerConfig.value.rowHeight);
 const margin = computed(() => containerConfig.value.margin);
 
-function getChartView() {
-  fetch(
-    `${environment.VITE_API_BASE_URL}/chartsView/getChartViewById?rid=5807b621-d04d-4561-867f-1354b365cf84`
-  ).then((response: Response) => {
-    if (response.status === 200) {
-      response.json().then((res) => {
-        if (res.status === 0) {
-          const reporting = res.data;
+// const rid = location.search.slice(1);
 
-          updateChartView(reporting);
-        }
-      });
-    } else {
-    }
-  });
-}
 
 // use for both http and postmates
 function updateChartView(reporting) {
+  if (!reporting.pageData) {return ElMessage.warning('识别错误')}
   reporting.pageData = JSON.parse(reporting.pageData);
   store.set(reporting as reportingState);
-
-  // const { pageData } = reporting;
-  // const { containerConfig } = pageData;
-
-  // layout.value = pageData.layoutItem;
-  // colNum.value = containerConfig.colNum;
-  // rowHeight.value = containerConfig.rowHeight;
 }
 
 onMounted(() => {
-  getChartView();
+  // getChartViewByRid(rid);
 });
 
 let opener;
 let handshake;
-// const smartchartsUrl =
-//   'http://localhost:8020/reporting-edit.html?reportingId=c3352578-67a0-4723-9480-03e92da564f7';
 
-const smartchartsUrl = `${environment.VITE_REPORTING_EDIT_URL}?reportingId=c3352578-67a0-4723-9480-03e92da564f7`;
+const smartchartsUrl = `${environment.VITE_REPORTING_EDIT_URL}?${environment.VITE_SEARCH_PREFIX}=c3352578-67a0-4723-9480-03e92da564f7`;
 
-const edit = () => {
-  opener = window.open(smartchartsUrl);
+const onSelect = (reporting) => {
+  if (store.data.rid === reporting.rid) {
+    console.log('%cWorkBench.vue line:43 same', 'color: #007acc;', reporting.rid);
+    return
+  }
+  updateChartView(cloneDeep(reporting))
+}
 
-  opener.onload = console.error; // not effect cuz cross domain
-  handshake = new PostmatesJS([
-    {
-      container: opener, // document.getElementById("cid2"), // third way, open a new page with `window.open`
-      url: smartchartsUrl,
-      name: 'smartcharts',
-    },
-  ]);
+//
+// const edit = () => {
+//   opener = window.open(smartchartsUrl);
 
-  // When parent <-> child handshake is complete, data may be requested from the child
-  handshake.then((parentAPIs) => {
-    parentAPIs.forEach((parentAPI) => {
-      parentAPI.on('some-event', (reporting) => {
-        // NOTE: DEBUGGER
-        console.log('%cWorkBench.vue line:88 reporting', 'color: #007acc;', reporting);
-        updateChartView(reporting);
-      }); // Logs "Hello, World!"
-      parentAPI.call('demoFunction', { options: 'Hello, PostmatesJS!' });
-    });
-  });
-};
+//   opener.onload = console.error; // not effect cuz cross domain
+//   handshake = new PostmatesJS([
+//     {
+//       container: opener, // document.getElementById("cid2"), // third way, open a new page with `window.open`
+//       url: smartchartsUrl,
+//       name: 'smartcharts',
+//     },
+//   ]);
+
+//   // When parent <-> child handshake is complete, data may be requested from the child
+//   handshake.then((parentAPIs) => {
+//     parentAPIs.forEach((parentAPI) => {
+//       parentAPI.on('some-event', (reporting) => {
+//         // NOTE: DEBUGGER
+//         console.log('%cWorkBench.vue line:88 reporting', 'color: #007acc;', reporting);
+//         updateChartView(reporting);
+//       }); // Logs "Hello, World!"
+//       parentAPI.call('demoFunction', { options: 'Hello, PostmatesJS!' });
+//     });
+//   });
+// };
 </script>
 
 <template>
   <div class="workbench-body">
     <div class="workbench-left">
-      <WorkBenchLeft />
-      <button @click="edit">edit</button>
+      <WorkBenchLeft  @select="onSelect"/>
+      <!-- <button @click="edit">edit</button> -->
     </div>
     <div class="workbench-center">
       <GridWrapper
@@ -115,7 +104,10 @@ const edit = () => {
   border: 1px solid black;
   /* margin: 40px; */
 }
-
+.workbench-left {
+  /* height: 877px; */
+  width: 200px;
+}
 .workbench-center {
   /* display: flex; */
   flex: 1;

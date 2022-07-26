@@ -102,12 +102,12 @@ export default defineConfig(({ command, mode }) => {
 
     plugins: [
       vue(),
-      AutoImport({
-        resolvers: [ElementPlusResolver()],
-      }),
-      Components({
-        resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
-      }),
+      // AutoImport({
+      //   resolvers: [ElementPlusResolver()],
+      // }),
+      // Components({
+      //   resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
+      // }),
     ],
   };
 });

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import WorkBench from './WorkBench.vue';
+import ReportingEditWorkBench from '../reporting-edit-workbench/ReportingEditWorkBench.vue';
 </script>
 
 <template>
-  <WorkBench />
+  <ReportingEditWorkBench />
 </template>
 
 <style scoped>

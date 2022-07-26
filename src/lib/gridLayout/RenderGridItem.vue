@@ -18,24 +18,19 @@ export default defineComponent({
 
   props: renderGridItemProps,
 
+  // TODO: 延迟渲染图表
+
   setup(props) {
     const renderData = computed(() => props.renderData);
     const state = reactive({
       prepare: false,
       style: {},
-      parentEl: null,
     });
-    const internalInstance = getCurrentInstance();
 
     const style = {
       height: '100%',
       width: '100%'
     };
-
-    onMounted(() => {
-      const elm = internalInstance.ctx.$parent.$el;
-      state.parentEl = elm;
-    });
 
     // 从渲染组件开始分发配置数据
     provide('renderData', readonly(renderData));

@@ -12,7 +12,7 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "vite --port 8020",
+    "dev": "vite --port 8020 --force",
     "build": "rimraf -rf dist && vite build",
     "build-lib": "rimraf -rf es && vite build --mode lib",
     "serve": "vite preview",

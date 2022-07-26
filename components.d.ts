@@ -12,6 +12,8 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SmartMenu: typeof import('./src/components/smart-menu/SmartMenu.vue')['default']
+    SmartsTabsItem: typeof import('./src/components/smartTabs/SmartsTabsItem.vue')['default']
+    SmartTabs: typeof import('./src/components/smartTabs/SmartTabs.vue')['default']
     WorkBench: typeof import('./src/components/WorkBench.vue')['default']
     WorkBenchLeft: typeof import('./src/components/WorkBenchLeft.vue')['default']
   }

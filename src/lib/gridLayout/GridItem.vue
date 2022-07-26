@@ -63,7 +63,7 @@ export default defineComponent({
       lastW: NaN,
       lastH: NaN,
       style: {},
-      rtl: false,
+      // rtl: false,
       dragEventSet: false,
       resizeEventSet: false,
       previousW: 0,
@@ -246,9 +246,7 @@ export default defineComponent({
           width:
             w === Infinity ? w : Math.round(colWidth * w + Math.max(0, w - 1) * margin.value[0]),
           height:
-            h === Infinity
-              ? h
-              : Math.round(rowHeight.value * h + Math.max(0, h - 1) * margin.value[1]),
+            h === Infinity ? h : Math.round(rowHeight.value * h + Math.max(0, h - 1) * margin.value[1]),
         };
       }
       return out;

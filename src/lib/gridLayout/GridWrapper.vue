@@ -69,9 +69,9 @@ export default defineComponent({
     const themeName = computed(() => props.themeName);
     const debugConsole = computed(() => props.debugConsole);
     const verticalCompact = computed(() => props.verticalCompact);
-    const currBgcolor = computed(() => themes.find((item)=>item.themeName === themeName.value)?.theme.backgroundColor);
+    const currBgcolor = computed(() => themes.find((item) => item.themeName === themeName.value)?.theme.backgroundColor);
 
-    const deUpdateChartSize = debounce(UpdateChartSize, 100);
+    const deUpdateChartSize = debounce(updateChartSize, 100);
     const deOnWindowResize = debounce(onWindowResize, 100);
 
     const erd = elementResizeDetectorMaker({
@@ -150,8 +150,6 @@ export default defineComponent({
 
       deUpdateChartSize(l);
 
-      // TODO: save in STORE
-
       if (eventName === 'resizeend') emit('layout-updated', layout.value);
     }
 
@@ -164,7 +162,14 @@ export default defineComponent({
       }
     }
 
-    function UpdateChartSize(item) {
+    function updateAllChartSize() {
+      const gridItems = document.querySelectorAll('.vue-grid-item[data-grid-index]');
+      [...gridItems].forEach((gridItem) => {
+        if (gridItem) resizeChartByDom(gridItem);
+      })
+    }
+
+    function updateChartSize(item) {
       if (item.i) {
         const gridItem = document.querySelector(`[data-grid-index="${item.i}"].vue-grid-item`);
         if (gridItem) resizeChartByDom(gridItem);
@@ -180,13 +185,16 @@ export default defineComponent({
     }
 
     function onWindowResize() {
-      containerWidth.value = +getComputedStyle(workbenchRef.value).width.slice(0, -2);
+      containerWidth.value = parseInt(getComputedStyle(workbenchRef.value).width);
     }
     watch(
       () => [...margin.value],
       () => {
         campactLayout();
         updateGridItem();
+
+        // 影响布局的全局参数
+        // updateAllChartSize();
       }
     );
 
@@ -200,31 +208,16 @@ export default defineComponent({
     );
 
     watch([containerWidth, cols, rowHeight], () => {
-      // moveElement(layout.value, l, x, y, true);
       campactLayout();
       updateGridItem();
+
+      // 影响布局的全局参数
+      // updateAllChartSize();
     });
 
-    /* 监听元素尺寸变化更新图表大小 */
-    watch(gridItemRef, (ref, oldRef)=>{
-      if (oldRef) {
-        oldRef.forEach((ref)=>{
-          const {$el} = ref;
-          erd.uninstall($el);
-        });
-      }
-      if (ref) {
-        ref.forEach((ref)=>{
-          const {$el} = ref;
-          erd.listenTo($el, (element:HTMLElement) => {
-            resizeChartByDom(element);
-          });
-        });
-      }
-    });
 
     onMounted(() => {
-      containerWidth.value = +getComputedStyle(workbenchRef.value).width.slice(0, -2);
+      containerWidth.value = parseInt(getComputedStyle(workbenchRef.value).width);
 
       window.addEventListener('resize', deOnWindowResize, false);
     });
@@ -261,28 +254,13 @@ export default defineComponent({
 </script>
 
 <template>
-  <div ref="workbenchRef" class="vue-grid-wrapper" :style="{'background-color': currBgcolor}">
+  <div ref="workbenchRef" class="vue-grid-wrapper" :style="{ 'background-color': currBgcolor }">
     <!--布局容器-->
-    <grid-layout
-      ref="GridLayoutRef"
-      style="height: 100%"
-      :layout="layout"
-      :placeholder="placeholder"
-      :is-dragging="isDragging"
-    >
+    <grid-layout ref="GridLayoutRef" style="height: 100%" :layout="layout" :placeholder="placeholder"
+      :is-dragging="isDragging">
       <!-- style="border: 1px dashed #17233d" -->
-      <grid-item
-        v-for="item of layout"
-        ref="gridItemRef"
-        :key="item.i"
-        :x="item.x"
-        :y="item.y"
-        :w="item.w"
-        :h="item.h"
-        :i="item.i"
-        @drag-event="dragEvent"
-        @resize-event="resizeEvent"
-      >
+      <grid-item v-for="item of layout" ref="gridItemRef" :key="item.i" :x="item.x" :y="item.y" :w="item.w" :h="item.h"
+        :i="item.i" @drag-event="dragEvent" @resize-event="resizeEvent">
         <render-grid-item ref="renderGridItemRef" :render-data="item" />
         <!-- :base-url="baseUrl"
           :reporting="data"

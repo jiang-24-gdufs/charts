@@ -1,7 +1,16 @@
 // import { cloneDeep } from 'lodash';
 // NOTE: 使用多页面,暂时用不到store
 import { defineStore } from 'pinia';
-import type { Layout } from '@/lib/gridLayout/helpers/utils';
+import type { Layout, LayoutItem } from '@/lib/gridLayout/helpers/utils';
+
+interface ExtendedLayoutItem extends LayoutItem {
+  configComponent: any[]; // 样式&数据设置组件
+  // initOption: any; // useless
+  option: any; // 图表组件数据
+  otherOption: any; // 数据源配置
+  renderComponent: string; // 渲染组件名称
+  title: string;
+}
 
 export interface ContainerConfigState {
   colNum: number;
@@ -13,6 +22,7 @@ export interface ContainerConfigState {
   // useCssTransforms: boolean;
   verticalCompact: boolean;
 }
+
 
 export interface globalStyleState {
   themeName: string | null;
@@ -33,9 +43,11 @@ export interface reportingState {
   pageData: {
     containerConfig: ContainerConfigState;
     globalStyle: globalStyleState;
-    layoutItem: Layout;
+    layoutItem: ExtendedLayoutItem[];
   };
 }
+
+export const CONTAINER_CONFIG_INDEX = 'CONTAINER_CONFIG_INDEX'
 
 export const useReportingEditStore = defineStore('reporting-edit', {
   state: () => ({
@@ -55,6 +67,7 @@ export const useReportingEditStore = defineStore('reporting-edit', {
         layoutItem: [],
       },
     } as reportingState,
+    currConfigItemId: CONTAINER_CONFIG_INDEX, // randomId:Item | container
   }),
   actions: {
     set(payload: reportingState) {
@@ -75,8 +88,11 @@ export const useReportingEditStore = defineStore('reporting-edit', {
     setThemeBgcolor(payload: string) {
       this.data.pageData.globalStyle.bgcolor = payload;
     },
-    setLayoutItem(payload: Layout) {
+    setLayoutItem(payload: ExtendedLayoutItem[]) {
       this.data.pageData.layoutItem = payload;
+    },
+    setCurrConfigItemId(payload: string) {
+      this.currConfigItemId = payload;
     },
   },
   getters: {
@@ -104,5 +120,8 @@ export const useReportingEditStore = defineStore('reporting-edit', {
         return 'none';
       }
     },
+    currConfigItem(state) {
+      return state.currConfigItemId;
+    }
   },
 });

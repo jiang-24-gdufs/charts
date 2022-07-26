@@ -1,6 +1,6 @@
 @use './mixins/mixins.scss';
 @use './mixins/utils.scss';
-@use './element-plus.scss';
+// @use './element-plus.scss';
 
 html,
 body {
@@ -15,16 +15,6 @@ body {
   overflow: hidden;
   color: var(--text-color);
 }
-
-// * {
-//   scrollbar-base-color: #eee;
-//   scrollbar-3dlight-color: #eee;
-//   scrollbar-highlight-color: #eee;
-//   scrollbar-track-color: #f1f1f1;
-//   scrollbar-arrow-color: #000;
-//   scrollbar-shadow-color: #eee;
-//   box-sizing: border-box;
-// }
 
 #app {
   width: 100%;
@@ -45,4 +35,11 @@ h6 {
 }
 li {
   list-style-type: none;
+}
+
+:root {
+  --primary-color: #7b94fb;
+  --success-color: #68c584;
+  --warning-color: #facb56;
+  --danger-color: #f77970;
 }
