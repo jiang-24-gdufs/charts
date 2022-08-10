@@ -46,6 +46,13 @@ export interface reportingState {
     layoutItem: ExtendedLayoutItem[];
   };
 }
+const defaultContainerConfig: ContainerConfigState = {
+  colNum: 48,
+  isDraggable: true,
+  margin: [10, 10],
+  rowHeight: 15,
+  verticalCompact: true,
+}
 
 export const CONTAINER_CONFIG_INDEX = 'CONTAINER_CONFIG_INDEX'
 
@@ -53,13 +60,7 @@ export const useReportingEditStore = defineStore('reporting-edit', {
   state: () => ({
     data: {
       pageData: {
-        containerConfig: {
-          colNum: 48,
-          isDraggable: true,
-          margin: [10, 10],
-          rowHeight: 15,
-          verticalCompact: true,
-        },
+        containerConfig: defaultContainerConfig,
         globalStyle: {
           themeName: null,
           bgcolor: 'none',
@@ -104,7 +105,11 @@ export const useReportingEditStore = defineStore('reporting-edit', {
       }
     },
     containerConfig(state) {
-      return state.data.pageData.containerConfig;
+      if (state.data.pageData) {
+        return state.data.pageData.containerConfig;
+      } else {
+        return defaultContainerConfig;
+      }
     },
     currThemeName(state) {
       if (state.data.pageData) {
@@ -121,7 +126,7 @@ export const useReportingEditStore = defineStore('reporting-edit', {
       }
     },
     currConfigItem(state) {
-      return state.currConfigItemId;
+      return this.layoutItem.find(l => l.i == state.currConfigItemId);
     }
   },
 });

@@ -165,7 +165,7 @@ function handleVerticalCompactLayout() {
         <div @click="handleVerticalCompactLayout"><i class="fa fa-gear"></i>紧凑布局</div>
       </smart-menu>
     </div>
-    <div class="workbench-right" style="width: 200px">配置区域
+    <div class="workbench-right" style="width: 250px">配置区域
       <ReportingEditWorkBenchRight />
     </div>
   </div>

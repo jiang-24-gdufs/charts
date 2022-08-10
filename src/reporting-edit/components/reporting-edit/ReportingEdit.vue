@@ -33,6 +33,9 @@ function save() {
     data.pageData = JSON.stringify(data.pageData);
     fetch(`${environment.VITE_API_BASE_URL}/chartsView/updateChartViewInEdit`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8'
+      },
       body: JSON.stringify(data)
     }).then(console.log)
   }
@@ -71,7 +74,10 @@ function getReporingData() {
         response.json().then((res) => {
           if (res.status === 0) {
             const reporting = res.data;
-            reporting.pageData = JSON.parse(reporting.pageData);
+            const defeultPageData = store.data.pageData;
+            const pageData = JSON.parse(reporting.pageData)
+            reporting.pageData = {...defeultPageData,...pageData};
+
             store.set(reporting as reportingState);
             console.log('%cReportingEdit.vue line:21 reporting', 'color: #007acc;', reporting);
             // layout.value = pageData.layoutItem;

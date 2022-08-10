@@ -18,16 +18,16 @@ export default defineComponent({
   },
   setup(props) {
     const store = useReportingEditStore();
-    const currConfigItemId = computed(() => store.currConfigItemId); // 当前选中的配置对象
-    const currlayout = computed(() => (store.layoutItem || []).find(l => l.i == currConfigItemId.value));
-
-    const configComponent = computed(() => currlayout.value ? currlayout.value.configComponent : [])
-    const activeName = ref('')
+    const currConfigItem = computed(() => store.currConfigItem);
+    const configComponent = computed(() => currConfigItem.value ? currConfigItem.value.configComponent : [])
+    const activeName = ref(configComponent.value[0].name)
 
     const handleClick = console.log
 
+
+
     return {
-      currlayout, configComponent, activeName, handleClick
+      currConfigItem, configComponent, activeName, handleClick
     }
   },
   // TODO: GET FROM STORE BY INDEX.
@@ -37,20 +37,21 @@ export default defineComponent({
     // }),
     reportItemRenderData: () => { },
     // 获取配置组件
-    configComponent() {
-      return [];
-    }
+    // configComponent() {
+    //   return [];
+    // }
   }
 });
 </script>
 
 
 <template>
-  <div v-if="currlayout" style="box-sizing: border-box;">
+  ReportingStyleConfig.vue
+  <div v-if="currConfigItem" style="box-sizing: border-box;">
     <!--标题-->
     <div class="style-config-header">
       <!-- <img src="../../assets/icon/charts-config.svg" alt="" draggable="false"> -->
-      {{ currlayout.title }}
+      {{ currConfigItem.title }}
     </div>
     <!--如果配置为数组-->
     <!-- <smart-tabs v-if="Array.isArray(configComponent)" style="height: calc(100% - 52px);">
@@ -67,7 +68,11 @@ export default defineComponent({
       </smart-tabs-item>
     </smart-tabs> -->
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-      <el-tab-pane label="User" v-for="component of configComponent" :key="component.component" name="first">
+      <!-- <el-tab-pane label="User" v-for="component of configComponent" :key="component.component" name="first">
+        <component :is="component.component"></component>
+      </el-tab-pane> -->
+      <el-tab-pane :label="component.name" v-for="component of configComponent" :key="component.component"
+        :name="component.name">
         <component :is="component.component"></component>
       </el-tab-pane>
     </el-tabs>
@@ -94,5 +99,11 @@ export default defineComponent({
   font-weight: 500;
   background-color: white;
   border-bottom: 1px solid #dcdee2;
+}
+
+:deep(.el-tabs .el-tabs__content) {
+
+  overflow: hidden auto;
+  max-height: 700px;
 }
 </style>

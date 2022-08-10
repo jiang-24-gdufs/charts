@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import './index.css';
+import './global.scss';
 
 // import 'element-plus/theme-chalk/src/base.scss';
 // import 'element-plus/theme-chalk/el-icon.css';

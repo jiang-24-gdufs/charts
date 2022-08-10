@@ -1,6 +1,7 @@
 <script lang="ts">
 import * as echarts from 'echarts';
-import type { Ref} from 'vue';
+import { debounce } from 'lodash';
+import type { Ref } from 'vue';
 import { ref, computed, defineComponent, getCurrentInstance, h, inject, onBeforeUnmount, onMounted, watch } from 'vue';
 
 export default defineComponent({
@@ -27,7 +28,7 @@ export default defineComponent({
     const themeName = inject<Ref<string>>('themeName')!;
     const debugConsole = inject<boolean>('debugConsole');
 
-    const options = computed(()=>props.options);
+    const options = computed(() => props.options);
 
     const echartContainer = ref();
 
@@ -47,27 +48,35 @@ export default defineComponent({
       }
     }
 
+    function updateChart(options) {
+      if (chart && echartContainer.value) {
+        chart.setOption(options || {}, true);
+      }
+    }
+
+
     function destroy() {
       chart?.dispose();
       chart = null;
     }
 
-    watch(themeName, (value)=>{
+    watch(themeName, (value) => {
       if (chart && echartContainer.value) {
         chart.dispose();
         chart = echarts.init(echartContainer.value, value);
         chart.setOption(options.value || {}, true);
       }
     });
+    const setOptionDebounce = debounce(updateChart, 200)
 
-    // watch(options, (value)=>{
-    //   chart?.setOption(value, true);
-    //   if (debugConsole.value) {
-    //     console.log(chart?.id, options.value);
-    //   }
-    // }, {deep: true});
+    watch(options, (value) => {
+      setOptionDebounce(value)
+      if (debugConsole) {
+        console.log(chart?.id, options.value);
+      }
+    }, { deep: true });
 
-    onMounted(()=>{
+    onMounted(() => {
 
       initData();
     });
@@ -124,11 +133,11 @@ export default defineComponent({
 </script>
 
 <template>
-<div ref="echartContainer"></div>
+  <div ref="echartContainer"></div>
 </template>
 
 <style scoped>
-div{
+div {
   width: 100%;
   height: 100%;
 }
