@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
+import { cloneDeep } from 'lodash';
+import { ElMessage } from 'element-plus';
 import GridWrapper from '@/lib/gridLayout/GridWrapper.vue';
 import { PostmatesJS } from '@/lib/postmates/postmates-js.js';
 import { environment } from '@/evn.config';
 import type { reportingState } from '@/stores/reporting-edit';
 import { useReportingEditStore } from '@/stores/reporting-edit';
 import WorkBenchLeft from './WorkBenchLeft.vue';
-import {cloneDeep} from 'lodash';
-import { ElMessage } from 'element-plus';
 
 const store = useReportingEditStore();
 
@@ -21,10 +21,11 @@ const margin = computed(() => containerConfig.value.margin);
 
 // const rid = location.search.slice(1);
 
-
 // use for both http and postmates
 function updateChartView(reporting) {
-  if (!reporting.pageData) {return ElMessage.warning('识别错误')}
+  if (!reporting.pageData) {
+    return ElMessage.warning('识别错误');
+  }
   reporting.pageData = JSON.parse(reporting.pageData);
   store.set(reporting as reportingState);
 }
@@ -41,10 +42,10 @@ const smartchartsUrl = `${environment.VITE_REPORTING_EDIT_URL}?${environment.VIT
 const onSelect = (reporting) => {
   if (store.data.rid === reporting.rid) {
     console.log('%cWorkBench.vue line:43 same', 'color: #007acc;', reporting.rid);
-    return
+    return;
   }
-  updateChartView(cloneDeep(reporting))
-}
+  updateChartView(cloneDeep(reporting));
+};
 
 //
 // const edit = () => {
@@ -76,7 +77,7 @@ const onSelect = (reporting) => {
 <template>
   <div class="workbench-body">
     <div class="workbench-left">
-      <WorkBenchLeft  @select="onSelect"/>
+      <WorkBenchLeft @select="onSelect" />
       <!-- <button @click="edit">edit</button> -->
     </div>
     <div class="workbench-center">

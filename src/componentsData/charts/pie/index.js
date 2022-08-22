@@ -1,7 +1,8 @@
 // import doughnutPieCharts from './doughnutPieCharts';
 // import rosePieCharts from './rosePieCharts';
+import roseTypePieCharts from './roseTypePieCharts';
 import simplePieCharts from './simplePieCharts';
-import ChartPie from '@/assets/chart-icon/chart-pie.svg'
+import ChartPie from '@/assets/chart-icon/chart-pie.svg';
 
 /**
  * 饼图
@@ -9,7 +10,7 @@ import ChartPie from '@/assets/chart-icon/chart-pie.svg'
 export default {
   title: '饼状图',
   icon: ChartPie,
-  components: [simplePieCharts],
+  components: [simplePieCharts, roseTypePieCharts],
   // doughnutPieCharts,
   // rosePieCharts,
 };

@@ -4,16 +4,15 @@ import BaseChartsStyleComponents from '../../../baseComponents/BaseChartsStyleCo
 
 export default {
   name: 'StyleSimplePieCharts',
+  components: {
+    BaseChartsStyleComponents,
+  },
   render() {
     return h(BaseChartsStyleComponents, {
-      props: this.$props
+      props: this.$props,
     });
   },
-  components: {
-    BaseChartsStyleComponents
-  }
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

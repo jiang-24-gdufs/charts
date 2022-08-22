@@ -7,10 +7,10 @@ export default {
   props: {
     renderFun: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
   render(h, context) {
     return context.props.renderFun(h);
-  }
+  },
 };

@@ -4,8 +4,8 @@ import componentsRender from '@/lib/chartsRender/componentsRender';
 import componentsConfig from '@/componentsConfig/charts';
 import '@/componentsConfig/components';
 import App from './App.vue';
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css';
 // 引入 font-awesome 字体图标
 import 'font-awesome/scss/font-awesome.scss';
 import '@/lib/themes/registerThemes';

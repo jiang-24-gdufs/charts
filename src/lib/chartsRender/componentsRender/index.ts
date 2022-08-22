@@ -1,8 +1,11 @@
 import type { App } from 'vue';
 // import RenderSimpleBarCharts from './charts/bar/RenderSimpleBarCharts.vue';
 import RenderSimpleBarCharts from './charts/bar/RenderSimpleBarCharts';
+import RenderMultipleYAxisBarCharts from './charts/bar/RenderMultipleYAxisBarCharts';
+import RenderMultipleXAxisBarCharts from './charts/bar/RenderMultipleXAxisBarCharts';
 
 import RenderSimplePieCharts from './charts/pie/RenderSimplePieCharts';
+import RenderRoseTypePieCharts from './charts/pie/RenderRoseTypePieCharts';
 
 import './charts/map/registerMap';
 import RenderChinaMapCharts from './charts/map/RenderChinaMapCharts';
@@ -19,11 +22,14 @@ export default {
      */
     // 简单柱状图
     app.component('RenderSimpleBarCharts', RenderSimpleBarCharts);
+    app.component('RenderMultipleYAxisBarCharts', RenderMultipleYAxisBarCharts);
+    app.component('RenderMultipleXAxisBarCharts', RenderMultipleXAxisBarCharts);
     /**
      * 饼状图
      */
     // 简单饼状图
     app.component('RenderSimplePieCharts', RenderSimplePieCharts);
+    app.component('RenderRoseTypePieCharts', RenderRoseTypePieCharts);
 
     /**
      * 折线图

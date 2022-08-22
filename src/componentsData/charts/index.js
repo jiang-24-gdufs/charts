@@ -9,5 +9,5 @@ import gauge from './gauge';
 export default {
   title: '图表',
   icon: 'fa fa-bar-chart',
-  components: [bar, line, map, pie, scatter, progress, gauge],
+  components: [bar, line, pie, scatter, progress, gauge, map],
 };

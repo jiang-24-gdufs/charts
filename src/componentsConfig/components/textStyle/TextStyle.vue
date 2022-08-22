@@ -1,9 +1,9 @@
 <template>
   <div class="text-style">
-    <div class="text-style-header" v-if="title !== null">{{ title }}</div>
+    <div v-if="title !== null" class="text-style-header">{{ title }}</div>
     <slot name="top"></slot>
     <config-item label="字体颜色：">
-      <el-color-picker v-model="textStyle.color"></el-color-picker>
+      <el-color-picker v-model="textStyle.color" />
     </config-item>
     <!-- <el-color-picker label="字体颜色：" v-model="textStyle.color"></el-color-picker> -->
     <!-- <smart-radio-group label="字体风格：" v-model="textStyle.fontStyle">
@@ -37,24 +37,24 @@
 import { defineComponent } from 'vue';
 import componentsMap from '../index';
 
-const { ConfigItem } = componentsMap
+const { ConfigItem } = componentsMap;
 
 export default defineComponent({
   name: 'TextStyle',
   components: {
-    ConfigItem
+    ConfigItem,
   },
   props: {
     textStyle: {
       type: Object,
-      required: true
+      required: true,
     },
     title: {
       type: String,
       required: false,
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 });
 </script>
 

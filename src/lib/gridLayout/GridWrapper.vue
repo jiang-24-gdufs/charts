@@ -166,7 +166,7 @@ export default defineComponent({
       const gridItems = document.querySelectorAll('.vue-grid-item[data-grid-index]');
       [...gridItems].forEach((gridItem) => {
         if (gridItem) resizeChartByDom(gridItem);
-      })
+      });
     }
 
     function updateChartSize(item) {
@@ -186,6 +186,10 @@ export default defineComponent({
 
     function onWindowResize() {
       containerWidth.value = parseInt(getComputedStyle(workbenchRef.value).width);
+      nextTick(() => {
+        updateAllChartSize();
+
+      });
     }
     watch(
       () => [...margin.value],
@@ -214,7 +218,6 @@ export default defineComponent({
       // 影响布局的全局参数
       // updateAllChartSize();
     });
-
 
     onMounted(() => {
       containerWidth.value = parseInt(getComputedStyle(workbenchRef.value).width);
@@ -256,10 +259,10 @@ export default defineComponent({
 <template>
   <div ref="workbenchRef" class="vue-grid-wrapper" :style="{ 'background-color': currBgcolor }">
     <!--布局容器-->
-    <grid-layout ref="GridLayoutRef" style="height: 100%" :layout="layout" :placeholder="placeholder"
-      :is-dragging="isDragging">
+    <grid-layout ref="GridLayoutRef" style="height: 100%" :placeholder="placeholder" :is-dragging="isDragging">
       <!-- style="border: 1px dashed #17233d" -->
-      <grid-item v-for="item of layout" ref="gridItemRef" :key="item.i" :x="item.x" :y="item.y" :w="item.w" :h="item.h"
+      <grid-item
+v-for="item of layout" ref="gridItemRef" :key="item.i" :x="item.x" :y="item.y" :w="item.w" :h="item.h"
         :i="item.i" @drag-event="dragEvent" @resize-event="resizeEvent">
         <render-grid-item ref="renderGridItemRef" :render-data="item" />
         <!-- :base-url="baseUrl"

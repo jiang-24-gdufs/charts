@@ -1,6 +1,7 @@
 import chartsCommonData from '../../commonData/chartsCommonData';
 import { pie } from '@/assets/defaultData';
 import dataSetSource from '../../commonData/commonBaseData/dataSetSource';
+import chartsToolTip from '../../commonData/commonBaseData/chartsToolTip';
 import pieSeries from '../../commonData/series/pieSeries';
 import { deepCopy } from '@/utils';
 
@@ -28,6 +29,10 @@ export default {
         ...deepCopy(pie.simplePie.title),
       },
       series: [deepCopy(pieSeries)],
+      tooltip: {
+        ...deepCopy(chartsToolTip),
+        trigger: 'item',
+      },
     },
     // 其他选项
     otherOption: {

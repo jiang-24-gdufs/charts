@@ -1,5 +1,6 @@
 import simpleGaugeCharts from './simpleGaugeCharts';
-import ChartGauge from '@/assets/chart-icon/chart-gauge.svg'
+import multipleTitleGaugeCharts from './multipleTitleGaugeCharts';
+import ChartGauge from '@/assets/chart-icon/chart-gauge.svg';
 
 /**
  * 仪表盘
@@ -7,5 +8,5 @@ import ChartGauge from '@/assets/chart-icon/chart-gauge.svg'
 export default {
   title: '仪表盘',
   icon: ChartGauge,
-  components: [simpleGaugeCharts],
+  components: [simpleGaugeCharts, multipleTitleGaugeCharts],
 };

@@ -2,11 +2,11 @@
  * 柱形图
  */
 // 简单柱形图
-// import DataSimpleBarCharts from './bar/simpleBarCharts/DataSimpleBarCharts';
+import DataSimpleBarCharts from './bar/simpleBarCharts/DataSimpleBarCharts.vue';
 import StyleSimpleBarCharts from './bar/simpleBarCharts/StyleSimpleBarCharts.vue';
 // 多Y轴柱形图
-// import DataMultipleYAxisBarCharts from './bar/multipleYAxisBarCharts/DataMultipleYAxisBarCharts';
-// import StyleMultipleYAxisBarCharts from './bar/multipleYAxisBarCharts/StyleMultipleYAxisBarCharts';
+import DataMultipleYAxisBarCharts from './bar/multipleYAxisBarCharts/DataMultipleYAxisBarCharts.vue';
+import StyleMultipleYAxisBarCharts from './bar/multipleYAxisBarCharts/StyleMultipleYAxisBarCharts.vue';
 
 // // 多X轴柱形图
 // import StyleMultipleXAxisBarCharts from './bar/multipleXAxisBarCharts/StyleMultipleXAxisBarCharts';
@@ -21,7 +21,7 @@ import StyleSimpleBarCharts from './bar/simpleBarCharts/StyleSimpleBarCharts.vue
 //  */
 // // 简单饼图
 import StyleSimplePieCharts from './pie/simplePieCharts/StyleSimplePieCharts.vue';
-// import DataSimplePieCharts from './pie/simplePieCharts/DataSimplePieCharts';
+import DataSimplePieCharts from './pie/simplePieCharts/DataSimplePieCharts.vue';
 
 // import StyleDoughnutPieCharts from './pie/doughnutPieCharts/StyleDoughnutPieCharts';
 // import DataDoughnutPieCharts from './pie/doughnutPieCharts/DataDoughnutPieCharts';
@@ -68,32 +68,36 @@ import StyleSimpleScatterCharts from './scatter/simpleScatterCharts/StyleSimpleS
 export default {
   install(Vue) {
     /**
-		 * 简单柱形图
-		 */
+     * 简单柱形图
+     */
     // 简单柱形图
     // Vue.configComponent('data-simple-bar-charts', DataSimpleBarCharts);
     // Vue.configComponent('style-simple-bar-charts', StyleSimpleBarCharts);
-    Vue.component('style-simple-bar-charts', StyleSimpleBarCharts);
+    Vue.component('DataSimpleBarCharts', DataSimpleBarCharts);
+    Vue.component('StyleSimpleBarCharts', StyleSimpleBarCharts);
 
     // 多Y轴柱形图
-    // Vue.configComponent('data-multiple-yAxis-bar-charts', DataMultipleYAxisBarCharts);
-    // Vue.configComponent('style-multiple-yAxis-bar-charts', StyleMultipleYAxisBarCharts);
+    Vue.component('data-multiple-yAxis-bar-charts', DataMultipleYAxisBarCharts);
+    Vue.component('style-multiple-yAxis-bar-charts', StyleMultipleYAxisBarCharts);
+    // Vue.component('StyleMultipleYAxisBarCharts', StyleSimpleBarCharts);
 
     // // 多X轴柱形图
     // Vue.configComponent('style-multiple-xAxis-bar-charts', StyleMultipleXAxisBarCharts);
     // Vue.configComponent('data-multiple-xAxis-bar-charts', DataMultipleXAxisBarCharts);
+    Vue.component('StyleMultipleXAxisBarCharts', StyleSimpleBarCharts);
 
     // // 多轴柱形图
     // Vue.configComponent('style-multiple-axis-bar-charts', StyleMultipleAxisBarCharts);
     // Vue.configComponent('data-multiple-axis-bar-charts', DataMultipleAxisBarCharts);
 
     // /**
-		//  * 饼状图
-		//  */
+    //  * 饼状图
+    //  */
     // // 简单饼状图
     // Vue.configComponent('data-simple-pie-charts', DataSimplePieCharts);
     // Vue.configComponent('style-simple-pie-charts', StyleSimplePieCharts);
-    Vue.component('style-simple-pie-charts', StyleSimplePieCharts);
+    Vue.component('DataSimplePieCharts', DataSimplePieCharts);
+    Vue.component('StyleSimplePieCharts', StyleSimplePieCharts);
 
     // Vue.configComponent('data-doughnut-pie-charts', DataDoughnutPieCharts);
     // Vue.configComponent('style-doughnut-pie-charts', StyleDoughnutPieCharts);
@@ -102,29 +106,29 @@ export default {
     // Vue.configComponent('style-rose-pie-charts', StyleRosePieCharts);
 
     // /**
-		//  * 折线图
-		//  */
+    //  * 折线图
+    //  */
     // Vue.configComponent('data-simple-line-charts', DataSimpleLineCharts);
     // Vue.configComponent('style-simple-line-charts', StyleSimpleLineCharts);
-    Vue.component('style-simple-line-charts', StyleSimpleLineCharts);
+    Vue.component('StyleSimpleLineCharts', StyleSimpleLineCharts);
 
     // /**
-		//  * 散点图
-		//  */
+    //  * 散点图
+    //  */
     // Vue.configComponent('data-simple-scatter-charts', DataSimpleScatterCharts);
     // Vue.configComponent('style-simple-scatter-charts', StyleSimpleScatterCharts);
-    Vue.component('style-simple-scatter-charts', StyleSimpleScatterCharts);
+    Vue.component('StyleSimpleScatterCharts', StyleSimpleScatterCharts);
 
     // /**
-		//  * 地图
-		//  */
+    //  * 地图
+    //  */
 
     // // 中国地图
     // Vue.configComponent('data-china-map-charts', DataChinaMapCharts);
     // Vue.configComponent('style-china-map-charts', StyleChinaMapCharts);
     // // 城市地图
     // /*		Vue.configComponent('data-china-city-map-charts',DataChinaCityMapCharts);
-		// Vue.configComponent('style-china-city-map-charts',StyleChinaCityMapCharts);*/
+    // Vue.configComponent('style-china-city-map-charts',StyleChinaCityMapCharts);*/
     // // 省地图
     // Vue.configComponent('data-china-province-map-charts', DataChinaProvinceMapCharts);
     // Vue.configComponent('style-china-province-map-charts', StyleChinaProvinceMapCharts);
@@ -138,7 +142,6 @@ export default {
     // // 仪表盘
     // Vue.configComponent('style-simple-gauge-charts', StyleSimpleGaugeCharts);
     // Vue.configComponent('data-simple-gauge-charts', DataSimpleGaugeCharts);
-    Vue.component('style-simple-gauge-charts', StyleSimpleScatterCharts);
-
-  }
+    Vue.component('StyleSimpleGaugeCharts', StyleSimpleScatterCharts);
+  },
 };

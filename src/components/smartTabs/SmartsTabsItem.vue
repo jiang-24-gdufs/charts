@@ -1,29 +1,28 @@
 <template>
-    <div v-show="showTabsItem">
-        <slot></slot>
-    </div>
+  <div v-show="showTabsItem">
+    <slot></slot>
+  </div>
 </template>
 <script>
 export default {
   name: 'SmartsTabsItem',
-  data() {
-    return {
-      showTabsItem: false
-    };
-  },
   props: {
     label: {
       type: String,
-      required: true
+      required: true,
     },
     icon: {
       type: String,
       required: false,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
+  data() {
+    return {
+      showTabsItem: false,
+    };
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

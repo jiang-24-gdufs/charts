@@ -18,7 +18,7 @@ export default {
   // 系列中的数据内容数组
   data: [deepCopy(gauge.simpleGauge.value)],
   min: 0, // 最小的数据值
-  max: 1000, // 最大的数据值
+  max: 100, // 最大的数据值
   splitNumber: 10, // 刻度分割
   // 仪表盘轴线样式
   axisLine: {
@@ -46,7 +46,7 @@ export default {
   axisTick: {
     show: true,
     splitNumber: 5, // 分隔线之间分割的刻度数。
-    length: 8, // 刻度线长。支持相对半径的百分比。
+    length: 6, // 刻度线长。支持相对半径的百分比。
     lineStyle: deepCopy(chartsSeriesLineStyle),
   },
   // 刻度标签

@@ -1,20 +1,24 @@
-
 <script lang="ts" setup>
 import { computed } from 'vue';
+
 const props = defineProps({
   theme: {
     type: Object,
     required: true,
-  }
-})
-const { theme, themeName } = props.theme
-const backgroundColor = theme.backgroundColor;
-const colors = computed(() => theme.color.slice(0, 7))
+  },
+});
+const { theme, themeName } = props.theme;
+const { backgroundColor } = theme;
+const colors = computed(() => theme.color.slice(0, 7));
 </script>
-  <template>
+<template>
   <a class="theme-plan-group" :title="themeName" :style="{ 'background-color': backgroundColor }">
-    <div class="theme-plan-color" v-for="color of colors" :key="color" :style="{ 'background-color': color }">
-    </div>
+    <div
+      v-for="color of colors"
+      :key="color"
+      class="theme-plan-color"
+      :style="{ 'background-color': color }"
+    ></div>
   </a>
 </template>
 

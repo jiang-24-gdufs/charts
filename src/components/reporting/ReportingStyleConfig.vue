@@ -1,95 +1,67 @@
-
-
-<script lang="ts" >
-import { computed, defineComponent, ref } from 'vue';
-// import EmptyConfig from '../../components/emptyConfig/EmptyConfig';
-// import RenderComponents from '@/components/renderFunComponents/RenderComponents';
+<script lang="ts">
+import { computed, defineComponent, ref, provide } from 'vue';
 import SmartTabs from '@/components/smartTabs/SmartTabs.vue';
 import SmartTabsItem from '@/components/smartTabs/SmartsTabsItem.vue';
 import { useReportingEditStore } from '@/stores/reporting-edit';
+import { useReportingDataEditorStore } from '@/stores/reporting-data-editor';
+import componentsMap from '@/componentsConfig/components';
+
+const { CodeEditor } = componentsMap;
 
 export default defineComponent({
   name: 'ReportingStyleConfig',
   components: {
-    // EmptyConfig,
-    // RenderComponents,
     SmartTabs,
-    SmartTabsItem
+    SmartTabsItem,
+    CodeEditor
   },
   setup(props) {
     const store = useReportingEditStore();
+    const editorStore = useReportingDataEditorStore();
     const currConfigItem = computed(() => store.currConfigItem);
-    const configComponent = computed(() => currConfigItem.value ? currConfigItem.value.configComponent : [])
-    const activeName = ref(configComponent.value[0].name)
-
-    const handleClick = console.log
-
+    const configComponent = computed(() =>
+      currConfigItem.value ? currConfigItem.value.configComponent : []
+    );
+    const activeName = ref(configComponent.value[0].name);
+    const isShowEditor = computed(() => editorStore.isShowEditor);
+    const isCreated = computed(() => editorStore.isCreated);
 
 
     return {
-      currConfigItem, configComponent, activeName, handleClick
-    }
+      currConfigItem,
+      configComponent,
+      activeName,
+      isShowEditor,
+      isCreated,
+    };
   },
-  // TODO: GET FROM STORE BY INDEX.
-  computed: {
-    // ...mapState({
-    //   reportItemRenderData: (state) => state.reportItemRenderData
-    // }),
-    reportItemRenderData: () => { },
-    // 获取配置组件
-    // configComponent() {
-    //   return [];
-    // }
-  }
 });
 </script>
 
-
 <template>
-  ReportingStyleConfig.vue
-  <div v-if="currConfigItem" style="box-sizing: border-box;">
+  <div v-if="currConfigItem" style="box-sizing: border-box">
     <!--标题-->
     <div class="style-config-header">
       <!-- <img src="../../assets/icon/charts-config.svg" alt="" draggable="false"> -->
       {{ currConfigItem.title }}
     </div>
-    <!--如果配置为数组-->
-    <!-- <smart-tabs v-if="Array.isArray(configComponent)" style="height: calc(100% - 52px);">
-      <smart-tabs-item :icon="item.icon" :label="item.name" v-for="(item, index) in configComponent" :key="index"
-        style="height: 100%;overflow: hidden;box-sizing: border-box;">
-        <render-components :component="item.component" :prop="{
-          props: {
-            ...reportItemRenderData
-          },
-          style: { boxSizing: 'border-box', height: '100%', overflowY: 'auto', overflowX: 'hidden' }
-        }">
-        </render-components>
-
-      </smart-tabs-item>
-    </smart-tabs> -->
-    <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-      <!-- <el-tab-pane label="User" v-for="component of configComponent" :key="component.component" name="first">
-        <component :is="component.component"></component>
-      </el-tab-pane> -->
-      <el-tab-pane :label="component.name" v-for="component of configComponent" :key="component.component"
+    <!-- @tab-click="handleClick" -->
+    <el-tabs v-model="activeName" class="demo-tabs" stretch >
+      <el-tab-pane v-for="component of configComponent" :key="component.component" :label="component.name"
         :name="component.name">
-        <component :is="component.component"></component>
+        <component :is="component.component" />
       </el-tab-pane>
     </el-tabs>
-    <!--如果是字符串-->
-    <!-- <render-components v-else :component="configComponent" :prop="{
-      props: {
-        ...reportItemRenderData
-      },
-      style: { height: 'calc(100% - 51px)', boxSizing: 'border-box', overflowY: 'auto', overflowX: 'hidden' }
-    }">
-    </render-components> -->
+    <Teleport to="#reporting-edit">
+      <CodeEditor v-if="isCreated" v-show="isShowEditor" />
+    </Teleport>
   </div>
   <!-- <empty-config v-else></empty-config> -->
-
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@use '@/style/mixins/mixins' as *;
+
 .style-config-header {
   height: 50px;
   display: flex;
@@ -102,8 +74,9 @@ export default defineComponent({
 }
 
 :deep(.el-tabs .el-tabs__content) {
-
   overflow: hidden auto;
   max-height: 700px;
+
+  @include scroll-bar;
 }
 </style>

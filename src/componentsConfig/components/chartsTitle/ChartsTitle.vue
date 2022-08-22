@@ -3,9 +3,9 @@
     <!--全局配置-->
     <el-divider>全局</el-divider>
     <!--距离左侧-->
-    <horizontal-align label="距离左侧：" v-model="title.left"></horizontal-align>
+    <horizontal-align v-model="title.left" label="距离左侧：" />
     <!--距离上侧-->
-    <vertical-align label="距离上侧：" v-model="title.top"></vertical-align>
+    <vertical-align v-model="title.top" label="距离上侧：" />
     <!-- <switch-input label="触发事件：" v-model="title.triggerEvent"></switch-input> -->
     <!--边框样式配置-->
     <!-- <border-style  :border="title"></border-style> -->
@@ -13,10 +13,9 @@
     <el-divider>主标题</el-divider>
     <!--主标题文本配置-->
     <text-style :text-style="textStyle">
-      <template v-slot:top>
+      <template #top>
         <config-item label="标题内容：">
-
-          <el-input label="标题内容：" v-model="title.text"></el-input>
+          <el-input v-model="title.text" label="标题内容：" />
         </config-item>
         <!-- <text-input label="标题链接：" v-model="title.link" ></text-input>
               <config-item label="窗口打开方式:" >
@@ -30,12 +29,11 @@
     <!--副标题配置-->
     <el-divider>副标题</el-divider>
     <text-style :text-style="subtextStyle">
-      <template v-slot:top>
+      <template #top>
         <!-- <horizontal-align label="水平对齐：" v-model="subtextStyle.align"></horizontal-align>
         <vertical-align label="垂直对齐：" v-model="subtextStyle.verticalAlign"></vertical-align> -->
         <config-item label="标题内容：">
-
-          <el-input label="标题内容：" v-model="title.subtext"></el-input>
+          <el-input v-model="title.subtext" label="标题内容：" />
         </config-item>
         <!-- <text-input label="标题链接：" v-model="title.sublink" ></text-input>
               <config-item label="窗口打开方式:">
@@ -58,9 +56,9 @@
 // import TextInput from '../textInput/TextInput';
 // import SwitchInput from '../switchInput/SwitchInput';
 
-import componentsMap from '../index'
-const { VerticalAlign,
-  HorizontalAlign, TextStyle, ConfigItem } = componentsMap;
+import componentsMap from '../index';
+
+const { VerticalAlign, HorizontalAlign, TextStyle, ConfigItem } = componentsMap;
 
 export default {
   name: 'ChartsTitleConfig',
@@ -78,8 +76,8 @@ export default {
     // 图表标题
     title: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     textStyle() {
@@ -87,8 +85,8 @@ export default {
     },
     subtextStyle() {
       return this.title.subtextStyle;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -98,7 +96,7 @@ export default {
 }
 
 .flex-1 {
-  flex: 1
+  flex: 1;
 }
 
 .keep-all {

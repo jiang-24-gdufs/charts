@@ -21,4 +21,5 @@ export default {
     label: chartsSeriesLabel,
     itemStyle: chartsSeriesItemStyle,
   },
+  symbolSize: 20,
 };

@@ -1,39 +1,41 @@
 <template>
   <!--判断是文件-->
   <div
-    :style="{backgroundImage:`url(${reporting.imgUrl})`}"
-    class="reporting-card reporting-card-active"
     v-if="reporting.nodeType === $options.nodeTypeEnum.FILE.status"
+    :style="{ backgroundImage: `url(${reporting.imgUrl})` }"
+    class="reporting-card reporting-card-active"
   >
     <div class="reporting-card-display">
-      <p class="reporting-card-des">{{reporting.name}}</p>
-      <p class="reporting-card-des">{{reporting.createTime}}</p>
-      <p class="reporting-card-des">{{reporting.description}}</p>
+      <p class="reporting-card-des">{{ reporting.name }}</p>
+      <p class="reporting-card-des">{{ reporting.createTime }}</p>
+      <p class="reporting-card-des">{{ reporting.description }}</p>
       <div class="reporting-card-edit">
         <el-button
           type="primary"
           icon="fa fa-laptop"
-          @click="handlePreview"
           plain
           size="small"
-          :style="{width:reporting.draftId === null ? '40%' : '90%'}"
-        >预览</el-button>
+          :style="{ width: reporting.draftId === null ? '40%' : '90%' }"
+          @click="handlePreview"
+          >预览</el-button
+        >
         <el-button
+          v-if="reporting.draftId === null"
           type="primary"
           icon="fa fa-edit"
-          @click="handleReportingEdit"
           plain
           size="small"
-          v-if="reporting.draftId === null"
-          style="width: 40%;"
-        >编辑</el-button>
+          style="width: 40%"
+          @click="handleReportingEdit"
+          >编辑</el-button
+        >
       </div>
     </div>
   </div>
   <!--文件夹-->
-  <div class="reporting-card-empty reporting-card-active" v-else @click="handleFolder">
-    <img src="../../assets/image/floder.svg" alt style="width: 200px;" />
-    <span style="margin-top: 20px;">{{reporting.name}}</span>
+  <div v-else class="reporting-card-empty reporting-card-active" @click="handleFolder">
+    <img src="../../assets/image/floder.svg" alt style="width: 200px" />
+    <span style="margin-top: 20px">{{ reporting.name }}</span>
   </div>
 </template>
 
@@ -46,8 +48,8 @@ export default {
   props: {
     reporting: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     handlePreview() {
@@ -62,8 +64,8 @@ export default {
     },
     handleFolder() {
       this.$parent.handleBuild(this.reporting.rid);
-    }
-  }
+    },
+  },
 };
 </script>
 

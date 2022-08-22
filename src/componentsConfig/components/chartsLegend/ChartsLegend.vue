@@ -8,19 +8,19 @@
     <el-divider>配置</el-divider>
 
     <config-item label="图例类型：">
-      <el-radio-group size="small" label="图例类型：" v-model="legend.type">
+      <el-radio-group v-model="legend.type" size="small" label="图例类型：">
         <el-radio-button label="plain">普通图例</el-radio-button>
         <el-radio-button label="scroll">滚动翻页图例</el-radio-button>
       </el-radio-group>
     </config-item>
 
     <!--图例距离左边的距离-->
-    <horizontal-align label="左边距离：" v-model="legend.left"></horizontal-align>
+    <horizontal-align v-model="legend.left" label="左边距离：" />
     <!--图例距离上边的距离-->
-    <vertical-align label="上边距离：" v-model="legend.top"></vertical-align>
+    <vertical-align v-model="legend.top" label="上边距离：" />
     <!--方向-->
     <config-item label="布局朝向：">
-      <el-radio-group size="small" v-model="legend.orient">
+      <el-radio-group v-model="legend.orient" size="small">
         <el-radio-button label="horizontal">水平</el-radio-button>
         <el-radio-button label="vertical">垂直</el-radio-button>
       </el-radio-group>
@@ -38,23 +38,22 @@
 
 <script>
 import { defineComponent } from 'vue';
-import componentsMap from '../index'
+import componentsMap from '../index';
 
-const { HorizontalAlign,
-  VerticalAlign, ConfigItem } = componentsMap;
+const { HorizontalAlign, VerticalAlign, ConfigItem } = componentsMap;
 
 export default defineComponent({
   name: 'ChartsLegend',
   components: {
     HorizontalAlign,
     VerticalAlign,
-    ConfigItem
+    ConfigItem,
   },
   props: {
     legend: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     textStyle() {
@@ -62,10 +61,9 @@ export default defineComponent({
     },
     borderStyle() {
       return this.legend.textStyle;
-    }
-  }
+    },
+  },
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

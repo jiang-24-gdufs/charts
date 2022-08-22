@@ -1,3 +1,4 @@
+// NOTE: 执行lint命令式需要把package.json中的"type":"module"删掉, 不然会报不支持cjs
 module.exports = {
   root: true,
   env: {

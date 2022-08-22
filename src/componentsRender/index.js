@@ -39,5 +39,5 @@ export default {
 
     // 解决打包umd时加载后Vue.$http为undefined的问题
     // Vue.prototype.$http = axios;
-  }
+  },
 };

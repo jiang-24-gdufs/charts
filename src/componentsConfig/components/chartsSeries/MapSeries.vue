@@ -1,22 +1,19 @@
 <template>
-    <div>
-
-    </div>
+  <div></div>
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import { defineComponent } from 'vue';
+
 export default defineComponent({
   name: 'MapSeries',
   props: {
     series: {
       type: Object,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

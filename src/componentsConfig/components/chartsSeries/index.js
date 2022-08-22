@@ -1,10 +1,6 @@
-import componentsMap from '../index'
-const {BarSeries,
-  LineSeries,
-  PieSeries,
-  ScatterSeries,
-  MapSeries,
-  GaugeSeries} = componentsMap
+import componentsMap from '../index';
+
+const { BarSeries, LineSeries, PieSeries, ScatterSeries, MapSeries, GaugeSeries } = componentsMap;
 
 /**
  * 系列的key按照echarts的series命名；
@@ -15,5 +11,5 @@ export default {
   pie: PieSeries,
   scatter: ScatterSeries,
   map: MapSeries,
-  gauge: GaugeSeries
+  gauge: GaugeSeries,
 };

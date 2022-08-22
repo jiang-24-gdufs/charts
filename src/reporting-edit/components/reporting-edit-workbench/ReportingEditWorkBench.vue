@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import GridWrapper from '@/lib/gridLayout/GridWrapper.vue';
 import ReportingEditWorkBenchLeft from './ReportingEditWorkBenchLeft.vue';
 import ReportingEditWorkBenchRight from './ReportingEditWorkBenchRight.vue';
@@ -78,7 +78,7 @@ function onDblclick(event: MouseEvent) {
     const { classList } = target as HTMLInputElement;
     if (classList.contains('vue-grid-layout')) {
       onDblclickLayout(event);
-    } else/*  if (classList.contains('vue-grid-item')) */ {
+    } /*  if (classList.contains('vue-grid-item')) */ else {
       onDblclickGrid(event);
     }
   }
@@ -88,7 +88,7 @@ function onDblclickLayout(event: MouseEvent) {
   const { target } = event;
   if (!target) return 'TODO';
   // 设置配置类型
-  store.setCurrConfigItemId(CONTAINER_CONFIG_INDEX)
+  store.setCurrConfigItemId(CONTAINER_CONFIG_INDEX);
 }
 function onDblclickGrid(event: MouseEvent) {
   const { target } = event;
@@ -97,7 +97,7 @@ function onDblclickGrid(event: MouseEvent) {
   // record grid index
   index = gridIndex || '';
   // 设置配置类型
-  store.setCurrConfigItemId(index)
+  store.setCurrConfigItemId(index);
 }
 
 function onClick(event: MouseEvent) {
@@ -133,7 +133,7 @@ function handleMenuConfigContainer() {
   handleCloseMenu();
 
   // 设置配置类型
-  store.setCurrConfigItemId(CONTAINER_CONFIG_INDEX)
+  store.setCurrConfigItemId(CONTAINER_CONFIG_INDEX);
 }
 
 function handleVerticalCompactLayout() {
@@ -142,6 +142,16 @@ function handleVerticalCompactLayout() {
   gridWrapperRef.value.campactLayout();
 }
 /*  */
+
+function closeMenu() {
+  showMenu.value = false;
+}
+onMounted(() => {
+  document.addEventListener('click', closeMenu, false);
+});
+onBeforeUnmount(() => {
+  document.removeEventListener('click', closeMenu);
+});
 </script>
 
 <template>
@@ -150,11 +160,21 @@ function handleVerticalCompactLayout() {
       <ReportingEditWorkBenchLeft />
     </div>
     <div class="workbench-center">
-      <GridWrapper ref="gridWrapperRef" :layout="layout" :col-num="colNum" :margin="margin" :row-height="rowHeight"
-        :theme-name="currThemeName" :debug-console="debugConsole" :vertical-compact="verticalCompact"
-        @contextmenu.prevent="onContextmenu" @dblclick="onDblclick" @click="onClick" />
+      <GridWrapper
+        ref="gridWrapperRef"
+        :layout="layout"
+        :col-num="colNum"
+        :margin="margin"
+        :row-height="rowHeight"
+        :theme-name="currThemeName"
+        :debug-console="debugConsole"
+        :vertical-compact="verticalCompact"
+        @contextmenu.prevent="onContextmenu"
+        @dblclick="onDblclick"
+        @click="onClick"
+      />
       <!--组件上下文菜单栏-->
-      <smart-menu v-show="showMenu" :top="menuTop" :left="menuLeft">
+      <smart-menu v-show="showMenu" :top="menuTop" :left="menuLeft" @click.stop>
         <!-- @click="handleMenuConfig"
         @click="handleContainerConfig" @click="handleVerticalCompactLayout" -->
         <div><i class="fa fa-cog"></i>配置组件</div>
@@ -165,28 +185,39 @@ function handleVerticalCompactLayout() {
         <div @click="handleVerticalCompactLayout"><i class="fa fa-gear"></i>紧凑布局</div>
       </smart-menu>
     </div>
-    <div class="workbench-right" style="width: 250px">配置区域
+    <div class="workbench-right">
       <ReportingEditWorkBenchRight />
     </div>
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@use '@/style/mixins/mixins' as *;
 .workbench-body {
   display: flex;
   min-height: 0;
   position: relative;
-  height: 100%;
+  height: calc(100% - 60px);
 }
 
-.workbench-right, .workbench-center {
-  border: 0.5px dashed black;
-  /* margin: 40px; */
+.workbench-left {
+  height: 100%;
+
+  overflow: auto;
+
+  @include scroll-bar;
 }
 
 .workbench-center {
-  /* display: flex; */
   flex: 1;
-  /* height: 877px; */
+}
+
+.workbench-right {
+  border-left: 1px solid #ccc;
+  width: 250px;
+
+  overflow: auto;
+
+  @include scroll-bar;
 }
 </style>

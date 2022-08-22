@@ -2,7 +2,7 @@
   <div v-show="xAxis.show">
     <el-divider>X轴基本设置</el-divider>
     <config-item label="X轴位置：">
-      <el-radio-group size="small" v-model="xAxis.position">
+      <el-radio-group v-model="xAxis.position" size="small">
         <el-radio-button label="top">
           <el-tooltip effect="dark" content="上" placement="bottom">
             <i class="fa fa-hand-o-up"></i>
@@ -19,13 +19,17 @@
       </span>
       <el-switch v-model="xAxis.inverse"></el-switch>
     </config-item> -->
-    <config-item label="
-        位置偏移：">
-      <el-input-number controls-position="right" label="位置偏移：" v-model="xAxis.offset"></el-input-number>
+    <config-item
+      label="
+        位置偏移："
+    >
+      <el-input-number v-model="xAxis.offset" controls-position="right" label="位置偏移：" />
     </config-item>
-    <config-item label="
-        X轴类型：">
-      <el-radio-group size="small" label="X轴类型：" v-model="xAxis.type">
+    <config-item
+      label="
+        X轴类型："
+    >
+      <el-radio-group v-model="xAxis.type" size="small" label="X轴类型：">
         <el-radio-button label="value">数值</el-radio-button>
         <el-radio-button label="category">类目轴</el-radio-button>
         <el-radio-button label="time">时间</el-radio-button>
@@ -33,13 +37,17 @@
       </el-radio-group>
     </config-item>
 
-    <config-item label="
-        坐标轴名字：">
-      <el-input label="坐标轴名字：" v-model="xAxis.name"></el-input>
+    <config-item
+      label="
+        坐标轴名字："
+    >
+      <el-input v-model="xAxis.name" label="坐标轴名字：" />
     </config-item>
-    <config-item label="
-        名字位置：">
-      <el-radio-group size="small" v-model="xAxis.nameLocation">
+    <config-item
+      label="
+        名字位置："
+    >
+      <el-radio-group v-model="xAxis.nameLocation" size="small">
         <el-radio-button label="start">开始位置</el-radio-button>
         <el-radio-button label="center">中间</el-radio-button>
         <el-radio-button label="end">结束位置</el-radio-button>
@@ -47,46 +55,68 @@
     </config-item>
     <!-- <border-style :border="xAxis.nameTextStyle"></border-style> -->
     <!-- <text-style :text-style="xAxis.nameTextStyle" style="margin-top: 10px;"></text-style> -->
-    <config-item label="
-        坐标轴两边留白策略：">
-      <el-switch label="坐标轴两边留白策略：" v-model="xAxis.boundaryGap"></el-switch>
+    <config-item
+      label="
+        坐标轴两边留白策略："
+    >
+      <el-switch v-model="xAxis.boundaryGap" label="坐标轴两边留白策略：" />
     </config-item>
-    <config-item label="
-        名字与X轴距离：">
-      <el-input-number controls-position="right" label="名字与X轴距离：" v-model="xAxis.nameGap"></el-input-number>
+    <config-item
+      label="
+        名字与X轴距离："
+    >
+      <el-input-number v-model="xAxis.nameGap" controls-position="right" label="名字与X轴距离：" />
     </config-item>
     <el-divider>刻度线</el-divider>
-    <config-item label="
-        刻度线：">
-      <el-switch label="刻度线：" v-model="axisLine.show"></el-switch>
+    <config-item
+      label="
+        刻度线："
+    >
+      <el-switch v-model="axisLine.show" label="刻度线：" />
     </config-item>
     <template v-if="axisLine.show">
       <config-item label="显示零刻度：">
-        <el-switch label="显示零刻度：" v-model="axisLine.onZero"></el-switch>
+        <el-switch v-model="axisLine.onZero" label="显示零刻度：" />
       </config-item>
       <config-item label="首端箭头：">
-        <el-radio-group size="small" v-model="axisLine.symbol[0]" label="首端箭头：">
+        <el-radio-group v-model="axisLine.symbol[0]" size="small" label="首端箭头：">
           <el-radio-button label="none">无箭头</el-radio-button>
           <el-radio-button label="arrow">箭头</el-radio-button>
         </el-radio-group>
       </config-item>
       <config-item label="首端箭头偏移：">
-        <el-input-number controls-position="right" label="首端箭头偏移：" v-model="axisLine.symbolOffset[0]"></el-input-number>
+        <el-input-number
+          v-model="axisLine.symbolOffset[0]"
+          controls-position="right"
+          label="首端箭头偏移："
+        />
       </config-item>
       <config-item label="末端箭头：">
-        <el-radio-group size="small" v-model="axisLine.symbol[1]" label="末端箭头：">
+        <el-radio-group v-model="axisLine.symbol[1]" size="small" label="末端箭头：">
           <el-radio-button label="none">无箭头</el-radio-button>
           <el-radio-button label="arrow">箭头</el-radio-button>
         </el-radio-group>
       </config-item>
       <config-item label="尾端箭头偏移：">
-        <el-input-number controls-position="right" label="尾端箭头偏移：" v-model="axisLine.symbolOffset[1]"></el-input-number>
+        <el-input-number
+          v-model="axisLine.symbolOffset[1]"
+          controls-position="right"
+          label="尾端箭头偏移："
+        />
       </config-item>
       <config-item label="箭头宽度：">
-        <el-input-number controls-position="right" label="箭头宽度：" v-model="axisLine.symbolSize[0]"></el-input-number>
+        <el-input-number
+          v-model="axisLine.symbolSize[0]"
+          controls-position="right"
+          label="箭头宽度："
+        />
       </config-item>
       <config-item label="箭头高度：">
-        <el-input-number controls-position="right" label="箭头高度：" v-model="axisLine.symbolSize[1]"></el-input-number>
+        <el-input-number
+          v-model="axisLine.symbolSize[1]"
+          controls-position="right"
+          label="箭头高度："
+        />
       </config-item>
       <!-- <line-style :line-style="axisLine.lineStyle"></line-style> -->
     </template>
@@ -131,8 +161,7 @@ import { defineComponent, inject, computed } from 'vue';
 
 import componentsMap from '../index';
 
-const { ConfigItem } = componentsMap
-
+const { ConfigItem } = componentsMap;
 
 export default defineComponent({
   name: 'XAxis',
@@ -148,13 +177,13 @@ export default defineComponent({
     // LineStyle,
     // VerticalAlign,
     // HorizontalAlign
-    ConfigItem
+    ConfigItem,
   },
   props: {
     xAxis: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     // 刻度线
@@ -168,10 +197,9 @@ export default defineComponent({
     // 刻度
     axisTick() {
       return this.xAxis.axisTick;
-    }
-  }
+    },
+  },
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

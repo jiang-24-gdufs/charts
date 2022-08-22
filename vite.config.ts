@@ -100,6 +100,10 @@ export default defineConfig(({ command, mode }) => {
       ],
     },
 
+    server: {
+      host: true,
+      port: 8020},
+
     plugins: [
       vue(),
       // AutoImport({

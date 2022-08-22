@@ -5,14 +5,14 @@ import { environment } from '@/evn.config';
 
 const reportingList = ref<any[]>([]);
 
-const emits = defineEmits(['select'])
+const emits = defineEmits(['select']);
 const smartchartsUrl = `${environment.VITE_REPORTING_EDIT_URL}?reportingId=`;
 
 //
 const edit = (rid: string) => {
   debugger;
   opener = window.open(`${smartchartsUrl}${rid}`);
-}
+};
 
 // 获取图表列表
 function getChartViewList() {
@@ -32,16 +32,16 @@ function getChartViewList() {
 
 const select = (reporting) => {
   console.log('%cWorkBenchLeft.vue line:24 reporting', 'color: #007acc;', reporting);
-  emits('select', reporting)
-}
+  emits('select', reporting);
+};
 const showDialog = (reporting) => {
   console.log('%cWorkBenchLeft.vue line:24 reporting', 'color: #007acc;', reporting);
-}
+};
 
 const editReporting = (reporting) => {
   debugger;
-  edit(reporting.rid)
-}
+  edit(reporting.rid);
+};
 
 onMounted(() => {
   getChartViewList();
@@ -50,7 +50,6 @@ onMounted(() => {
 
 <template>
   <div>
-
     <p v-for="r of reportingList" :key="r.rid" class="reporting" @click="select(r)">
       <el-dropdown trigger="contextmenu">
         <span class="el-dropdown-link">
@@ -67,7 +66,6 @@ onMounted(() => {
       </el-dropdown>
     </p>
   </div>
-
 </template>
 
 <style>

@@ -1,5 +1,6 @@
 import simpleScatter from './simpleScatterCharts';
-import ChartScatter from '@/assets/chart-icon/chart-scatter.svg'
+import basicScatter from './basicScatterCharts';
+import ChartScatter from '@/assets/chart-icon/chart-scatter.svg';
 
 /**
  * 散点图
@@ -7,5 +8,5 @@ import ChartScatter from '@/assets/chart-icon/chart-scatter.svg'
 export default {
   title: '散点图',
   icon: ChartScatter,
-  components: [simpleScatter],
+  components: [simpleScatter, basicScatter],
 };

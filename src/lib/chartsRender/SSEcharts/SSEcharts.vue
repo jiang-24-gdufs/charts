@@ -54,7 +54,6 @@ export default defineComponent({
       }
     }
 
-
     function destroy() {
       chart?.dispose();
       chart = null;
@@ -67,10 +66,10 @@ export default defineComponent({
         chart.setOption(options.value || {}, true);
       }
     });
-    const setOptionDebounce = debounce(updateChart, 200)
+    const setOptionDebounce = debounce(updateChart, 200);
 
     watch(options, (value) => {
-      setOptionDebounce(value)
+      setOptionDebounce(value);
       if (debugConsole) {
         console.log(chart?.id, options.value);
       }

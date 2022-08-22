@@ -1,5 +1,7 @@
 import simpleLine from './simpleLineCharts';
-import ChartLine from '@/assets/chart-icon/chart-line.svg'
+import areaLine from './areaLineCharts';
+import lineBarMixCharts from './lineBarMixCharts';
+import ChartLine from '@/assets/chart-icon/chart-line.svg';
 
 /**
  * 折线图
@@ -7,5 +9,5 @@ import ChartLine from '@/assets/chart-icon/chart-line.svg'
 export default {
   title: '折线图',
   icon: ChartLine,
-  components: [simpleLine],
+  components: [simpleLine, areaLine, lineBarMixCharts],
 };

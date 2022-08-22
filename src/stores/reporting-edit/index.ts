@@ -23,7 +23,6 @@ export interface ContainerConfigState {
   verticalCompact: boolean;
 }
 
-
 export interface globalStyleState {
   themeName: string | null;
   bgcolor: string;
@@ -52,9 +51,9 @@ const defaultContainerConfig: ContainerConfigState = {
   margin: [10, 10],
   rowHeight: 15,
   verticalCompact: true,
-}
+};
 
-export const CONTAINER_CONFIG_INDEX = 'CONTAINER_CONFIG_INDEX'
+export const CONTAINER_CONFIG_INDEX = 'CONTAINER_CONFIG_INDEX';
 
 export const useReportingEditStore = defineStore('reporting-edit', {
   state: () => ({
@@ -126,7 +125,7 @@ export const useReportingEditStore = defineStore('reporting-edit', {
       }
     },
     currConfigItem(state) {
-      return this.layoutItem.find(l => l.i == state.currConfigItemId);
-    }
+      return this.layoutItem.find((l) => l.i == state.currConfigItemId);
+    },
   },
 });

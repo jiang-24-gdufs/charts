@@ -2,30 +2,32 @@
   <div>
     <el-divider>基本配置</el-divider>
     <config-item label="系列名称：">
-      <el-input label="系列名称：" v-model="series.name"></el-input>
+      <el-input v-model="series.name" label="系列名称：" />
+    </config-item>
+    <config-item v-if="isMultipleYAxis" label="指定y轴：">
+      <el-switch v-model="series.legendHoverLink" />
     </config-item>
     <config-item label="图例联动高亮：">
-      <el-switch label="图例联动高亮：" v-model="series.legendHoverLink"></el-switch>
+      <el-switch v-model="series.legendHoverLink" label="图例联动高亮：" />
     </config-item>
     <config-item label="拐点标志动画">
-      <el-switch v-model="series.hoverAnimation" label="拐点标志动画"></el-switch>
+      <el-switch v-model="series.hoverAnimation" label="拐点标志动画" />
     </config-item>
     <el-divider>标签样式</el-divider>
-    <charts-label-style :label="series.label"></charts-label-style>
+    <charts-label-style :label="series.label" />
     <el-divider>拐点标志的样式</el-divider>
-    <item-style :item-style="series.itemStyle"></item-style>
+    <item-style :item-style="series.itemStyle" />
     <el-divider>图形高亮标签样式</el-divider>
-    <charts-label-style :label="series.emphasis.label"></charts-label-style>
+    <charts-label-style :label="series.emphasis.label" />
     <el-divider>图形高亮拐点标志的样式</el-divider>
-    <item-style :item-style="series.emphasis.itemStyle"></item-style>
+    <item-style :item-style="series.emphasis.itemStyle" />
   </div>
 </template>
 
 <script>
-// import ItemStyle from '../itemStyle/ItemStyle';
 // import ChartsLabelStyle from '../chartsLabelStyle/ChartsLabelStyle';
 // import {coordinateSystem} from '../../../utils/constant';
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 import componentsMap from '../index';
 
 const { ItemStyle, ChartsLabelStyle, ConfigItem } = componentsMap;
@@ -35,16 +37,22 @@ export default defineComponent({
   // coordinateSystem,
   components: {
     ItemStyle,
-    ChartsLabelStyle, ConfigItem
+    ChartsLabelStyle,
+    ConfigItem,
   },
   props: {
     series: {
       type: Object,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
+  setup(props) {
+    const yAxis = computed(() => props.yAxis);
+
+    const isMultipleYAxis = computed(() => Array.isArray(yAxis.value) && yAxis.value.length > 1);
+    return { yAxis, isMultipleYAxis };
+  },
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

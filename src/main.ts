@@ -1,8 +1,8 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
+import ElementPlus from 'element-plus';
 import App from './App.vue';
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
+import 'element-plus/dist/index.css';
 import componentsRender from '@/lib/chartsRender/componentsRender';
 import '@/lib/themes/registerThemes';
 import './style';

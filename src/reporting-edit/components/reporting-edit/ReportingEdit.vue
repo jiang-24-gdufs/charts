@@ -1,19 +1,16 @@
 <script setup lang="ts">
+import { nextTick, onMounted, ref } from 'vue';
+import { cloneDeep } from 'lodash';
 import ReportingEditHeader from './ReportingEditHeader.vue';
 import ReportingEditContent from './ReportingEditContent.vue';
 import { environment } from '@/evn.config';
 import type { reportingState } from '@/stores/reporting-edit';
 import { useReportingEditStore } from '@/stores/reporting-edit';
-import { nextTick, onMounted, ref } from 'vue';
 import { PostmatesJS } from '@/lib/postmates/postmates-js.js';
-import {cloneDeep} from 'lodash'
 // import axios from 'axios';
-
 
 const store = useReportingEditStore();
 const inIframe = ref(false); // 是否在iframe中打开, iframe中会自动隐去头部
-
-
 
 function save() {
   const reporting = JSON.parse(JSON.stringify(store.data));
@@ -21,9 +18,9 @@ function save() {
   if (inIframe.value) {
     // MESSAGE
     if (window.opener || window.parent !== window) {
-      //TODO: 建立全局变量和文档进行说明
+      // TODO: 建立全局变量和文档进行说明
       model.then((childAPI) => {
-        console.log(`PostmatesJS.Model emit some-event`)
+        console.log('PostmatesJS.Model emit some-event');
         childAPI.emit('some-event', reporting);
       });
     }
@@ -34,10 +31,10 @@ function save() {
     fetch(`${environment.VITE_API_BASE_URL}/chartsView/updateChartViewInEdit`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json;charset=UTF-8'
+        'Content-Type': 'application/json;charset=UTF-8',
       },
-      body: JSON.stringify(data)
-    }).then(console.log)
+      body: JSON.stringify(data),
+    }).then(console.log);
   }
 }
 
@@ -55,7 +52,7 @@ function getReporingData() {
       init: (reporting: reportingState) => {
         // 初始化图表配置
         console.log('%cReportingEdit.vue line:46 init = reporting', 'color: #007acc;', reporting);
-        store.set(reporting)
+        store.set(reporting);
       },
       save: () => {
         // save & emit event send to parent
@@ -65,32 +62,29 @@ function getReporingData() {
   } else {
     // FETCH from HTTP
     const urlSearch = new URLSearchParams(location.search);
-    const rid = urlSearch.get(environment.VITE_SEARCH_PREFIX)
+    const rid = urlSearch.get(environment.VITE_SEARCH_PREFIX);
     if (!rid) return;
-    fetch(
-      `${environment.VITE_API_BASE_URL}/chartsView/getChartViewById?rid=${rid}`
-    ).then((response: Response) => {
-      if (response.status === 200) {
-        response.json().then((res) => {
-          if (res.status === 0) {
-            const reporting = res.data;
-            const defeultPageData = store.data.pageData;
-            const pageData = JSON.parse(reporting.pageData)
-            reporting.pageData = {...defeultPageData,...pageData};
+    fetch(`${environment.VITE_API_BASE_URL}/chartsView/getChartViewById?rid=${rid}`).then(
+      (response: Response) => {
+        if (response.status === 200) {
+          response.json().then((res) => {
+            if (res.status === 0) {
+              const reporting = res.data;
+              const defeultPageData = store.data.pageData;
+              const pageData = JSON.parse(reporting.pageData);
+              reporting.pageData = { ...defeultPageData, ...pageData };
 
-            store.set(reporting as reportingState);
-            console.log('%cReportingEdit.vue line:21 reporting', 'color: #007acc;', reporting);
-            // layout.value = pageData.layoutItem;
-          }
-          // reporting.value = response.json().data;
-        });
-      } else {
+              store.set(reporting as reportingState);
+              console.log('%cReportingEdit.vue line:21 reporting', 'color: #007acc;', reporting);
+              // layout.value = pageData.layoutItem;
+            }
+            // reporting.value = response.json().data;
+          });
+        } else {
+        }
       }
-    });
-
+    );
   }
-
-
 }
 
 onMounted(() => {
@@ -98,9 +92,8 @@ onMounted(() => {
 
   nextTick(() => {
     getReporingData();
-  })
-})
-
+  });
+});
 </script>
 
 <template>

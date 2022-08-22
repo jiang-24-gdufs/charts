@@ -1,7 +1,7 @@
 <template>
   <div>
     <config-item :label="label">
-      <el-radio-group size="small" v-model="horizontalAlign">
+      <el-radio-group v-model="horizontalAlign" size="small">
         <el-radio-button label="auto">
           <el-tooltip effect="dark" content="自动" placement="bottom">
             <i class="fa fa-align-justify"></i>
@@ -29,15 +29,25 @@
 
 <script>
 import { defineComponent } from 'vue';
-import componentsMap from '../index'
+import componentsMap from '../index';
 
 const { ConfigItem } = componentsMap;
 export default defineComponent({
   name: 'HorizontalAlign',
   components: { ConfigItem },
+  props: {
+    modelValue: {
+      type: String,
+      required: false,
+    },
+    label: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
-      horizontalAlign: this.modelValue
+      horizontalAlign: this.modelValue,
     };
   },
   watch: {
@@ -46,20 +56,9 @@ export default defineComponent({
     },
     horizontalAlign(value) {
       this.$emit('update:modelValue', value);
-    }
-  },
-  props: {
-    modelValue: {
-      type: String,
-      required: false
     },
-    label: {
-      type: String,
-      required: true
-    }
-  }
+  },
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

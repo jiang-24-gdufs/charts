@@ -32,17 +32,17 @@ export default {
         ...deepCopy(chartsCommonData.title), // 公共title数据
         ...deepCopy(bar.multipleXAxisBar.title), // 外部默认配置
       },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true,
-      },
+      grid: { top: '20%', left: '3%', right: '4%', bottom: '3%', containLabel: true },
       // X轴配置
       xAxis: [
         {
           ...deepCopy(barXAxis),
           data: deepCopy(bar.multipleXAxisBar.xAxis),
+        },
+        {
+          ...deepCopy(barXAxis),
+          data: deepCopy(bar.multipleXAxisBar.xAxis),
+          position: 'top',
         },
       ],
       // Y轴配置

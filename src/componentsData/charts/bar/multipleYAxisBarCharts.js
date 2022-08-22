@@ -30,12 +30,7 @@ export default {
         ...deepCopy(chartsCommonData.title), // 公共title数据
         ...deepCopy(bar.multipleYAxisBar.title), // 外部默认配置
       },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true,
-      },
+      grid: { top: '20%', left: '3%', right: '4%', bottom: '3%', containLabel: true },
       // X轴配置
       xAxis: [
         {
@@ -44,12 +39,37 @@ export default {
         },
       ],
       // Y轴配置
-      yAxis: [deepCopy(barYAxis)],
+      yAxis: [
+        deepCopy(barYAxis),
+        {
+          ...deepCopy(barYAxis),
+          ...{
+            position: 'right',
+            name: 'y轴名称2',
+          },
+        },
+      ],
       // 系列配置
       series: [
         {
           ...deepCopy(barSeries),
           data: deepCopy(bar.multipleYAxisBar.series),
+        },
+        {
+          ...deepCopy(barSeries),
+          data: deepCopy(bar.multipleYAxisBar.series),
+          ...{
+            name: '系列名称2',
+            // yAxisIndex: 1,
+          },
+        },
+        {
+          ...deepCopy(barSeries),
+          data: deepCopy(bar.multipleYAxisBar.series),
+          ...{
+            name: '系列名称3',
+            // yAxisIndex: 2,
+          },
         },
       ],
     },

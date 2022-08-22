@@ -30,12 +30,7 @@ export default {
         ...deepCopy(chartsCommonData.title), // 公共title数据
         ...deepCopy(bar.simpleBar.title), // 外部默认配置
       },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true,
-      },
+      grid: { top: '20%', left: '3%', right: '4%', bottom: '3%', containLabel: true },
       // X轴配置
       xAxis: [
         {

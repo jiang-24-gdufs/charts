@@ -6,7 +6,8 @@ import dataComponents from '@/componentsData';
 import createRandomId from '@/utils/createRandomId';
 // import { ElMenu, ElSubMenu, ElMenuItemGroup } from 'element-plus';
 // import {Location} from '@element-plus/icons-vue';
-import ChartBar from '@/assets/chart-icon/chart-bar.svg'
+import ChartBar from '@/assets/chart-icon/chart-bar.svg';
+
 console.log('%cReportingEditWorkBenchLeft.vue line:10 ChartBar', 'color: #007acc;', ChartBar);
 
 const { charts } = dataComponents;
@@ -31,49 +32,58 @@ function handleSelectWidget(data: any) {
     i: createRandomId(),
   });
 }
-
-
 </script>
 
 <template>
-  <div class="workbench-left">
-    <div class="workbench-left">
-      <!-- <ul>
-        <li v-for="chartDir of charts.components" :key="chartDir.title">
-          {{ chartDir.title }}
-          <ul v-if="chartDir.components">
-            <li v-for="chart of chartDir.components" :key="chart.title" @click="handleSelectWidget(chart.data)">
-              {{ chart.data.title }}
-            </li>
-          </ul>
-        </li>
-      </ul> -->
-
-      <el-menu class="el-menu-vertical-demo" :collapse="isCollapse">
-        <el-sub-menu :index="`${dirIndex}`" v-for="(chartDir, dirIndex) of charts.components" :key="chartDir.title">
-          <template #title>
-            <p><img class="icon" :src="chartDir.icon" :alt="chartDir.title" :title="chartDir.title"></p>
-            <span> {{ chartDir.title }} </span>
-          </template>
-          <template v-if="chartDir.components">
-            <el-menu-item :index="`${dirIndex}-${chartIndex}`" v-for="(chart, chartIndex) of chartDir.components"
-              :key="chart.title" @click="handleSelectWidget(chart.data)">{{ chart.data.title }}</el-menu-item>
-          </template>
-
-        </el-sub-menu>
-
-      </el-menu>
-    </div>
+  <div class="charts-menu">
+    <el-menu class="vertical-menu" :collapse="isCollapse">
+      <el-sub-menu
+        v-for="(chartDir, dirIndex) of charts.components"
+        :key="chartDir.title"
+        :index="`${dirIndex}`"
+      >
+        <template #title>
+          <p>
+            <img class="icon" :src="chartDir.icon" :alt="chartDir.title" :title="chartDir.title" />
+          </p>
+          <span> {{ chartDir.title }} </span>
+        </template>
+        <template v-if="chartDir.components">
+          <el-menu-item
+            v-for="(chart, chartIndex) of chartDir.components"
+            :key="chart.title"
+            :index="`${dirIndex}-${chartIndex}`"
+            @click="handleSelectWidget(chart.data)"
+            >{{ chart.data.title }}</el-menu-item
+          >
+        </template>
+      </el-sub-menu>
+    </el-menu>
   </div>
 </template>
 
-<style scoped>
-/* ul {
-  padding-left: 24px;
-} */
+<style lang="scss" scoped>
+@use '@/style/mixins/mixins' as *;
+
+.charts-menu {
+  height: 100%;
+}
+
 .icon {
   width: 20px;
   height: 20px;
   vertical-align: middle;
+}
+
+.vertical-menu {
+  height: 100%;
+  width: 160px;
+  overflow: auto;
+
+  @include scroll-bar;
+
+  :deep(.el-menu-item) {
+    min-width: auto;
+  }
 }
 </style>

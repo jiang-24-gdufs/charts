@@ -7,7 +7,7 @@ export default {
   position: 'left', // 'left' 'right'
   offset: 0, // Y 轴相对于默认位置的偏移，在相同的 position 上有多个 Y 轴的时候有用。
   type: 'value', //  'value' 数值轴，适用于连续数据。'category' 类目轴，适用于离散的类目数据，为该类型时必须通过 data 设置类目数据。'time' 时间轴，适用于连续的时序数据，与数值轴相比时间轴带有时间的格式化，在刻度计算上也有所不同，例如会根据跨度的范围来决定使用月，星期，日还是小时范围的刻度。'log' 对数轴。适用于对数数据。
-  name: '',
+  name: 'y轴名称',
   nameLocation: 'end',
   boundaryGap: true, // 坐标轴两边留白策略，类目轴和非类目轴的设置和表现不一样。
   nameTextStyle: {
@@ -21,7 +21,7 @@ export default {
     fontSize: 12,
     align: 'auto',
     verticalAlign: 'auto',
-    lineHeight: 56,
+    // lineHeight: 56,
     textBorderColor: 'transparent',
     textBorderWidth: 0,
     textShadowColor: 'transparent',
@@ -57,7 +57,7 @@ export default {
     fontSize: 12,
     align: 'right',
     verticalAlign: 'middle',
-    lineHeight: 56,
+    lineHeight: 16,
     textBorderColor: 'transparent',
     textBorderWidth: 0,
     textShadowColor: 'transparent',

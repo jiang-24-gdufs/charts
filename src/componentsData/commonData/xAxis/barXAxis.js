@@ -8,7 +8,7 @@ export default {
   position: 'bottom', // x轴位置 'top' 'bottom'
   offset: 0, // X 轴相对于默认位置的偏移，在相同的 position 上有多个 X 轴的时候有用
   type: 'category', // 坐标轴类型。 'value'数值, 'category' 类目轴,'time' 时间轴 'log'对数轴
-  name: '', // 坐标轴名称
+  name: 'x轴名称', // 坐标轴名称
   nameLocation: 'end', // 'start','center','end'
   nameTextStyle: {
     /**
@@ -21,7 +21,7 @@ export default {
     fontSize: 12,
     align: 'auto',
     verticalAlign: 'auto',
-    lineHeight: 56,
+    // lineHeight: 56,
     textBorderColor: 'transparent',
     textBorderWidth: 0,
     textShadowColor: 'transparent',
@@ -62,7 +62,7 @@ export default {
     fontSize: 12,
     align: 'auto',
     verticalAlign: 'auto',
-    lineHeight: 56,
+    lineHeight: 16,
     textBorderColor: 'transparent',
     textBorderWidth: 0,
     textShadowColor: 'transparent',

@@ -1,81 +1,25 @@
-
 <script>
-// import RenderComponents from '../../../components/renderFunComponents/RenderComponents';
+import { h, defineComponent, resolveComponent } from 'vue';
 import chartsSeries from '../chartsSeries';
-import chartsSeriesData from '../../../componentsData/commonData/series';
-import { h } from 'vue';
+import chartsSeriesData, { chartTypeOptions } from '@/componentsData/commonData/series';
+import componentsMap from '../index';
 
-export default {
+const { ConfigItem } = componentsMap;
+
+export default defineComponent({
   name: 'Series',
   components: {
-    // RenderComponents
+    ConfigItem,
   },
-  render() {
-    return h('div', undefined, [
-      h('el-select', {
-        props: {
-          value: this.series.type,
-          size: 'mini',
-          disabled: this.series.type !== 'bar' && this.series.type !== 'line'
-        },
-        style: {
-          width: '100%'
-        },
-        on: {
-          'change': (value) => {
-            const series = chartsSeriesData[value];
-            if (series) {
-              series.data = this.series.data;
-              series.id = this.series.id;
-              series.name = this.series.name;
-              this.$emit('switch-charts', {
-                chartsType: value,
-                series
-              });
-            } else {
-              if (process.env.NODE_ENV !== 'production') {
-                throw new Error(`未定义图标series${value}`);
-              }
-            }
-          }
-        }
-      }, [
-        h('el-option', {
-          props: {
-            key: 'bar',
-            label: '柱形图',
-            value: 'bar'
-          }
-        }),
-        h('el-option', {
-          props: {
-            key: 'pie',
-            label: '饼状图',
-            value: 'pie',
-            disabled: true
-          }
-        }),
-        h('el-option', {
-          props: {
-            key: 'line',
-            label: '折线图',
-            value: 'line'
-          }
-        }),
-        h('el-option', {
-          props: {
-            key: 'scatter',
-            label: '散点图',
-            value: 'scatter',
-            disabled: true
-          }
-        })
-      ]),
-      h(this.renderComponent, {
-        // TODO: CHECK PROPS DATA
-        series: this.series
-      })
-    ]);
+  props: {
+    series: {
+      type: Object,
+      required: true,
+    },
+    yAxis: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
     renderComponent() {
@@ -87,16 +31,50 @@ export default {
         }
         return undefined;
       }
-    }
+    },
   },
-  props: {
-    series: {
-      type: Object,
-      required: true
-    }
-  }
-};
+  render() {
+    // NOTE: 渲染函数兼容性调整
+    return h('div', undefined, [
+      h(ConfigItem, { label: '系列类型：' }, [
+        h(
+          resolveComponent('el-select'),
+          {
+            modelValue: this.series.type,
+            size: 'mini',
+            disabled: this.series.type !== 'bar' && this.series.type !== 'line',
+            style: {
+              width: '100%',
+            },
+            onChange: (value) => {
+              const series = chartsSeriesData[value];
+              if (series) {
+                series.data = this.series.data;
+                series.id = this.series.id;
+                series.name = this.series.name;
+                this.$emit('switch-charts', {
+                  chartsType: value,
+                  series,
+                });
+              } else {
+                if (process.env.NODE_ENV !== 'production') {
+                  throw new Error(`未定义图标series${value}`);
+                }
+              }
+            },
+          },
+          [chartTypeOptions.map((options) => h(resolveComponent('el-option'), options))]
+        ),
+      ]),
+
+      h(this.renderComponent, {
+        // TODO: CHECK PROPS DATA
+        series: this.series,
+        yAxis: this.yAxis,
+      }),
+    ]);
+  },
+});
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
