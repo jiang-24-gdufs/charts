@@ -6,8 +6,6 @@ import {
   provide,
   reactive,
   toRefs,
-  onMounted,
-  getCurrentInstance,
   readonly,
 } from 'vue';
 import { renderGridItemProps } from './types/RenderGridItem.types';

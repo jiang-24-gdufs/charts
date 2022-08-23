@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, ref, provide } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import SmartTabs from '@/components/smartTabs/SmartTabs.vue';
 import SmartTabsItem from '@/components/smartTabs/SmartsTabsItem.vue';
 import { useReportingEditStore } from '@/stores/reporting-edit';
@@ -13,9 +13,9 @@ export default defineComponent({
   components: {
     SmartTabs,
     SmartTabsItem,
-    CodeEditor
+    CodeEditor,
   },
-  setup(props) {
+  setup() {
     const store = useReportingEditStore();
     const editorStore = useReportingDataEditorStore();
     const currConfigItem = computed(() => store.currConfigItem);
@@ -25,7 +25,6 @@ export default defineComponent({
     const activeName = ref(configComponent.value[0].name);
     const isShowEditor = computed(() => editorStore.isShowEditor);
     const isCreated = computed(() => editorStore.isCreated);
-
 
     return {
       currConfigItem,
@@ -46,9 +45,13 @@ export default defineComponent({
       {{ currConfigItem.title }}
     </div>
     <!-- @tab-click="handleClick" -->
-    <el-tabs v-model="activeName" class="demo-tabs" stretch >
-      <el-tab-pane v-for="component of configComponent" :key="component.component" :label="component.name"
-        :name="component.name">
+    <el-tabs v-model="activeName" class="demo-tabs" stretch>
+      <el-tab-pane
+        v-for="component of configComponent"
+        :key="component.component"
+        :label="component.name"
+        :name="component.name"
+      >
         <component :is="component.component" />
       </el-tab-pane>
     </el-tabs>

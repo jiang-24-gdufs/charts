@@ -44,5 +44,4 @@ const containerConfig = computed(() => store.containerConfig);
   </div>
 </template>
 
-<style>
-</style>
+<style></style>

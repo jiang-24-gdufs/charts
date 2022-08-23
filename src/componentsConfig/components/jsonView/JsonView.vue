@@ -5,14 +5,19 @@
       <div class="json-view-des">{{ title }}</div>
     </div>
     <json-viewer :value="value" copyable sort />
-    <el-button type="primary" icon="el-icon-edit" size="small" style="
+    <el-button
+      type="primary"
+      icon="el-icon-edit"
+      size="small"
+      style="
         margin: 10px;
         width: calc(100% - 20px);
         background: linear-gradient(90deg, rgb(29, 98, 240), rgb(25, 213, 253));
-      " @click="handleEditCode">
+      "
+      @click="handleEditCode"
+    >
       编辑
     </el-button>
-
   </div>
 </template>
 
@@ -61,15 +66,12 @@ export default defineComponent({
       editorStore.setData({
         title: title.value,
         content: props.value,
-      })
+      });
       // 追加标签
-      editorStore.setTag(
-        props.origin,
-      )
+      editorStore.setTag(props.origin);
     }
 
-
-    return { title, handleEditCode, };
+    return { title, handleEditCode };
   },
 });
 </script>

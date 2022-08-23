@@ -6,7 +6,7 @@
 
 <script>
 import chartsDataSourceWatchMixin from '../../../mixins/chartsDataSourceWatchMixin';
-import { bar, color } from '../../../../public/defaultData';
+import { bar, color } from '../@/assets/defaultData';
 import BaseGridItem from '../../baseComponents/BaseGridItem';
 import http from '../../http';
 import series from '../../../componentsData/commonData/series';

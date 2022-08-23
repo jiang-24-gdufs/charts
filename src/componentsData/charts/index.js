@@ -6,8 +6,10 @@ import scatter from './scatter';
 import progress from './progress';
 import gauge from './gauge';
 
-export default {
-  title: '图表',
-  icon: 'fa fa-bar-chart',
-  components: [bar, line, pie, scatter, progress, gauge, map],
-};
+// export default {
+//   title: '图表',
+//   icon: 'fa fa-bar-chart',
+//   components: [bar, line, pie, scatter, progress, gauge, map],
+// };
+
+export default [bar, line, pie, scatter, progress, gauge, map];

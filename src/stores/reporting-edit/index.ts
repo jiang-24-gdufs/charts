@@ -1,7 +1,6 @@
-// import { cloneDeep } from 'lodash';
 // NOTE: 使用多页面,暂时用不到store
 import { defineStore } from 'pinia';
-import type { Layout, LayoutItem } from '@/lib/gridLayout/helpers/utils';
+import type {  LayoutItem } from '@/lib/gridLayout/helpers/utils';
 
 interface ExtendedLayoutItem extends LayoutItem {
   configComponent: any[]; // 样式&数据设置组件
@@ -125,7 +124,7 @@ export const useReportingEditStore = defineStore('reporting-edit', {
       }
     },
     currConfigItem(state) {
-      return this.layoutItem.find((l) => l.i == state.currConfigItemId);
+      return this.layoutItem.find((l) => l.i === state.currConfigItemId);
     },
   },
 });

@@ -2,26 +2,17 @@
 import * as echarts from 'echarts';
 import { debounce } from 'lodash';
 import type { Ref } from 'vue';
-import { ref, computed, defineComponent, getCurrentInstance, h, inject, onBeforeUnmount, onMounted, watch } from 'vue';
+import { ref, computed, defineComponent, inject, onBeforeUnmount, onMounted, watch } from 'vue';
 
 export default defineComponent({
   name: 'SSECharts',
   props: {
     options: Object,
-    // theme: [String, Object],
 
-    otherOption: {
-      type: Object,
-      required: true,
-    },
-    // group: String,
-    // autoresize: {
-    //   type: Boolean,
-    //   required: false,
-    //   default: true,
+    // otherOption: {
+    //   type: Object,
+    //   required: true,
     // },
-    // watchShallow: Boolean,
-    // manualUpdate: Boolean,
   },
 
   setup(props) {
@@ -33,7 +24,6 @@ export default defineComponent({
     const echartContainer = ref();
 
     let chart: echarts.EChartsType | null = null;
-    // let $el : HTMLElement | null = null;
 
     function initData() {
       if (!echartContainer.value || chart) {

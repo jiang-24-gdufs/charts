@@ -6,10 +6,20 @@
       <!-- v-if="otherOption.dataObtainType === $options.dataObtainTypeEnum.STATIC_DATA.status" -->
       <div>
         <slot name="static-data">
-          <json-view v-for="(item, index) in option.xAxis" :key="index + 'x'" :value="item.data"
-            :title="`X轴(${item.name})`" :origin="item" />
-          <json-view v-for="(item, index) in option.series" :key="index + 's'" :value="item.data"
-            :title="`系列数据(${item.name})`" :origin="item" />
+          <json-view
+            v-for="(item, index) in option.xAxis"
+            :key="index + 'x'"
+            :value="item.data"
+            :title="`X轴(${item.name})`"
+            :origin="item"
+          />
+          <json-view
+            v-for="(item, index) in option.series"
+            :key="index + 's'"
+            :value="item.data"
+            :title="`系列数据(${item.name})`"
+            :origin="item"
+          />
         </slot>
       </div>
       <!--数据源-->

@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import nodeTypeEnum from '../../enum/nodeTypeEnum';
+// import nodeTypeEnum from '../../enum/nodeTypeEnum';
 
 export default {
   name: 'ReportingCard',
-  nodeTypeEnum,
+  // nodeTypeEnum,
   props: {
     reporting: {
       type: Object,

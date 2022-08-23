@@ -28,7 +28,10 @@ function save() {
     // HTTP SAVE
     const data = cloneDeep(store.data);
     data.pageData = JSON.stringify(data.pageData);
-    fetch(`${environment.VITE_API_BASE_URL}/chartsView/updateChartViewInEdit`, {
+    fetch(
+      // `${environment.VITE_API_BASE_URL}/chartsView/updateChartViewInEdit`,
+      `${environment.VITE_API_BASE_URL}/chartsView/update`,
+     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -64,7 +67,8 @@ function getReporingData() {
     const urlSearch = new URLSearchParams(location.search);
     const rid = urlSearch.get(environment.VITE_SEARCH_PREFIX);
     if (!rid) return;
-    fetch(`${environment.VITE_API_BASE_URL}/chartsView/getChartViewById?rid=${rid}`).then(
+    // fetch(`${environment.VITE_API_BASE_URL}/chartsView/getChartViewById?rid=${rid}`).then(
+    fetch(`${environment.VITE_API_BASE_URL}/chartsView/info/${rid}`).then(
       (response: Response) => {
         if (response.status === 200) {
           response.json().then((res) => {

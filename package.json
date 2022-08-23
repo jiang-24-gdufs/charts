@@ -12,7 +12,6 @@
       "import": "./es/smart-chart.js"
     }
   },
-  "type": "module",
   "scripts": {
     "dev": "vite --force",
     "build": "rimraf -rf dist && vite build",

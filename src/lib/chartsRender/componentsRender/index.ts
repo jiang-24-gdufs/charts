@@ -15,6 +15,9 @@ import RenderSimpleLineCharts from './charts/line/RenderSimpleLineCharts';
 import RenderSimpleGaugeCharts from './charts/gauge/RenderSimpleGaugeCharts';
 import RenderSimpleScatterCharts from './charts/scatter/RenderSimpleScatterCharts';
 
+/* ---- 文本编辑 ---- */
+import { RenderNormalText, RenderRichText } from './textEdit';
+
 export default {
   install(app: App) {
     /**
@@ -50,5 +53,9 @@ export default {
      *  */
     app.component('RenderChinaMapCharts', RenderChinaMapCharts);
     app.component('RenderChinaProvinceMapCharts', RenderChinaProvinceMapCharts);
+
+    /* 文本编辑 */
+    app.component('render-normal-text', RenderNormalText);
+    app.component('render-rich-text', RenderRichText);
   },
 };

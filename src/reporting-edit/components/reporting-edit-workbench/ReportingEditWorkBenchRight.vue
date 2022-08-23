@@ -30,9 +30,19 @@ function handleSelectTheme(theme: any) {
 // from https://echarts.apache.org/zh/option.html#color
 const defaultTheme = {
   theme: {
-    color: ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']
+    color: [
+      '#5470c6',
+      '#91cc75',
+      '#fac858',
+      '#ee6666',
+      '#73c0de',
+      '#3ba272',
+      '#fc8452',
+      '#9a60b4',
+      '#ea7ccc',
+    ],
   },
-  themeName: 'default'
+  themeName: 'default',
 };
 // from https://github.com/apache/echarts/blob/master/src/theme/light.ts#L20
 const lightTheme = {
@@ -98,7 +108,6 @@ const darkTheme = {
             </div>
           </smart-collapse-item>
         </smart-collapse>
-
       </template>
       <template v-else>
         <!-- 组件类型识别 -->

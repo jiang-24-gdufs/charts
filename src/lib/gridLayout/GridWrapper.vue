@@ -185,7 +185,7 @@ export default defineComponent({
     }
 
     function onWindowResize() {
-      containerWidth.value = parseInt(getComputedStyle(workbenchRef.value).width);
+      containerWidth.value = parseInt(getComputedStyle(workbenchRef.value).width, 10);
       nextTick(() => {
         updateAllChartSize();
 
@@ -220,7 +220,7 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      containerWidth.value = parseInt(getComputedStyle(workbenchRef.value).width);
+      containerWidth.value = parseInt(getComputedStyle(workbenchRef.value).width, 10);
 
       window.addEventListener('resize', deOnWindowResize, false);
     });

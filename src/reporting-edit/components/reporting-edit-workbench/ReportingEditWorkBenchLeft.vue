@@ -1,16 +1,10 @@
 <script setup lang="ts">
-// import { computed, ref } from 'vue';
 import { computed, ref } from 'vue';
 import { useReportingEditStore } from '@/stores/reporting-edit';
 import dataComponents from '@/componentsData';
 import createRandomId from '@/utils/createRandomId';
-// import { ElMenu, ElSubMenu, ElMenuItemGroup } from 'element-plus';
-// import {Location} from '@element-plus/icons-vue';
-import ChartBar from '@/assets/chart-icon/chart-bar.svg';
 
-console.log('%cReportingEditWorkBenchLeft.vue line:10 ChartBar', 'color: #007acc;', ChartBar);
-
-const { charts } = dataComponents;
+const { charts, textEdit } = dataComponents;
 
 const store = useReportingEditStore();
 const layout = computed(() => store.layoutItem);
@@ -38,7 +32,7 @@ function handleSelectWidget(data: any) {
   <div class="charts-menu">
     <el-menu class="vertical-menu" :collapse="isCollapse">
       <el-sub-menu
-        v-for="(chartDir, dirIndex) of charts.components"
+        v-for="(chartDir, dirIndex) of charts"
         :key="chartDir.title"
         :index="`${dirIndex}`"
       >
@@ -53,6 +47,26 @@ function handleSelectWidget(data: any) {
             v-for="(chart, chartIndex) of chartDir.components"
             :key="chart.title"
             :index="`${dirIndex}-${chartIndex}`"
+            @click="handleSelectWidget(chart.data)"
+            >{{ chart.data.title }}</el-menu-item
+          >
+        </template>
+      </el-sub-menu>
+
+      <el-sub-menu
+        :index="`textEdit`"
+      >
+        <template #title>
+          <p>
+            <img class="icon" :src="textEdit.icon" :alt="textEdit.title" :title="textEdit.title" />
+          </p>
+          <span> {{ textEdit.title }} </span>
+        </template>
+        <template v-if="textEdit.components">
+          <el-menu-item
+            v-for="(chart, chartIndex) of textEdit.components"
+            :key="chart.title"
+            :index="`textEdit-${chartIndex}`"
             @click="handleSelectWidget(chart.data)"
             >{{ chart.data.title }}</el-menu-item
           >

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted } from 'vue';
 import { cloneDeep } from 'lodash';
 import { ElMessage } from 'element-plus';
 import GridWrapper from '@/lib/gridLayout/GridWrapper.vue';

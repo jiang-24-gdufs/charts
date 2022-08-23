@@ -39,7 +39,7 @@
                     >
                       <display-charts
                         :image="fileItem.image"
-                        @click.native="handleSelectWidget(fileItem.data)"
+                        @click="handleSelectWidget(fileItem.data)"
                       >
                         {{ fileItem.data.title }}
                       </display-charts>
@@ -53,7 +53,7 @@
                     <el-col :span="8" style="margin-bottom: 5px">
                       <display-charts
                         :image="item.image"
-                        @click.native="handleSelectWidget(item.data)"
+                        @click="handleSelectWidget(item.data)"
                       >
                         {{ item.data.title }}
                       </display-charts>

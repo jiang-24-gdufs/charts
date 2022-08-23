@@ -13,8 +13,14 @@
         <div class="code-edit-item">
           <span>{{ title }}</span>
         </div>
-        <el-button type="primary" size="small" style="margin-left: 10px" @click="handleSave">保存</el-button>
-        <div class="code-edit-status code-edit-full" style="margin-left: auto" @click="handleFullScreen">
+        <el-button type="primary" size="small" style="margin-left: 10px" @click="handleSave"
+          >保存</el-button
+        >
+        <div
+          class="code-edit-status code-edit-full"
+          style="margin-left: auto"
+          @click="handleFullScreen"
+        >
           <i class="fa fa-window-restore"></i>
         </div>
         <div class="code-edit-status code-edit-close" @click="handleClose">
@@ -30,9 +36,8 @@
 import * as monaco from 'monaco-editor';
 import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 import JsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker';
-import { useReportingDataEditorStore } from '@/stores/reporting-data-editor';
-
 import { defineComponent, ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
+import { useReportingDataEditorStore } from '@/stores/reporting-data-editor';
 
 self.MonacoEnvironment = {
   getWorker(workerId, label) {
@@ -55,19 +60,19 @@ export default defineComponent({
     const editorTheme = ref(editorThemeOptions.VS_DARK);
     const container = ref(null);
     const editorStore = useReportingDataEditorStore();
-    const editorData = computed(() => editorStore.data)
+    const editorData = computed(() => editorStore.data);
     const editorOptions = computed(() => ({
       value: JSON.stringify(editorData.value.content),
       language: editorData.value.language,
-    }))
-    const title = computed(() => editorData.value.title)
+    }));
+    const title = computed(() => editorData.value.title);
     const full = ref(false);
     const containerSize = computed(() => ({
       width: full.value ? '100%' : '60%',
       height: full.value ? '100%' : '60%',
-    }))
+    }));
 
-    let monacoInstance = null
+    let monacoInstance = null;
 
     function handleReCreate() {
       if (monacoInstance) {
@@ -87,13 +92,13 @@ export default defineComponent({
     function handleSave() {
       // 获取编辑器的字符串
       let newContent = monacoInstance.getValue();
-      const oldContent = JSON.stringify(editorData.value.content)
+      const oldContent = JSON.stringify(editorData.value.content);
       if (!Object.is(newContent, oldContent)) {
-        newContent = JSON.parse(newContent)
+        newContent = JSON.parse(newContent);
         // TODO: 更新store
-        editorStore.setData({ content: newContent })
+        editorStore.setData({ content: newContent });
         // TODO: 更新tag
-        editorStore.origin.data = newContent
+        editorStore.origin.data = newContent;
       }
     }
 
@@ -110,8 +115,6 @@ export default defineComponent({
       });
     }
 
-
-
     onMounted(() => {
       handleCreateEdit();
     });
@@ -123,9 +126,12 @@ export default defineComponent({
       }
     });
 
-    watch(() => editorData.value.content, (val) => {
-      monacoInstance.setValue(JSON.stringify(val))
-    })
+    watch(
+      () => editorData.value.content,
+      (val) => {
+        monacoInstance.setValue(JSON.stringify(val));
+      }
+    );
     watch(editorTheme, (value) => {
       handleReCreate(value);
     });
@@ -173,7 +179,7 @@ export default defineComponent({
   align-items: center;
 }
 
-.code-edit-item>span {
+.code-edit-item > span {
   font-size: 13px;
   margin: 0 10px;
 }

@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import componentsRender from '@/lib/chartsRender/componentsRender';
-import componentsConfig from '@/componentsConfig/charts';
+import componentsRender from '@/lib/chartsRender/componentsRender'; // 渲染组件的插件
+import componentsConfig from '@/componentsConfig'; // 渲染配置组件的插件
 import '@/componentsConfig/components';
 import App from './App.vue';
 import ElementPlus from 'element-plus';
